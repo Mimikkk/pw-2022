@@ -1,0 +1,23 @@
+﻿{
+  "name": "pw-2022-blazor-application",
+  "author": {
+    "email": "zdancewicz.daniel@gmail.com",
+    "name": "Daniel Zdancewicz",
+    "url": "https://www.github.com/Mimikkk"
+  },
+  "repository": {
+    "url": "https://www.github.com/Mimikkk/pw-2022.git",
+    "type": "git"
+  },
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "watch": "concurrently npm:watch:styles npm:watch:application -c blue,magenta",
+    "watch:styles": "npx tailwindcss -i ./Styles/tailwind.css -o ./wwwroot/css/tailwind.css --watch",
+    "watch:application": "dotnet watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.2.4",
+    "concurrently": "^7.6.0",
+    "pnpm": "^7.22.0"
+  }
+}
