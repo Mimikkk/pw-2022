@@ -11,15 +11,18 @@
   [Parameter]
   public IconType? Icon { get; set; }
 
-  private string selected => NavManager.Uri.Contains(To) ? Color.Secondary["bg", 2] : "";
+  private string selected => NavManager.Uri.Contains(To) ? Color.Secondary["bg", 5] : "";
   private string hovered => $"hover:{Color.Secondary["bg", 0]}";
 }
 
 <NavLink href="@To">
-  <div class="@Cx(selected, hovered, "flex items-center justify-between gap-2 hover:font-bold transition-all rounded px-2 h-12")">
-    @if (Icon is not null) {
-      <Icon Type="@Icon"/>
-    }
-    <span>@ChildContent</span>
+  <div class="flex w-full h-full">
+    <span class="@Cx("h-full w-1 rounded-r transition-all", selected)"></span>
+    <div class="@Cx(hovered, "flex items-center justify-between gap-2 hover:font-bold transition-all rounded px-2 h-12")">
+      @if (Icon is not null) {
+        <Icon Type="@Icon"/>
+      }
+      <span>@ChildContent</span>
+    </div>
   </div>
 </NavLink>
