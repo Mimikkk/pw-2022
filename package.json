@@ -13,7 +13,12 @@
     "preinstall": "npx only-allow pnpm",
     "watch": "concurrently npm:watch:styles npm:watch:application -c blue,magenta",
     "watch:styles": "npx tailwindcss -i ./Styles/tailwind.css -o ./wwwroot/css/tailwind.css --watch",
-    "watch:application": "dotnet watch"
+    "watch:application": "dotnet watch",
+    "build": "concurrently npm:build:styles npm:build:application -c blue,magenta",
+    "build:styles": "npx tailwindcss -i ./Styles/tailwind.css -o ./wwwroot/css/tailwind.css --minify",
+    "build:application": "dotnet publish",
+    "start": "dotnet run",
+    "test": "dotnet test"
   },
   "devDependencies": {
     "tailwindcss": "^3.2.4",
