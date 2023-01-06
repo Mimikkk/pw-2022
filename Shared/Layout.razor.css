@@ -1,26 +1,5 @@
 .layout {
-  display: grid;
-  height: inherit;
-  grid-template: "sidebar header header" 2rem "sidebar content content" 1fr/fit-content(16rem) 1fr 1fr;
+    display: flex;
+    height: inherit;
 }
-.layout > header {
-  grid-area: header;
-}
-.layout > nav {
-  width: 100%;
-  grid-area: sidebar;
-}
-.layout > nav.collapsed {
-  width: 4rem;
-}
-.layout > nav:not(.collapsed) {
-  max-width: 12rem;
-}
-.layout > main {
-  grid-area: content;
-}
-.layout > footer {
-  grid-area: footer;
-}
-
-/*# sourceMappingURL=MainLayout.razor.css.map */
+/*# sourceMappingURL=Layout.razor.css.map */

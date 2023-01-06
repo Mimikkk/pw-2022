@@ -11,18 +11,19 @@
   [Parameter]
   public IconType? Icon { get; set; }
 
-  private string selected => NavManager.Uri.Contains(To) ? Color.Secondary["bg", 5] : "";
-  private string hovered => $"hover:{Color.Secondary["bg", 0]}";
+
+  private bool isSelected => NavManager.Uri.Contains(To);
+  private string hovered => $"hover:{Color.Secondary["bg", 2]}";
 }
 
 <NavLink href="@To">
   <div class="flex w-full h-full">
-    <span class="@Cx("h-full w-1 rounded-r transition-all", selected)"></span>
-    <div class="@Cx(hovered, "flex items-center justify-between gap-2 hover:font-bold transition-all rounded px-2 h-12")">
+    <span class="@Cx("h-full w-1 rounded-r transition-all", isSelected ? Color.Secondary["bg", 5] : "")"></span>
+    <div class="@Cx(hovered, "flex items-center w-full justify-between gap-2 hover:font-bold transition-all rounded px-1 h-12")">
       @if (Icon is not null) {
         <Icon Type="@Icon"/>
       }
-      <span>@ChildContent</span>
+      <span class="text-ellipsis overflow-hidden">@ChildContent</span>
     </div>
   </div>
 </NavLink>

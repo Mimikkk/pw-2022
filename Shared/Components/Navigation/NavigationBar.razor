@@ -1,17 +1,27 @@
 ﻿@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
-@inject ProtectedLocalStorage LocalStorage
+@inject ProtectedLocalStorage Storage
 
 @code {
+  private bool _expanded = false;
+
+  private async Task ToggleNavBar() {
+    _expanded = !_expanded;
+    await Storage.SetAsync(nameof(_expanded), _expanded);
+  }
+  protected override async Task OnInitializedAsync() {
+    var result = await Storage.GetAsync<bool>(nameof(_expanded));
+    if (result.Success) _expanded = result.Value;
+  }
 }
 
-<nav class="w-full transition-all bg-slate-200 p-1 flex flex-col gap-2">
-  <button class="place-self-end">
+<nav class="@Cx(_expanded ? "w-48" : "w-16", "flex flex-col gap-2 transition-all bg-slate-200 p-1")">
+  <button class="place-self-end" @onclick="ToggleNavBar">
     <Icon Type="IconType.Burger"/>
   </button>
   <NavigationItem To="vendors" Icon="IconType.Person">
-    Vendors
+    @(_expanded ? "Vendors" : "")
   </NavigationItem>
   <NavigationItem To="products" Icon="IconType.Stack">
-    Products
+    @(_expanded ? "Products" : "")
   </NavigationItem>
 </nav>

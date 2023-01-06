@@ -1,34 +1,21 @@
 ﻿.layout {
   display: grid;
   height: inherit;
-  grid-template: "sidebar header header" 2rem
-                    "sidebar content content" 1fr / fit-content(16rem) 1fr 1fr;
-
+  grid-template-rows: 2rem 1fr;
+  grid-template-columns: min-content 1fr;
 
   & > header {
-    grid-area: header;
-  }
-
-  & > nav {
-    width: 100%;
-
-    &.collapsed {
-      width: 4rem;
-    }
-
-
-    &:not(.collapsed) {
-      max-width: 12rem;
-    }
-
-    grid-area: sidebar;
+    grid-row: 1;
+    grid-column: 2 / 3;
   }
 
   & > main {
-    grid-area: content;
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
   }
 
-  & > footer {
-    grid-area: footer;
+  & > nav {
+    grid-row: 1 / 3;
+    grid-column: 1;
   }
 }

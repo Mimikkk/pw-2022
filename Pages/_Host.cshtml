@@ -13,11 +13,14 @@
   <link href="css/index.css" rel="stylesheet"/>
   <link href="pw-2022.styles.css" rel="stylesheet"/>
   <link rel="icon" type="image/png" href="favicon.png"/>
-  <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered"/>
+  <component type="typeof(HeadOutlet)" render-mode="Server"/>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<component type="typeof(App)" render-mode="ServerPrerendered"/>
+<body class="preload">
+<component type="typeof(App)" render-mode="Server"/>
 <script src="_framework/blazor.server.js"></script>
+<script>
+  setTimeout(() => document.body.removeAttribute("class"), 200);
+</script>
 </body>
 </html>
