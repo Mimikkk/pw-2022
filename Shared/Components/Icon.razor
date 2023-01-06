@@ -1,0 +1,55 @@
+﻿@using pw_2022.Shared.Types
+<div class="@Size.Height @Color["bg", 3] aspect-square">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+    @icon
+  </svg>
+</div>
+
+@code {
+  [Parameter, EditorRequired]
+  public IconType Name { get; set; }
+  [Parameter]
+  public Size Size { get; set; } = Size.Md;
+  [Parameter]
+  public Color Color { get; set; } = Color.Primary;
+
+
+  public enum IconType {
+    Bin,
+    ExclamationCircle,
+    ExclamationTriangle,
+    LeftChevronDouble,
+    LeftChevron,
+    Magnifier,
+    Minus,
+    Moon,
+    Pen,
+    Plus,
+    RightChevronDouble,
+    RightChevron,
+    Stack,
+    Sun,
+    X
+  }
+
+  private string size => Size.Height;
+
+  private RenderFragment icon => Name switch {
+    IconType.Bin => @<BinPath/>,
+    IconType.ExclamationCircle => @<ExclamationCirclePath/>,
+    IconType.ExclamationTriangle => @<ExclamationTrianglePath/>,
+    IconType.LeftChevronDouble => @<LeftChevronDoublePath/>,
+    IconType.LeftChevron => @<LeftChevronPath/>,
+    IconType.Magnifier => @<MagnifierPath/>,
+    IconType.Minus => @<MinusPath/>,
+    IconType.Moon => @<MoonPath/>,
+    IconType.Pen => @<PenPath/>,
+    IconType.Plus => @<PlusPath/>,
+    IconType.RightChevronDouble => @<RightChevronDoublePath/>,
+    IconType.RightChevron => @<RightChevronPath/>,
+    IconType.Stack => @<StackPath/>,
+    IconType.Sun => @<SunPath/>,
+    IconType.X => @<XPath/>,
+    _ => throw new ArgumentOutOfRangeException(nameof(Name), Name, "Invalid IconType")
+    };
+}

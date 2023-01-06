@@ -1,0 +1,34 @@
+﻿.layout {
+  display: grid;
+  height: inherit;
+  grid-template: "sidebar header header" 2rem
+                    "sidebar content content" 1fr
+                    "sidebar footer footer" 2rem;
+
+  & > header {
+    grid-area: header;
+  }
+
+  & > nav {
+    width: 100%;
+
+    &.collapsed {
+      width: 4rem;
+    }
+
+
+    &:not(.collapsed) {
+      max-width: 12rem;
+    }
+
+    grid-area: sidebar;
+  }
+
+  & > main {
+    grid-area: content;
+  }
+
+  & > footer {
+    grid-area: footer;
+  }
+}

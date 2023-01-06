@@ -1,5 +1,4 @@
 using pw_2022.Data;
-using Tailwind;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +10,6 @@ builder.Services.AddSingleton<WeatherForecastService>();
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment()) {
-  app.RunTailwind("tailwind", "./");
   app.UseExceptionHandler("/Error");
   app.UseHsts();
 }

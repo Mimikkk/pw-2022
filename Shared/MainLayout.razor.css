@@ -1,0 +1,26 @@
+.layout {
+  display: grid;
+  height: inherit;
+  grid-template: "sidebar header header" 2rem "sidebar content content" 1fr "sidebar footer footer" 2rem;
+}
+.layout > header {
+  grid-area: header;
+}
+.layout > nav {
+  width: 100%;
+  grid-area: sidebar;
+}
+.layout > nav.collapsed {
+  width: 4rem;
+}
+.layout > nav:not(.collapsed) {
+  max-width: 12rem;
+}
+.layout > main {
+  grid-area: content;
+}
+.layout > footer {
+  grid-area: footer;
+}
+
+/*# sourceMappingURL=MainLayout.razor.css.map */

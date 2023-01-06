@@ -11,12 +11,12 @@
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "watch": "concurrently npm:watch:styles npm:watch:application -c blue,magenta",
+    "watch": "concurrently npm:watch:styles npm:watch:app -c blue,magenta",
     "watch:styles": "npx postcss ./Styles/tailwind.css -o ./wwwroot/css/tailwind.css --watch --verbose",
-    "watch:application": "dotnet watch",
-    "build": "concurrently npm:build:styles npm:build:application -c blue,magenta",
+    "watch:app": "dotnet watch",
+    "build": "concurrently npm:build:styles npm:build:app -c blue,magenta",
     "build:styles": "npx postcss ./Styles/tailwind.css -o ./wwwroot/css/tailwind.css --minify --verbose",
-    "build:application": "dotnet publish",
+    "build:app": "dotnet publish",
     "start": "dotnet run",
     "test": "dotnet test"
   },
