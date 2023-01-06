@@ -8,7 +8,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Tailwind.Extensions.AspNetCore" Version="1.0.0-beta3" />
+        <PackageReference Include="Tailwind.Extensions.AspNetCore" Version="1.0.0-beta3" />
     </ItemGroup>
 
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="npx postcss $(ProjectDir)obj\$(ConfigurationName)\net7.0\scopedcss\bundle\$(ProjectName).styles.css -r" />
+    </Target>
 </Project>

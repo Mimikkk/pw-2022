@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "pw-2022-blazor-application",
   "author": {
     "email": "zdancewicz.daniel@gmail.com",
@@ -12,17 +12,20 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "watch": "concurrently npm:watch:styles npm:watch:application -c blue,magenta",
-    "watch:styles": "npx tailwindcss -i ./Styles/tailwind.css -o ./wwwroot/css/tailwind.css --watch",
+    "watch:styles": "npx postcss ./Styles/tailwind.css -o ./wwwroot/css/tailwind.css --watch --verbose",
     "watch:application": "dotnet watch",
     "build": "concurrently npm:build:styles npm:build:application -c blue,magenta",
-    "build:styles": "npx tailwindcss -i ./Styles/tailwind.css -o ./wwwroot/css/tailwind.css --minify",
+    "build:styles": "npx postcss ./Styles/tailwind.css -o ./wwwroot/css/tailwind.css --minify --verbose",
     "build:application": "dotnet publish",
     "start": "dotnet run",
     "test": "dotnet test"
   },
   "devDependencies": {
-    "tailwindcss": "^3.2.4",
+    "autoprefixer": "^10.4.13",
     "concurrently": "^7.6.0",
-    "pnpm": "^7.22.0"
+    "pnpm": "^7.22.0",
+    "postcss": "^8.4.20",
+    "postcss-cli": "^10.1.0",
+    "tailwindcss": "^3.2.4"
   }
 }
