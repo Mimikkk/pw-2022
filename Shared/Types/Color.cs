@@ -21,6 +21,7 @@ public class Color : SmartEnum<Color> {
     public static readonly ColorType Text = new("text", 1);
     public static readonly ColorType Border = new("border", 2);
     public static readonly ColorType Outline = new("outline", 3);
+    public static readonly ColorType Fill = new("fill", 3);
 
     public ColorType(string name, int value)
       : base(name, value) { }

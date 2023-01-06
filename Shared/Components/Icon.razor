@@ -1,6 +1,7 @@
 ﻿@using pw_2022.Shared.Types
-<div class="@Size.Height @Color["bg", 3] aspect-square">
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+
+<div class="transition-all @Size.Height hover:@Color["bg", 5] @Color.Shade["text", 9] p-0.5 aspect-square rounded-lg">
+  <svg class="@Color.Accent["fill", 1] hover:@Color.Accent["fill", 2]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
     @icon
   </svg>
 </div>
@@ -16,6 +17,7 @@
 
   public enum IconType {
     Bin,
+    Burger,
     ExclamationCircle,
     ExclamationTriangle,
     LeftChevronDouble,
@@ -32,11 +34,10 @@
     X
   }
 
-  private string size => Size.Height;
-
   private RenderFragment icon => Name switch {
     IconType.Bin => @<BinPath/>,
-    IconType.ExclamationCircle => @<ExclamationCirclePath/>,
+    IconType.Burger => @<BurgerPath/>,
+    IconType.ExclamationCircle =>  @<ExclamationCirclePath/>,
     IconType.ExclamationTriangle => @<ExclamationTrianglePath/>,
     IconType.LeftChevronDouble => @<LeftChevronDoublePath/>,
     IconType.LeftChevron => @<LeftChevronPath/>,
