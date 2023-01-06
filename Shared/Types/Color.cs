@@ -3,12 +3,12 @@
 namespace pw_2022.Shared.Types;
 
 public class Color : SmartEnum<Color> {
-  public static readonly Color Shade = new("stone", 2);
-  public static readonly Color Primary = new("indigo", 3);
-  public static readonly Color Secondary = new("emerald", 3);
+  public static readonly Color Shade = new("stone", 0);
+  public static readonly Color Primary = new("indigo", 1);
+  public static readonly Color Secondary = new("emerald", 2);
   public static readonly Color Accent = new("amber", 3);
-  public static readonly Color Error = new("rose", 3);
-  public static readonly Color Warning = new("yellow", 3);
+  public static readonly Color Error = new("rose", 4);
+  public static readonly Color Warning = new("yellow", 5);
 
 
   public Color(string name, int value)
@@ -30,14 +30,6 @@ public class Color : SmartEnum<Color> {
 
   public string this[ColorType type, int shade] => shade switch {
     0 => $"{type}-{this}-50",
-    1 => $"{type}-{this}-100",
-    2 => $"{type}-{this}-200",
-    3 => $"{type}-{this}-300",
-    4 => $"{type}-{this}-400",
-    5 => $"{type}-{this}-500",
-    6 => $"{type}-{this}-600",
-    7 => $"{type}-{this}-700",
-    8 => $"{type}-{this}-800",
-    9 => $"{type}-{this}-900",
+    _ => $"{type}-{this}-{shade}00"
   };
 }

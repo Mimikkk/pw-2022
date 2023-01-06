@@ -13,27 +13,14 @@ public class Size : SmartEnum<Size> {
   public Size(string name, int value)
     : base(name, value) { }
 
-  public string Height => Name switch {
-    "XS" => "w-2",
-    "SM" => "w-4",
-    "MD" => "w-6",
-    "LG" => "w-8",
-    "XL" => "w-10",
-  };
+  public string Height => $"h-{Value * 2}";
 
-  public string Width => Name switch {
-    "XS" => "h-2",
-    "SM" => "h-4",
-    "MD" => "h-6",
-    "LG" => "h-8",
-    "XL" => "h-10",
-  };
+  public string Width => $"w-{Value * 2}";
 
   public string FontSize => Name switch {
-    "XS" => "text-xs",
-    "SM" => "text-sm",
     "MD" => "text-base",
-    "LG" => "text-lg",
-    "XL" => "text-xl",
+    _    => $"text-{Name.ToLower()}"
   };
+
+  public static implicit operator Size(string name) => FromName(name);
 }
