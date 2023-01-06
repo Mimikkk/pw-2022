@@ -1,9 +1,9 @@
 global using static pw_2022.Shared.Utils.Utils;
 using pw_2022.Data;
+using pw_2022.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();

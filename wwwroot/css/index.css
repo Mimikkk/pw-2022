@@ -1,7 +1,11 @@
 @import "./font.css";
-@import "./tailwind.css";
 
 body {
     height: 100vh;
     width: 100vw;
+}
+
+body.preload * {
+    animation-duration: 0s !important;
+    transition: all 0s !important;
 }

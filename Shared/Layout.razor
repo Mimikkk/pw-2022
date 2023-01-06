@@ -3,14 +3,16 @@
 
 <PageTitle>PW-2022 | Home</PageTitle>
 
-<div class="layout">
-  <header class="bg-slate-700 w-full h-full flex items-center">
-    <NavLink href="">
-      <Icon Type="IconType.Home" Size="Size.Md"/>
-    </NavLink>
-  </header>
+<div class="transition-all flex w-full h-full">
   <NavigationBar/>
-  <main class="bg-slate-300">
-    @Body
-  </main>
+  <section class="transition-all flex flex-col w-full h-full">
+    <header class="h-8 bg-slate-700 w-full h-full flex items-center">
+      <NavLink href="">
+        <Icon Type="IconType.Home" Size="Size.Md"/>
+      </NavLink>
+    </header>
+    <main class="h-full bg-slate-300">
+      @Body
+    </main>
+  </section>
 </div>
