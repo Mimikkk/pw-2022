@@ -471,17 +471,74 @@ video {
 .mt-4 {
   margin-top: 1rem;
 }
+.flex {
+  display: flex;
+}
 .table {
   display: table;
 }
 .aspect-square {
   aspect-ratio: 1 / 1;
 }
-.rounded {
-  border-radius: 0.25rem;
+.h-full {
+  height: 100%;
+}
+.h-8 {
+  height: 2rem;
+}
+.h-10 {
+  height: 2.5rem;
+}
+.h-12 {
+  height: 3rem;
+}
+.h-6 {
+  height: 1.5rem;
+}
+.w-full {
+  width: 100%;
+}
+.w-24 {
+  width: 6rem;
+}
+.w-12 {
+  width: 3rem;
+}
+.w-48 {
+  width: 12rem;
+}
+.flex-grow {
+  flex-grow: 1;
+}
+.flex-col {
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-2 {
+  gap: 0.5rem;
+}
+.place-self-end {
+  place-self: end;
+}
+.self-end {
+  align-self: flex-end;
 }
 .rounded-lg {
   border-radius: 0.5rem;
+}
+.rounded-sm {
+  border-radius: 0.125rem;
+}
+.rounded {
+  border-radius: 0.25rem;
 }
 .bg-gray-500 {
   --tw-bg-opacity: 1;
@@ -508,6 +565,10 @@ video {
 .p-1 {
   padding: 0.25rem;
 }
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
 .font-bold {
   font-weight: 700;
 }
@@ -516,6 +577,6 @@ video {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
-.duration-200 {
-  transition-duration: 200ms;
+.hover\:font-bold:hover {
+  font-weight: 700;
 }

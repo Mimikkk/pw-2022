@@ -1,0 +1,16 @@
+﻿@using pw_2022.Shared.Types
+@inherits LayoutComponentBase
+
+<PageTitle>PW-2022 | Home</PageTitle>
+
+<div class="layout">
+  <header class="bg-slate-700 w-full h-full flex items-center">
+    <NavLink href="">
+      <Icon Type="IconType.Home" Size="Size.Md"/>
+    </NavLink>
+  </header>
+  <NavigationBar/>
+  <main class="bg-slate-300">
+    @Body
+  </main>
+</div>

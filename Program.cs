@@ -1,3 +1,4 @@
+global using static pw_2022.Shared.Utils.Utils;
 using pw_2022.Data;
 
 var builder = WebApplication.CreateBuilder(args);

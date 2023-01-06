@@ -7,11 +7,6 @@
         <RootNamespace>pw_2022</RootNamespace>
     </PropertyGroup>
 
-
-    <ItemGroup>
-      <Content Include="Shared\MainLayout.razor.scss" />
-    </ItemGroup>
-
     <ItemGroup>
       <PackageReference Include="Ardalis.SmartEnum" Version="2.1.0" />
     </ItemGroup>

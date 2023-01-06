@@ -1,0 +1,25 @@
+﻿@using pw_2022.Shared.Types
+@inject NavigationManager NavManager
+
+@code {
+  [Parameter, EditorRequired]
+  public string To { get; set; } = null!;
+
+  [Parameter]
+  public RenderFragment? ChildContent { get; set; }
+
+  [Parameter]
+  public IconType? Icon { get; set; }
+
+  private string selected => NavManager.Uri.Contains(To) ? Color.Secondary["bg", 2] : "";
+  private string hovered => $"hover:{Color.Secondary["bg", 0]}";
+}
+
+<NavLink href="@To">
+  <div class="@Cx(selected, hovered, "flex items-center justify-between gap-2 hover:font-bold transition-all rounded px-2 h-12")">
+    @if (Icon is not null) {
+      <Icon Type="@Icon"/>
+    }
+    <span>@ChildContent</span>
+  </div>
+</NavLink>

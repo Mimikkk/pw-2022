@@ -1,0 +1,20 @@
+﻿@using pw_2022.Shared.Types
+
+@code {
+  private bool collapseNavMenu = true;
+  private string _collapsed => collapseNavMenu ? "collapsed" : "";
+
+  private void ToggleNavMenu() => collapseNavMenu = !collapseNavMenu;
+}
+
+<nav class="@Cx(_collapsed, "bg-slate-400 p-1 w-48 flex flex-col gap-2 w-full h-full")">
+  <button @onclick="ToggleNavMenu" class="place-self-end">
+    <Icon Type="IconType.Burger"/>
+  </button>
+  <NavigationItem To="vendors" Icon="IconType.Person">
+    Vendors
+  </NavigationItem>
+  <NavigationItem To="products" Icon="IconType.Stack">
+    Products
+  </NavigationItem>
+</nav>

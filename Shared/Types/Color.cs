@@ -30,7 +30,13 @@ public class Color : SmartEnum<Color> {
   }
 
   public string this[ColorType type, int shade] => shade switch {
-    0 => $"{type}-{this}-50",
-    _ => $"{type}-{this}-{shade}00"
+    0    => $"{type}-{this}-50",
+    <= 9 => $"{type}-{this}-{shade}00",
+    _    => throw new ArgumentOutOfRangeException(nameof(shade), shade, "Shade must be between 0 and 9")
+  };
+  public string this[ColorType type] => Name switch {
+    "black" => $"{type}-{this}",
+    "white" => $"{type}-{this}",
+    _       => $"{type}-{this}-500"
   };
 }

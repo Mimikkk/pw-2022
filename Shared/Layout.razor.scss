@@ -2,8 +2,8 @@
   display: grid;
   height: inherit;
   grid-template: "sidebar header header" 2rem
-                    "sidebar content content" 1fr
-                    "sidebar footer footer" 2rem;
+                    "sidebar content content" 1fr / fit-content(16rem) 1fr 1fr;
+
 
   & > header {
     grid-area: header;

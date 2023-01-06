@@ -1,56 +1,22 @@
 ﻿@using pw_2022.Shared.Types
 
-<div class="transition-all @Size.Height hover:@Color["bg", 5] @Color.Shade["text", 9] p-0.5 aspect-square rounded-lg">
-  <svg class="@Color.Accent["fill", 1] hover:@Color.Accent["fill", 2]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-    @icon
-  </svg>
-</div>
-
 @code {
   [Parameter, EditorRequired]
-  public IconType Name { get; set; }
+  public IconType Type { get; set; } = null!;
   [Parameter]
   public Size Size { get; set; } = Size.Md;
   [Parameter]
   public Color Color { get; set; } = Color.Primary;
-
-
-  public enum IconType {
-    Bin,
-    Burger,
-    ExclamationCircle,
-    ExclamationTriangle,
-    LeftChevronDouble,
-    LeftChevron,
-    Magnifier,
-    Minus,
-    Moon,
-    Pen,
-    Plus,
-    RightChevronDouble,
-    RightChevron,
-    Stack,
-    Sun,
-    X
-  }
-
-  private RenderFragment icon => Name switch {
-    IconType.Bin => @<BinPath/>,
-    IconType.Burger => @<BurgerPath/>,
-    IconType.ExclamationCircle =>  @<ExclamationCirclePath/>,
-    IconType.ExclamationTriangle => @<ExclamationTrianglePath/>,
-    IconType.LeftChevronDouble => @<LeftChevronDoublePath/>,
-    IconType.LeftChevron => @<LeftChevronPath/>,
-    IconType.Magnifier => @<MagnifierPath/>,
-    IconType.Minus => @<MinusPath/>,
-    IconType.Moon => @<MoonPath/>,
-    IconType.Pen => @<PenPath/>,
-    IconType.Plus => @<PlusPath/>,
-    IconType.RightChevronDouble => @<RightChevronDoublePath/>,
-    IconType.RightChevron => @<RightChevronPath/>,
-    IconType.Stack => @<StackPath/>,
-    IconType.Sun => @<SunPath/>,
-    IconType.X => @<XPath/>,
-    _ => throw new ArgumentOutOfRangeException(nameof(Name), Name, "Invalid IconType")
-    };
+  [Parameter]
+  public Color Contour { get; set; } = Color.Shade;
+  [Parameter]
+  public bool Inverted { get; set; }
 }
+
+<div class="@Cx(Size.Height, $"hover:{Color["bg", Inverted ? 2 : 5]}", Contour["text", Inverted ? 0 : 9], "p-0.5 aspect-square rounded-lg transition-all")">
+  <svg
+    class="@Cx(@Color.Accent["fill", 2], $"hover:{Color.Accent["fill", 5]}", "transition-all")"
+    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+    @Type.Component
+  </svg>
+</div>

@@ -1,7 +1,7 @@
 .layout {
   display: grid;
   height: inherit;
-  grid-template: "sidebar header header" 2rem "sidebar content content" 1fr "sidebar footer footer" 2rem;
+  grid-template: "sidebar header header" 2rem "sidebar content content" 1fr/fit-content(16rem) 1fr 1fr;
 }
 .layout > header {
   grid-area: header;
