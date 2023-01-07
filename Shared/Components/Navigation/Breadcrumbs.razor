@@ -1,13 +1,13 @@
 ﻿@using pw_2022.Shared.Types
 @inject NavigationManager NavManager
 
-<NavLink href="">
+<NavLink href="/">
   <Icon Class="p-1.5" Type="IconType.Home" Size="Size.Md" Interactive/>
 </NavLink>
 <Typography Color="Color.Secondary" Shade="4">|</Typography>
 @foreach (var (link, crumb) in Crumbs()) {
   <Typography Color="Color.Accent" Shade="@selected(crumb)" Interactive>
-    <a href="@link">@crumb</a>
+    <NavLink href="@link">@crumb</NavLink>
   </Typography>
   <Typography Color="Color.Secondary" Shade="4">></Typography>
 }
