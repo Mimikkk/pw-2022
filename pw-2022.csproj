@@ -10,8 +10,4 @@
     <ItemGroup>
       <PackageReference Include="Ardalis.SmartEnum" Version="2.1.0" />
     </ItemGroup>
-
-    <ItemGroup>
-      <AdditionalFiles Include="Shared\Components\Icons\Icon.razor" />
-    </ItemGroup>
 </Project>

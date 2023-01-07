@@ -1,0 +1,19 @@
+﻿@using pw_2022.Shared.Types
+@inject NavigationManager NavManager
+
+<NavLink href="">
+  <Icon Class="p-1.5" Type="IconType.Home" Size="Size.Md" Interactive/>
+</NavLink>
+<Typography Color="Color.Secondary" Shade="3">|</Typography>
+@foreach (var crumb in Crumbs) {
+  <Typography Color="Color.Accent" Shade="3">
+    <a href="@crumb">@crumb</a>
+  </Typography>
+  <Typography Color="Color.Secondary" Shade="3">></Typography>
+}
+
+
+@code {
+  private IEnumerable<string> Crumbs =>
+    NavManager.Uri.Remove(0, NavManager.BaseUri.Length).Split("/").Where(x => x.Length > 0);
+}

@@ -1,0 +1,25 @@
+﻿@using pw_2022.Shared.Types
+<span class="@Cx(Color["text", Shade], interactive, overflow, Class)">@ChildContent</span>
+
+@code {
+  [Parameter]
+  public Color Color { get; set; } = Color.Primary;
+
+  [Parameter]
+  public int Shade { get; set; } = 5;
+
+  [Parameter]
+  public RenderFragment? ChildContent { get; set; }
+
+  [Parameter]
+  public string? Class { get; set; }
+
+  [Parameter]
+  public bool Overflow { get; set; }
+
+  [Parameter]
+  public bool Interactive { get; set; }
+
+  private string? interactive => Interactive ? $"transition-all hover:{Color["text", 9 - Shade]}" : null;
+  private string? overflow => Overflow ? "text-ellipsis overflow-hidden" : null;
+}

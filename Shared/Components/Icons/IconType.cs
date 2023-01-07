@@ -1,5 +1,6 @@
 ﻿using Ardalis.SmartEnum;
 using Microsoft.AspNetCore.Components;
+using pw_2022.Shared.Components.Icons.Paths;
 
 namespace pw_2022.Shared.Components.Icons;
 
