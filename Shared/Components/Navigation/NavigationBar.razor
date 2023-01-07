@@ -15,7 +15,7 @@
 }
 
 <nav class="@Cx(_expanded ? "w-48" : "w-16", "flex flex-col gap-2 transition-all bg-slate-200 p-1")">
-  <button class="place-self-end" @onclick="ToggleNavBar">
+  <button class="@Cx(_expanded ? "place-self-end" : "place-self-center")" @onclick="ToggleNavBar">
     <Icon Type="IconType.Burger"/>
   </button>
   <NavigationItem To="vendors" Icon="IconType.Person">
