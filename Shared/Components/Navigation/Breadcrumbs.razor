@@ -15,7 +15,7 @@
 
 @code {
   private IEnumerable<(string, string)> Crumbs() {
-    var paths = NavManager.Uri.Remove(0, NavManager.BaseUri.Length).Split("/").Where(x => x.Length > 0).ToList();
+    var paths = NavManager.PathSegments();
     var result = new List<(string, string)>();
 
     var link = "";
@@ -27,7 +27,6 @@
     return result;
   }
 
-
-  private int selected(string element) => _isCurrent(element) ? 2 : 0;
-  private bool _isCurrent(string element) => NavManager.Uri.Split("/").Last() == element;
+  private int selected(string element) => NavManager.IsLastSegment(element) ? 2 : 0;
+  protected override void OnInitialized() => NavManager.LocationChanged += (_, _) => StateHasChanged();
 }

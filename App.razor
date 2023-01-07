@@ -6,7 +6,14 @@
   <NotFound>
     <PageTitle>Not found</PageTitle>
     <LayoutView Layout="@typeof(Layout)">
-      <p role="alert">Sorry, there's nothing at this address.</p>
+      <Card Header="@head">
+        <p>Sorry, there's nothing at this address.</p>
+      </Card>
     </LayoutView>
   </NotFound>
 </Router>
+
+@code {
+
+  public RenderFragment? head = @<Typography Uppercase Bold>123</Typography>;
+}

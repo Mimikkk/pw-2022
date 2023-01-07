@@ -5,11 +5,11 @@
   <button class="@(_expanded ? "place-self-end" : "place-self-center")" @onclick="ToggleNavBar">
     <Icon Type="IconType.Burger"/>
   </button>
-  <NavigationItem To="vendors" Icon="IconType.Person">
-    @(_expanded ? "Vendors" : null)
+  <NavigationItem To="races" Icon="IconType.Person">
+    @(_expanded ? "Races" : null)
   </NavigationItem>
-  <NavigationItem To="products" Icon="IconType.Stack">
-    @(_expanded ? "Products" : null)
+  <NavigationItem To="goods" Icon="IconType.Stack">
+    @(_expanded ? "Goods" : null)
   </NavigationItem>
 </nav>
 
