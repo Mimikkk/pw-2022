@@ -4,16 +4,30 @@
 <NavLink href="">
   <Icon Class="p-1.5" Type="IconType.Home" Size="Size.Md" Interactive/>
 </NavLink>
-<Typography Color="Color.Secondary" Shade="3">|</Typography>
-@foreach (var crumb in Crumbs) {
-  <Typography Color="Color.Accent" Shade="3">
-    <a href="@crumb">@crumb</a>
+<Typography Color="Color.Secondary" Shade="4">|</Typography>
+@foreach (var (link, crumb) in Crumbs()) {
+  <Typography Color="Color.Accent" Shade="@selected(crumb)" Interactive>
+    <a href="@link">@crumb</a>
   </Typography>
-  <Typography Color="Color.Secondary" Shade="3">></Typography>
+  <Typography Color="Color.Secondary" Shade="4">></Typography>
 }
 
 
 @code {
-  private IEnumerable<string> Crumbs =>
-    NavManager.Uri.Remove(0, NavManager.BaseUri.Length).Split("/").Where(x => x.Length > 0);
+  private IEnumerable<(string, string)> Crumbs() {
+    var paths = NavManager.Uri.Remove(0, NavManager.BaseUri.Length).Split("/").Where(x => x.Length > 0).ToList();
+    var result = new List<(string, string)>();
+
+    var link = "";
+    foreach (var path in paths) {
+      link = $"{link}/{path}";
+      result.Add((link, path));
+    }
+
+    return result;
+  }
+
+
+  private int selected(string element) => _isCurrent(element) ? 2 : 0;
+  private bool _isCurrent(string element) => NavManager.Uri.Split("/").Last() == element;
 }

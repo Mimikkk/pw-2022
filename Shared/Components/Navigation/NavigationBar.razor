@@ -1,6 +1,18 @@
 ﻿@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject ProtectedLocalStorage Storage
 
+<nav class="@Cx(_expanded ? "w-48" : "w-16", "flex flex-col gap-2 transition-all bg-slate-200 p-1")">
+  <button class="@(_expanded ? "place-self-end" : "place-self-center")" @onclick="ToggleNavBar">
+    <Icon Type="IconType.Burger"/>
+  </button>
+  <NavigationItem To="vendors" Icon="IconType.Person">
+    @(_expanded ? "Vendors" : null)
+  </NavigationItem>
+  <NavigationItem To="products" Icon="IconType.Stack">
+    @(_expanded ? "Products" : null)
+  </NavigationItem>
+</nav>
+
 @code {
   private bool _expanded = false;
 
@@ -13,15 +25,3 @@
     if (result.Success) _expanded = result.Value;
   }
 }
-
-<nav class="@Cx(_expanded ? "w-48" : "w-16", "flex flex-col gap-2 transition-all bg-slate-200 p-1")">
-  <button class="@(_expanded ? "place-self-end" : "place-self-center")" @onclick="ToggleNavBar">
-    <Icon Type="IconType.Burger"/>
-  </button>
-  <NavigationItem To="vendors" Icon="IconType.Person">
-    @(_expanded ? "Vendors" : null)
-  </NavigationItem>
-  <NavigationItem To="products" Icon="IconType.Stack">
-    @(_expanded ? "Products" : null)
-  </NavigationItem>
-</nav>

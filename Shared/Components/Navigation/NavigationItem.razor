@@ -1,6 +1,18 @@
 ﻿@using pw_2022.Shared.Types
 @inject NavigationManager NavManager
 
+<NavLink href="@To">
+  <div class="flex w-full h-full">
+    <span class="@Cx(selected, "h-full w-1 rounded-r transition-all")"></span>
+    <div class="@Cx(hovered, "flex items-center w-full justify-between gap-2 hover:font-bold transition-all rounded px-1 h-12")">
+      @if (Icon is not null) {
+        <Icon Type="@Icon"/>
+      }
+      <Typography Overflow>@ChildContent</Typography>
+    </div>
+  </div>
+</NavLink>
+
 @code {
   [Parameter, EditorRequired]
   public string To { get; set; } = null!;
@@ -15,18 +27,3 @@
   private string? selected => NavManager.Uri.Contains(To) ? Color.Secondary["bg", 5] : null;
   private string hovered => $"hover:{Color.Secondary["bg", 2]}";
 }
-
-
-<NavLink href="@To">
-  <div class="flex w-full h-full">
-    <span class="@Cx(selected, "h-full w-1 rounded-r transition-all")"></span>
-    <div class="@Cx(hovered, "flex items-center w-full justify-between gap-2 hover:font-bold transition-all rounded px-1 h-12")">
-      @if (Icon is not null) {
-        <Icon Type="@Icon"/>
-      }
-      @if (ChildContent is not null) {
-        <span class="text-ellipsis overflow-hidden">@ChildContent</span>
-      }
-    </div>
-  </div>
-</NavLink>

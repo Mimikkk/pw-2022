@@ -1,5 +1,15 @@
 ﻿@using pw_2022.Shared.Types
 
+<div class="@Cx(Size.Height, Contour["text", Inverted ? 0 : 8], "aspect-square", Class)">
+  <div class="@Cx(Interactive ? $"hover:{Color["bg", Inverted ? 7 : 3]} transition-all" : null, "rounded")">
+    <svg
+      class="@Cx(@Color.Accent["fill", 1], Interactive ? $"hover:{Color.Accent["fill", 3]} transition-all" : null)"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      @Type.Component
+    </svg>
+  </div>
+</div>
+
 @code {
   [Parameter, EditorRequired]
   public IconType Type { get; set; } = null!;
@@ -16,13 +26,3 @@
   [Parameter]
   public string? Class { get; set; }
 }
-
-<div class="@Cx(Size.Height, Contour["text", Inverted ? 0 : 8], "aspect-square", Class)">
-  <div class="@Cx(Interactive ? $"hover:{Color["bg", Inverted ? 7 : 3]} transition-all" : null, "rounded")">
-    <svg
-      class="@Cx(@Color.Accent["fill", 1], Interactive ? $"hover:{Color.Accent["fill", 3]} transition-all" : null)"
-      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-      @Type.Component
-    </svg>
-  </div>
-</div>
