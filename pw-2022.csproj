@@ -10,4 +10,8 @@
     <ItemGroup>
       <PackageReference Include="Ardalis.SmartEnum" Version="2.1.0" />
     </ItemGroup>
+
+    <ItemGroup>
+      <None Include="wwwroot\js\initializer.js" />
+    </ItemGroup>
 </Project>
