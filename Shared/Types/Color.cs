@@ -5,7 +5,7 @@ namespace pw_2022.Shared.Types;
 public class Color : SmartEnum<Color> {
   public static readonly Color Shade = new("stone", 0);
   public static readonly Color Primary = new("indigo", 1);
-  public static readonly Color Secondary = new("emerald", 2);
+  public static readonly Color Secondary = new("violet", 2);
   public static readonly Color Accent = new("amber", 3);
   public static readonly Color Error = new("rose", 4);
   public static readonly Color Warning = new("yellow", 5);
