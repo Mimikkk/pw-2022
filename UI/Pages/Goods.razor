@@ -22,12 +22,12 @@
       <option value="high">Wysoka</option>
     </SelectField>
   </div>
-  <div class="h-full px-48 col-span-5 flex flex-col gap-2">
-    <div class="h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
+  <div class="h-full px-48 py-8 col-span-5 flex flex-col gap-2">
+    <Card Color="Color.Secondary" Class="p-4 h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
       @foreach (var item in Items) {
         <GoodCard/>
       }
-    </div>
+    </Card>
     <div class="mt-auto flex gap-2 justify-center items-center p-2">
       <Icon Class="m-auto" Type="IconType.DownChevron" Color="Color.Secondary" Interactive></Icon>
       <button class="place-self-end">
