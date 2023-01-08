@@ -3,11 +3,11 @@
 namespace pw_2022.Shared.Types;
 
 public class Size : SmartEnum<Size> {
-  public static readonly Size Xs = new("XS", 1);
-  public static readonly Size Sm = new("SM", 2);
-  public static readonly Size Md = new("MD", 3);
-  public static readonly Size Lg = new("LG", 4);
-  public static readonly Size Xl = new("XL", 6);
+  public static readonly Size Xs = new(nameof(Xs), 1);
+  public static readonly Size Sm = new(nameof(Sm), 2);
+  public static readonly Size Md = new(nameof(Md), 3);
+  public static readonly Size Lg = new(nameof(Lg), 4);
+  public static readonly Size Xl = new(nameof(Xl), 6);
 
 
   public Size(string name, int value)

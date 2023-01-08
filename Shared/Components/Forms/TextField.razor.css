@@ -1,0 +1,17 @@
+﻿.label {
+    position: absolute;
+    padding-left: 0.5rem;
+    transition: all 200ms;
+    background: white;
+    border-radius: 0.25rem;
+    left: 0;
+    cursor: text;
+    text-transform: capitalize;
+}
+
+.group:focus-within .label, :not(input:placeholder-shown) + .label {
+    transform: translateY(-1rem);
+    font-size: 0.75rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+}

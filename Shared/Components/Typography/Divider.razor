@@ -1,0 +1,12 @@
+﻿@if (Vertical) {
+  <hr class="@Cx("h-full border-t-0 w-0 border-l", Color["border", 7])"/>
+} else {
+  <hr class="@Color["border", 7]"/>
+}
+
+@code {
+  [Parameter]
+  public Color Color { get; set; } = Color.Primary;
+  [Parameter]
+  public bool Vertical { get; set; }
+}

@@ -3,31 +3,34 @@
 namespace pw_2022.Shared.Types;
 
 public class Color : SmartEnum<Color> {
-  public static readonly Color Shade = new("stone", 0);
-  public static readonly Color Primary = new("indigo", 1);
-  public static readonly Color Secondary = new("violet", 2);
-  public static readonly Color Accent = new("amber", 3);
-  public static readonly Color Error = new("rose", 4);
-  public static readonly Color Warning = new("yellow", 5);
+  public static readonly Color Shade = new("stone");
+  public static readonly Color Primary = new("indigo");
+  public static readonly Color Secondary = new("violet");
+  public static readonly Color Accent = new("amber");
+  public static readonly Color Error = new("rose");
+  public static readonly Color Warning = new("yellow");
+  public static readonly Color Black = new("black");
+  public static readonly Color White = new("white");
 
 
-  public Color(string name, int value)
-    : base(name, value) { }
+  public Color(string name)
+    : base(name, ++_count) { }
 
   public static implicit operator Color(string name) => FromName(name);
 
   public class ColorType : SmartEnum<ColorType> {
-    public static readonly ColorType Background = new("bg", 0);
-    public static readonly ColorType Text = new("text", 1);
-    public static readonly ColorType Border = new("border", 2);
-    public static readonly ColorType Outline = new("outline", 3);
-    public static readonly ColorType Fill = new("fill", 4);
-    public static readonly ColorType Shadow = new("shadow", 5);
+    public static readonly ColorType Background = new("bg");
+    public static readonly ColorType Text = new(nameof(Text));
+    public static readonly ColorType Border = new(nameof(Border));
+    public static readonly ColorType Outline = new(nameof(Outline));
+    public static readonly ColorType Fill = new(nameof(Fill));
+    public static readonly ColorType Shadow = new(nameof(Shadow));
 
-    public ColorType(string name, int value)
-      : base(name, value) { }
+    public ColorType(string name)
+      : base(name.ToLower(), ++_count) { }
 
     public static implicit operator ColorType(string name) => FromName(name);
+    private static int _count;
   }
 
   public string this[ColorType type, int shade] => shade switch {
@@ -40,4 +43,5 @@ public class Color : SmartEnum<Color> {
     "white" => $"{type}-{this}",
     _       => $"{type}-{this}-500"
   };
+  private static int _count;
 }

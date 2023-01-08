@@ -1,21 +1,14 @@
 ﻿@page "/goods"
-@using pw_2022.Shared.Types
 
 <PageTitle>pw-2022 | Goods</PageTitle>
 
 <section class="h-full grid grid-cols-6">
-  <div class="@Cx(@Color.Primary["bg", 2], "h-full py-4 px-2")">
-    <label for="search">
-      <div class="h-10 items-center flex rounded border border-slate-500 bg-white gap-1 px-2 cursor-text focus-within:outline-1 focus-within:outline">
-        <Icon Type="IconType.Magnifier" Size="Size.Sm" Interactive Class="cursor-pointer"/>
-        <Typography>|</Typography>
-        <input id="search" class="px-2 rounded w-full outline-none" placeholder="szukaj..."/>
-      </div>
-    </label>
-
-    <div>Filter 1</div>
-    <div>Filter 2</div>
-    <div>Filter 3</div>
+  <div class="@Cx(@Color.Primary["bg", 2], "h-full py-4 px-2 flex flex-col gap-2")">
+    <TextField Icon="IconType.Magnifier" Label="szukaj..." Name="search"/>
+    <Divider/>
+    <TextField Icon="IconType.Filter" Label="szukaj..." Name="filter-1"/>
+    <TextField Icon="IconType.Filter" Label="szukaj..." Name="filter-2"/>
+    <TextField Icon="IconType.Filter" Label="szukaj..." Name="filter-3"/>
   </div>
   <div class="h-full col-span-5 flex flex-col gap-2">
     <div class="h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
@@ -75,7 +68,7 @@
     </div>;
   private RenderFragment footer =>
     @<NavLink href="goods/wood">
-      <Title Class="flex gap-2">
+      <Title Class="flex gap-2" Interactive>
         <Icon Type="IconType.RightChevron" Size="Size.Sm" Interactive></Icon>
         Dodatkowe informacje
       </Title>
