@@ -1,4 +1,4 @@
-@import "./font.css";
+﻿@import "./font.css";
 
 body {
     height: 100vh;
@@ -8,4 +8,26 @@ body {
 body.preload * {
     animation-duration: 0s !important;
     transition: all 0s !important;
+}
+
+::-webkit-scrollbar {
+    appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+    width: 0.75rem;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 0.75rem;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 0.5rem;
+
+    background: rgb(67 56 202);
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
 }
