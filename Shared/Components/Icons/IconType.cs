@@ -9,6 +9,7 @@ public class IconType : SmartEnum<IconType> {
   public static readonly IconType Burger = new("Burger", 1, typeof(BurgerPath));
   public static readonly IconType ExclamationCircle = new("ExclamationCircle", 2, typeof(ExclamationCirclePath));
   public static readonly IconType ExclamationTriangle = new("ExclamationTriangle", 3, typeof(ExclamationTrianglePath));
+  public static readonly IconType Github = new("Github", 3, typeof(GithubPath));
   public static readonly IconType Home = new("Home", 4, typeof(HomePath));
   public static readonly IconType LeftChevronDouble = new("LeftChevronDouble", 5, typeof(LeftChevronDoublePath));
   public static readonly IconType LeftChevron = new("LeftChevron", 6, typeof(LeftChevronPath));

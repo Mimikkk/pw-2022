@@ -1,12 +1,16 @@
-﻿@inherits LayoutComponentBase
+﻿@using pw_2022.Shared.Types
+@inherits LayoutComponentBase
 
 <PageTitle>PW-2022 | Home</PageTitle>
 
 <section class="transition-all flex w-full h-full">
   <NavigationBar/>
   <div class="transition-all flex flex-col w-full h-full">
-    <header class="h-8 bg-slate-700 w-full h-full flex gap-2 items-center px-1">
+    <header class="h-8 bg-slate-700 w-full h-full flex gap-2 items-center justify-between px-1">
       <Breadcrumbs/>
+      <NavLink href="https://www.github.com/Mimikkk">
+        <Icon Class="p-1.5" Type="IconType.Github" Interactive/>
+      </NavLink>
     </header>
     <main class="h-full px-2 py-4 bg-slate-300">
       @Body
