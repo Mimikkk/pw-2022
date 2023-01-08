@@ -1,4 +1,4 @@
-﻿<div class="@Cx(Size.Height, Contour["text", Inverted ? 0 : 8], "aspect-square", Class)">
+﻿<div @onclick="OnClick" class="@Cx(Size.Height, Contour["text", Inverted ? 0 : 8], "aspect-square", Class)">
   <div class="@Cx(Interactive ? $"hover:{Color["bg", Inverted ? 7 : 3]} transition-all" : null, "rounded")">
     <svg
       class="@Cx(@Color.Accent["fill", 1], Interactive ? $"hover:{Color.Accent["fill", 3]} transition-all" : null)"
@@ -21,6 +21,10 @@
   public bool Inverted { get; set; }
   [Parameter]
   public bool Interactive { get; set; }
+
+  [Parameter]
+  public Action OnClick { get; set; } = () => { };
+
   [Parameter]
   public string? Class { get; set; }
 }

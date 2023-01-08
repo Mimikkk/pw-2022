@@ -3,12 +3,15 @@
     <Icon Type="@Icon" Size="Size.Sm" Interactive Class="cursor-pointer"/>
     <Typography>|</Typography>
   }
-  <div class="relative">
-    <input id="@Name" class="px-2 rounded w-full outline-none" placeholder=" "/>
+  <div class="relative w-full">
+    <input type="text" value="@value" id="@Name" class="px-2 rounded w-full outline-none" placeholder=" " @onchange="HandleChange"/>
     @if (Label is not null) {
       <label for="@Name" class="label">@Label</label>
     }
   </div>
+  @if (value is not "") {
+    <Icon Type="IconType.X" Size="Size.Sm" Interactive OnClick="HandleClear"></Icon>
+  }
 </label>
 
 @code {
@@ -23,4 +26,19 @@
 
   [Parameter]
   public IconType? Icon { get; set; }
+
+  [Parameter]
+  public Action<string> OnChange { get; set; } = _ => { };
+
+
+  protected override void OnInitialized() =>
+    value = Value ?? string.Empty;
+
+  private void HandleClear() =>
+    OnChange(value = string.Empty);
+
+  private void HandleChange(ChangeEventArgs args) =>
+    OnChange(value = args.Value as string ?? string.Empty);
+
+  private string value = string.Empty;
 }

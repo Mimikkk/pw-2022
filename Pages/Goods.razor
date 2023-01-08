@@ -4,11 +4,23 @@
 
 <section class="h-full grid grid-cols-6">
   <div class="@Cx(@Color.Primary["bg", 2], "h-full py-4 px-2 flex flex-col gap-2")">
-    <TextField Icon="IconType.Magnifier" Label="szukaj..." Name="search"/>
+    <TextField Icon="IconType.Magnifier" Label="Szukaj..." Name="search"/>
     <Divider/>
-    <TextField Icon="IconType.Filter" Label="szukaj..." Name="filter-1"/>
-    <TextField Icon="IconType.Filter" Label="szukaj..." Name="filter-2"/>
-    <TextField Icon="IconType.Filter" Label="szukaj..." Name="filter-3"/>
+    <SelectField Icon="IconType.Filter" Label="Wartość rasy" Name="filter-1">
+      <option value="low">niskie</option>
+      <option value="medium">średnie</option>
+      <option value="high">wysokie</option>
+    </SelectField>
+    <SelectField Icon="IconType.Filter" Label="Czy rasa jest przydatna" Name="filter-2">
+      <option value="low">niskie</option>
+      <option value="medium">średnie</option>
+      <option value="high">wysokie</option>
+    </SelectField>
+    <SelectField Icon="IconType.Filter" Label="Lubi lewd :3???" Name="filter-3">
+      <option value="low">niskie</option>
+      <option value="medium">średnie</option>
+      <option value="high">wysokie</option>
+    </SelectField>
   </div>
   <div class="h-full col-span-5 flex flex-col gap-2">
     <div class="h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
