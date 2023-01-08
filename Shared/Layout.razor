@@ -6,13 +6,13 @@
 <section class="transition-all flex w-full h-full">
   <NavigationBar/>
   <div class="transition-all flex flex-col w-full h-full">
-    <header class="h-8 bg-slate-700 w-full h-full flex gap-2 items-center justify-between px-1">
+    <header class="@Cx(Color.Primary["bg", 7], "h-8 w-full h-full flex gap-2 items-center justify-between px-1")">
       <Breadcrumbs/>
       <NavLink href="https://www.github.com/Mimikkk">
         <Icon Class="p-1.5" Type="IconType.Github" Interactive/>
       </NavLink>
     </header>
-    <main class="h-full px-2 py-4 bg-slate-300">
+    <main class="@Cx(Color.Primary["bg", 3], "h-full px-2 py-4")">
       @Body
     </main>
   </div>
