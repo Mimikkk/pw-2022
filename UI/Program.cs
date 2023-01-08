@@ -1,5 +1,5 @@
-global using static pw_2022.Shared.Utils.Utils;
-using pw_2022.Data;
+global using static UI.Shared.Utils.Utils;
+using UI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,6 +1,6 @@
 ﻿using Ardalis.SmartEnum;
 
-namespace pw_2022.Shared.Types;
+namespace UI.Shared.Types;
 
 public class Color : SmartEnum<Color> {
   public static readonly Color Shade = new("stone");

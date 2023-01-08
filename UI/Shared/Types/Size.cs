@@ -1,6 +1,6 @@
 ﻿using Ardalis.SmartEnum;
 
-namespace pw_2022.Shared.Types;
+namespace UI.Shared.Types;
 
 public class Size : SmartEnum<Size> {
   public static readonly Size Xs = new(nameof(Xs), 1);

@@ -4,7 +4,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <RootNamespace>pw_2022</RootNamespace>
+        <RootNamespace>UI</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

@@ -1,8 +1,8 @@
 ﻿using Ardalis.SmartEnum;
 using Microsoft.AspNetCore.Components;
-using pw_2022.Shared.Components.Icons.Paths;
+using UI.Shared.Components.Icons.Paths;
 
-namespace pw_2022.Shared.Components.Icons;
+namespace UI.Shared.Components.Icons;
 
 public class IconType : SmartEnum<IconType> {
   public static readonly IconType Bin = new(nameof(Bin), typeof(BinPath));

@@ -1,4 +1,4 @@
-namespace pw_2022.Data;
+namespace UI.Data;
 
 public class GoodService {
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace pw_2022.Shared.Extensions;
+namespace UI.Shared.Extensions;
 
 public static class NavigationManagerExtensions {
   public static IEnumerable<string> PathSegments(this NavigationManager manager) =>
