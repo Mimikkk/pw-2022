@@ -39,14 +39,8 @@
 </div>
 <Icon Type="IconType.X" Interactive OnClick="ToggleOpen"/>
 <Modal Class="h-48" IsOpen="@IsOpen">
-  <div class="flex gap-2 justify-between">
-    <Title>Tytuł Modalu</Title>
-    <Icon Size="Size.Sm" Type="IconType.X" Interactive OnClick="ToggleOpen"/>
-  </div>
-  <div class="flex gap-2 justify-between mt-auto bg-slate-300 h-12 items-center px-2 -m-2 rounded-b">
-    <Title>Tytuł Modalu</Title>
-    <Icon Size="Size.Sm" Type="IconType.X" Interactive OnClick="ToggleOpen"/>
-  </div>
+  <ModalHeader OnClose="ToggleOpen">Tytuł Modala</ModalHeader>
+  <ModalActions></ModalActions>
 </Modal>
 
 @code {

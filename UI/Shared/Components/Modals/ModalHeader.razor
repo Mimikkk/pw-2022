@@ -1,0 +1,14 @@
+﻿@using System.Runtime.CompilerServices
+@inherits Component
+
+<CardHeader class="@Cx("flex justify-between", Class)">
+  <Title>
+    @ChildContent
+  </Title>
+  <Icon Type="IconType.X" Size="Size.Sm" Interactive OnClick="OnClose"/>
+</CardHeader>
+
+@code {
+  [Parameter, EditorRequired]
+  public Action OnClose { get; set; } = null!;
+}
