@@ -1,0 +1,11 @@
+﻿:root {
+    --lines: 1;
+}
+
+.ellipsis {
+    display: -webkit-box;
+    -webkit-line-clamp: var(--lines);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

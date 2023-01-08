@@ -1,4 +1,6 @@
-﻿<span class="@Cx(Color["text", Shade], interactive, overflow, capitalize, uppercase, bold, unselectable, Class)">
+﻿<span
+  class="@Cx(Color["text", Shade], interactive, overflow, capitalize, uppercase, bold, unselectable, Class)"
+  style="@Cx(lineClamp)">
   @ChildContent
 </span>
 
@@ -19,6 +21,9 @@
   public bool Overflow { get; set; }
 
   [Parameter]
+  public int OverflowLines { get; set; } = 1;
+
+  [Parameter]
   public bool Capitalize { get; set; }
 
   [Parameter]
@@ -34,9 +39,10 @@
   public bool Interactive { get; set; }
 
   private string? interactive => Interactive ? $"transition-all hover:{Color["text", Math.Min(Shade + 2, 9)]}" : null;
-  private string? overflow => Overflow ? "text-ellipsis overflow-hidden" : null;
+  private string? overflow => Overflow ? "ellipsis" : null;
   private string? capitalize => Capitalize ? "capitalize" : null;
   private string? bold => Bold ? "font-bold" : null;
   private string? uppercase => Uppercase ? "uppercase" : null;
   private string? unselectable => Unselectable ? "select-none" : null;
+  private string? lineClamp => Overflow ? $"-webkit-line-clamp: {OverflowLines};" : null;
 }
