@@ -25,6 +25,9 @@ public class Color : SmartEnum<Color> {
     public static readonly ColorType Outline = new(nameof(Outline));
     public static readonly ColorType Fill = new(nameof(Fill));
     public static readonly ColorType Shadow = new(nameof(Shadow));
+    public static readonly ColorType From = new(nameof(From));
+    public static readonly ColorType Via = new(nameof(Via));
+    public static readonly ColorType To = new(nameof(To));
 
     public ColorType(string name)
       : base(name.ToLower(), ++_count) { }

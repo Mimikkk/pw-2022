@@ -5,14 +5,20 @@
 <section class="transition-all flex w-full h-full">
   <NavigationBar/>
   <div class="transition-all flex flex-col w-full h-full">
-    <header class="@Cx(Color.Primary["bg", 7], "h-8 w-full h-full flex gap-2 items-center justify-between px-1 shadow")">
+    <header class="@Cx(headerGradient, "h-8 w-full h-full flex gap-2 items-center justify-between px-1 shadow")">
       <Breadcrumbs/>
       <a href="https://www.github.com/Mimikkk" target="_blank">
         <Icon Class="p-1.5" Type="IconType.Github" Interactive/>
       </a>
     </header>
-    <main class="@Cx(Color.Primary["bg", 3], "h-full w-full")">
+    <main class="@Cx(bodyGradient, "h-full w-full")">
       @Body
     </main>
   </div>
 </section>
+
+@code {
+  
+  private string bodyGradient => $"bg-gradient-to-b {Color.Primary["from", 3]} {Color.Primary["to", 4]}";
+  private string headerGradient => $"bg-gradient-to-t {Color.Primary["from", 7]} {Color.Primary["to", 6]}";
+}
