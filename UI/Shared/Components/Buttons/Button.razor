@@ -1,0 +1,50 @@
+﻿@using System.Linq.Expressions
+@inherits Component
+
+<Card
+  OnClick="@HandleClick"
+  NoOverline
+  Class="@Cx("h-fit", pointer, submitting, Class)" Color="Color.Secondary">
+  @if (Submitting) {
+    <Icon Class="flex items-center justify-center" Type="IconType.Spinner" Size="Size.Sm"/>
+  } else {
+    <Typography Interactive Bold Uppercase Class="flex items-center justify-center">@ChildContent</Typography>
+  }
+</Card>
+
+@code {
+  [Parameter]
+  public EventCallback OnClickAsync { get; set; }
+  [Parameter]
+  public Action? OnClick { get; set; }
+  [Parameter]
+  public bool Disabled { get; set; }
+  [Parameter]
+  public bool Submitting { get; set; }
+
+  private async Task HandleClickAsync() {
+    if (Disabled || Submitting) return;
+    Submitting = true;
+    StateHasChanged();
+    
+    await OnClickAsync.InvokeAsync();
+    
+    Submitting = false;
+    StateHasChanged();
+  }
+  private void HandleClickSync() {
+    if (Disabled) return;
+    OnClick?.Invoke();
+  }
+
+  // we don't care about the result
+#pragma warning disable CS4014
+  private void HandleClick() {
+    if (OnClick is not null) HandleClickSync();
+    else HandleClickAsync();
+  }
+#pragma warning restore CS4014
+
+  private string pointer => Disabled ? "cursor-not-allowed" : "cursor-pointer";
+  private string? submitting => Submitting ? "cursor-wait" : null;
+}

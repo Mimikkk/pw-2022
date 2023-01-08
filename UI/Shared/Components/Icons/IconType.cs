@@ -26,6 +26,7 @@ public class IconType : SmartEnum<IconType> {
   public static readonly IconType Stack = new(nameof(Stack), typeof(StackPath));
   public static readonly IconType Sun = new(nameof(Sun), typeof(SunPath));
   public static readonly IconType X = new(nameof(X), typeof(XPath));
+  public static readonly IconType Spinner = new(nameof(Spinner), typeof(SpinnerPath));
 
   public IconType(string name, Type component)
     : base(name, ++_count) => _component = component;
