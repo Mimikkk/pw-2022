@@ -26,7 +26,11 @@
     border-radius: 0.25rem;
     left: 0;
     cursor: text;
+    max-width: 100%;
     text-transform: capitalize;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .group:focus-within .label, :not(input:placeholder-shown) + .label {

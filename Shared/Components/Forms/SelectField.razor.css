@@ -32,4 +32,9 @@
     padding-left: 0.25rem;
     padding-right: 0.25rem;
     line-height: normal;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
 }
