@@ -2,7 +2,34 @@
 
 <PageTitle>pw-2022 | Encyclopedia</PageTitle>
 
-<Typography>Aplikacja dotyczy dostępnych ras i zasobów</Typography>
+<Card Header="@header">
+  <Typography>
+    Aplikacja zaliczeniowa utworzona na rzecz przedmiotu <strong>Programowanie Wizualne</strong>.
+  </Typography>
+  
+  <Typography>
+    Jest to encyklopedia i miejsce do katalogowania wystepujących ras oraz produktów, ktore są w stanie wytworzyć.
+  </Typography>
+  <Typography Interactive>
+    Przejdź do katalogu
+    <NavLink href="goods">
+      <strong>
+        dóbr
+      </strong>
+    </NavLink>
+    .
+  </Typography>
+  <Typography Interactive>
+    Przejdź do katalogu
+    <NavLink href="goods">
+      <strong>
+        ras
+      </strong>
+    </NavLink>
+    .
+  </Typography>
+</Card>
 
-<Typography>Przejdź do dostępnych dóbr</Typography>
-<Typography>Przejdź do dostępnych ras</Typography>
+@code {
+  private readonly RenderFragment header = @<Title>Encyklopedia występowania</Title>;
+}

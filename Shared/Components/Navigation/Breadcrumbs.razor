@@ -25,6 +25,7 @@
       link = $"{link}/{path}";
       result.Add((link, path));
     }
+    if (result.Count == 0) result.Add(("/", "Home"));
 
     return result;
   }
