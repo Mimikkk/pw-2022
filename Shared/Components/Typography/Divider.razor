@@ -1,5 +1,5 @@
 ﻿@if (Vertical) {
-  <hr class="@Cx("h-full border-t-0 w-0 border-l", Color["border", 7])"/>
+  <hr class="@Cx("h-full border-t-0 w-0 border-l", Color["border", 7], Class)"/>
 } else {
   <hr class="@Color["border", 7]"/>
 }
@@ -7,6 +7,8 @@
 @code {
   [Parameter]
   public Color Color { get; set; } = Color.Primary;
+  [Parameter]
+  public string? Class { get; set; }
   [Parameter]
   public bool Vertical { get; set; }
 }

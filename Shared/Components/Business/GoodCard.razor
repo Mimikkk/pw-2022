@@ -1,0 +1,44 @@
+﻿<Card Header="@header" Footer="@footer">
+  <div class="flex gap-2">
+    <Card Color="Color.Secondary" Shade="5">
+      <div class="w-24 h-24 flex items-center justify-center">
+        <Icon Type="IconType.Sun" Size="Size.Lg"></Icon>
+      </div>
+    </Card>
+    <Typography Overflow Class="h-24">Drewno to podstawowy surowiec w grach survivalowych, który służy do wielu różnych celów. Może być wykorzystywane do tworzenia narzędzi, budowy schronienia, rozpalania ognia oraz produkcji przedmiotów takich jak kajdanki, tarcze i wiele innych.</Typography>
+  </div>
+  Wytwarzane przez:
+  <ul>
+    <li>
+      <strong>Michał</strong>
+    </li>
+    <li>
+      <strong>Michał</strong>
+    </li>
+    <li>
+      <strong>Michał</strong>
+    </li>
+  </ul>
+</Card>
+
+@code {
+  private RenderFragment header =>
+    @<div class="flex w-full items-center gap-2">
+      <Title>Dobro - Drewno</Title>
+      <div class="flex gap-0.5 ml-auto">
+        <button>
+          <Icon Type="IconType.Pen" Size="Size.Sm" Interactive></Icon>
+        </button>
+        <button>
+          <Icon Type="IconType.Bin" Size="Size.Sm" Interactive></Icon>
+        </button>
+      </div>
+    </div>;
+  private RenderFragment footer =>
+    @<NavLink href="goods/wood">
+      <Title Class="flex gap-2" Interactive>
+        <Icon Type="IconType.RightChevron" Size="Size.Sm" Interactive></Icon>
+        Dodatkowe informacje
+      </Title>
+    </NavLink>;
+}

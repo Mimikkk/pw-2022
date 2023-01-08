@@ -18,8 +18,8 @@
 </label>
 
 @code {
-  [Parameter, EditorRequired]
-  public string Name { get; set; } = null!;
+  [Parameter]
+  public string Name { get; set; } = Guid.NewGuid().ToString("n")[..8];
 
   [Parameter]
   public string? Value { get; set; }

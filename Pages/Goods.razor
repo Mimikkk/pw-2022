@@ -3,20 +3,20 @@
 <PageTitle>pw-2022 | Goods</PageTitle>
 
 <section class="h-full grid grid-cols-6">
-  <div class="@Cx(@Color.Primary["bg", 2], "h-full py-4 px-2 flex flex-col gap-2")">
-    <TextField Icon="IconType.Magnifier" Label="Szukaj..." Name="search"/>
+  <div class="@Cx(@Color.Primary["bg", 2], "h-full py-4 px-2 flex flex-col gap-4")">
+    <TextField Icon="IconType.Magnifier" Label="Szukaj..." Value="@SearchValue"/>
     <Divider/>
-    <SelectField Icon="IconType.Filter" Label="Wartość rasy" Name="filter-1">
+    <SelectField Icon="IconType.Filter" Label="Wartość rasy">
       <option value="low">niskie</option>
       <option value="medium">średnie</option>
       <option value="high">wysokie</option>
     </SelectField>
-    <SelectField Icon="IconType.Filter" Label="Czy rasa jest przydatna" Name="filter-2">
+    <SelectField Icon="IconType.Filter" Label="Czy rasa jest przydatna">
       <option value="low">niskie</option>
       <option value="medium">średnie</option>
       <option value="high">wysokie</option>
     </SelectField>
-    <SelectField Icon="IconType.Filter" Label="Lubi lewd :3???" Name="filter-3">
+    <SelectField Icon="IconType.Filter" Label="Lubi lewd :3???">
       <option value="low">niskie</option>
       <option value="medium">średnie</option>
       <option value="high">wysokie</option>
@@ -24,35 +24,9 @@
   </div>
   <div class="h-full col-span-5 flex flex-col gap-2">
     <div class="h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
-      <Card Header="@header" Footer="@footer">
-        <div class="flex gap-2">
-          <Card Color="Color.Secondary" Shade="5">
-            <div class="w-24 h-24 flex items-center justify-center">
-              <Icon Type="IconType.Sun" Size="Size.Lg"></Icon>
-            </div>
-          </Card>
-          <Typography Overflow Class="h-24">Drewno to podstawowy surowiec w grach survivalowych, który służy do wielu różnych celów. Może być wykorzystywane do tworzenia narzędzi, budowy schronienia, rozpalania ognia oraz produkcji przedmiotów takich jak kajdanki, tarcze i wiele innych.</Typography>
-        </div>
-        Wytwarzane przez:
-        <ul>
-          <li>
-            <strong>Michał</strong>
-          </li>
-          <li>
-            <strong>Michał</strong>
-          </li>
-          <li>
-            <strong>Michał</strong>
-          </li>
-        </ul>
-      </Card>
-      <Card Class="h-48"></Card>
-      <Card Class="h-48"></Card>
-      <Card Class="h-48"></Card>
-      <Card Class="h-48"></Card>
-      <Card Class="h-48"></Card>
-      <Card Class="h-48"></Card>
-      <Card Class="h-48"></Card>
+      @foreach (var item in Items) {
+        <GoodCard/>
+      }
     </div>
     <div class="mt-auto flex gap-2 justify-center items-center p-2">
       <Icon Class="m-auto" Type="IconType.DownChevron" Color="Color.Secondary" Interactive></Icon>
@@ -66,23 +40,19 @@
 </section>
 
 @code {
-  private RenderFragment header =>
-    @<div class="flex w-full items-center gap-2">
-      <Title>Dobro - Drewno</Title>
-      <div class="flex gap-0.5 ml-auto">
-        <button>
-          <Icon Type="IconType.Pen" Size="Size.Sm" Interactive></Icon>
-        </button>
-        <button>
-          <Icon Type="IconType.Bin" Size="Size.Sm" Interactive></Icon>
-        </button>
-      </div>
-    </div>;
-  private RenderFragment footer =>
-    @<NavLink href="goods/wood">
-      <Title Class="flex gap-2" Interactive>
-        <Icon Type="IconType.RightChevron" Size="Size.Sm" Interactive></Icon>
-        Dodatkowe informacje
-      </Title>
-    </NavLink>;
+  private List<object> Items => new() {
+    new { },
+    new { },
+    new { },
+    new { },
+    new { },
+    new { },
+    new { },
+    new { },
+    new { },
+    new { },
+    new { },
+  };
+
+  private string SearchValue = null!;
 }
