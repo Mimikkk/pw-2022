@@ -1,4 +1,24 @@
-﻿.label {
+﻿.group {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    cursor: text;
+    height: 2.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+
+    background: white;
+    border-color: rgb(99 102 241);
+    border-width: 1px;
+    border-radius: 0.25rem;
+}
+
+.group:focus-within {
+    outline: 1px solid;
+}
+
+.label {
     position: absolute;
     padding-left: 0.5rem;
     transition: all 200ms;
@@ -14,4 +34,5 @@
     font-size: 0.75rem;
     padding-left: 0.25rem;
     padding-right: 0.25rem;
+    line-height: normal;
 }
