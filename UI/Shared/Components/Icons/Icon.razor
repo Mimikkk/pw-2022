@@ -1,10 +1,19 @@
-﻿<div Title="@Title" @onclick="OnClick" class="@Cx(Size.Height, Contour["text", Inverted ? 0 : 8], "aspect-square", Class)">
-  <div class="@Cx(interactiveContainer, "rounded")">
+﻿<div
+  id="@Id"
+  Title="@Title"
+  @onclick="OnClick"
+  class="@Cx(interactiveImage, Contour["text", Inverted ? 0 : 8], "icon", Class)">
+  <div class="@Cx(interactiveContainer, "rounded flex")">
     <svg
-      class="@Cx(@Color.Accent["fill", 1], interactiveImage)"
+      class="@Cx(Size.Height, Color.Accent["fill", 1], interactiveImage)"
       xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
       @Type.Component
     </svg>
+    @if (Label is not null) {
+      <label for="@Id" class="w-0 duration-500 transition-all">
+        <Typography Overflow>@Label</Typography>
+      </label>
+    }
   </div>
 </div>
 
@@ -21,15 +30,18 @@
   public bool Inverted { get; set; }
   [Parameter]
   public bool Interactive { get; set; }
-  private string? interactiveContainer => Interactive ? $"hover:{Color["bg", Inverted ? 7 : 3]} transition-all cursor-pointer" : null;
-  private string? interactiveImage => Interactive ? $"hover:{Color.Accent["fill", 3]} transition-all" : null;
-
   [Parameter]
   public string? Title { get; set; }
+  [Parameter]
+  public string? Label { get; set; }
 
   [Parameter]
   public Action OnClick { get; set; } = () => { };
 
   [Parameter]
   public string? Class { get; set; }
+
+  private string? interactiveContainer => Interactive ? $"hover:{Color["bg", Inverted ? 7 : 3]} transition-all cursor-pointer" : null;
+  private string? interactiveImage => Interactive ? $"hover:{Color.Accent["fill", 3]} duration-400 transition-all" : null;
+  private string Id = CreateStr();
 }

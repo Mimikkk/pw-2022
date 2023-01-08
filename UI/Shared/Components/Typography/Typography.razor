@@ -21,7 +21,7 @@
   public bool Overflow { get; set; }
 
   [Parameter]
-  public int OverflowLines { get; set; } = 1;
+  public int OverflowLines { get; set; }
 
   [Parameter]
   public bool Capitalize { get; set; }
@@ -44,5 +44,5 @@
   private string? bold => Bold ? "font-bold" : null;
   private string? uppercase => Uppercase ? "uppercase" : null;
   private string? unselectable => Unselectable ? "select-none" : null;
-  private string? lineClamp => Overflow ? $"-webkit-line-clamp: {OverflowLines};" : null;
+  private string? lineClamp => Overflow && OverflowLines is not 0 ? $"-webkit-line-clamp: {OverflowLines};" : null;
 }

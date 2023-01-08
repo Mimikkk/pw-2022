@@ -13,7 +13,7 @@
     <Typography Bold>Wytwarzane przez:</Typography>
     <div class="flex gap-1">
       @foreach (var producer in producers) {
-        <Icon Type="IconType.Person" Size="Size.Sm" Title="@_accessName(producer)" Interactive/>
+        <Icon Type="IconType.Person" Size="Size.Sm" Label="@_accessName(producer)" Interactive/>
       }
     </div>
   </div>
@@ -22,13 +22,13 @@
 @code {
   private List<object> producers = new() {
     new {
-      Name = "1"
+      Name = "Jaszczurka"
     },
     new {
-      Name = "2"
+      Name = "Bóbr"
     },
     new {
-      Name = "3"
+      Name = "Harpia"
     },
   };
 

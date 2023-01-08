@@ -19,7 +19,7 @@
 
 @code {
   [Parameter]
-  public string Name { get; set; } = Guid.NewGuid().ToString("n")[..8];
+  public string Name { get; set; } = CreateStr();
 
   [Parameter]
   public string? Value { get; set; }

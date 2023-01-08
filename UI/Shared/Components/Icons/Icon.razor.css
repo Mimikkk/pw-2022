@@ -1,0 +1,12 @@
+﻿.icon {
+}
+
+.icon:hover label {
+    width: 100%;
+}
+
+.icon label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
