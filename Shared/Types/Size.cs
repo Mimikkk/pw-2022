@@ -7,7 +7,7 @@ public class Size : SmartEnum<Size> {
   public static readonly Size Sm = new("SM", 2);
   public static readonly Size Md = new("MD", 3);
   public static readonly Size Lg = new("LG", 4);
-  public static readonly Size Xl = new("XL", 5);
+  public static readonly Size Xl = new("XL", 6);
 
 
   public Size(string name, int value)

@@ -1,5 +1,5 @@
 ﻿@using pw_2022.Shared.Types
-<section class="@Cx("flex flex-col gap-2 p-2 w-full h-full rounded shadow", Color["bg", 1], hoverable, Class)">
+<section class="@Cx("flex flex-col gap-2 p-2 w-full h-full rounded shadow", Color["bg", Shade], hoverable, Class)">
   @if (Header is not null) {
     <div class="@Cx("flex items-center", HeaderClass)">
       @Header
@@ -19,6 +19,8 @@
   [Parameter]
   public string? Class { get; set; }
   [Parameter]
+  public int Shade { get; set; } = 1;
+  [Parameter]
   public RenderFragment? Header { get; set; }
   [Parameter]
   public string? HeaderClass { get; set; }
@@ -31,5 +33,5 @@
   [Parameter]
   public bool NotHoverable { get; set; }
 
-  private string? hoverable => !NotHoverable ? $"hover:shadow-lg transition-all hover:{Color["bg", 2]}" : null;
+  private string? hoverable => !NotHoverable ? $"hover:shadow-lg transition-all hover:{Color["bg", Math.Min(Shade + 1, 9)]}" : null;
 }

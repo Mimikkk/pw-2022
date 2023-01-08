@@ -2,7 +2,10 @@
 module.exports = {
   content: ["./**/*.{razor, html, cshtml}"],
   theme: {
-    extend: {},
+    extend: {
+      transparent: "transparent",
+      current: "currentColor",
+    },
   },
   plugins: [],
 }

@@ -3,10 +3,81 @@
 
 <PageTitle>pw-2022 | Goods</PageTitle>
 
-<section class="grid grid-cols-12">
-  <div class="@Cx(@Color.Primary["bg", 2], "h-full col-span-3")">Filtry i szukajka</div>
-  <div class="col-span-9 flex flex-col gap-2">
-    <div>Content</div>
-    <div class="mt-auto">Stópka</div>
+<section class="h-full grid grid-cols-6">
+  <div class="@Cx(@Color.Primary["bg", 2], "h-full py-4 px-2")">
+    <label for="search">
+      <div class="h-10 items-center flex rounded border border-slate-500 bg-white gap-1 px-2 cursor-text focus-within:outline-1 focus-within:outline">
+        <Icon Type="IconType.Magnifier" Size="Size.Sm" Interactive Class="cursor-pointer"/>
+        <Typography>|</Typography>
+        <input id="search" class="px-2 rounded w-full outline-none" placeholder="szukaj..."/>
+      </div>
+    </label>
+
+    <div>Filter 1</div>
+    <div>Filter 2</div>
+    <div>Filter 3</div>
+  </div>
+  <div class="h-full col-span-5 flex flex-col gap-2">
+    <div class="h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
+      <Card Header="@header" Footer="@footer">
+        <div class="flex gap-2">
+          <Card Color="Color.Secondary" Shade="5">
+            <div class="w-24 h-24 flex items-center justify-center">
+              <Icon Type="IconType.Sun" Size="Size.Lg"></Icon>
+            </div>
+          </Card>
+          <Typography Overflow Class="h-24">Drewno to podstawowy surowiec w grach survivalowych, który służy do wielu różnych celów. Może być wykorzystywane do tworzenia narzędzi, budowy schronienia, rozpalania ognia oraz produkcji przedmiotów takich jak kajdanki, tarcze i wiele innych.</Typography>
+        </div>
+        Wytwarzane przez:
+        <ul>
+          <li>
+            <strong>Michał</strong>
+          </li>
+          <li>
+            <strong>Michał</strong>
+          </li>
+          <li>
+            <strong>Michał</strong>
+          </li>
+        </ul>
+      </Card>
+      <Card Class="h-48"></Card>
+      <Card Class="h-48"></Card>
+      <Card Class="h-48"></Card>
+      <Card Class="h-48"></Card>
+      <Card Class="h-48"></Card>
+      <Card Class="h-48"></Card>
+      <Card Class="h-48"></Card>
+    </div>
+    <div class="mt-auto flex gap-2 justify-center items-center p-2">
+      <Icon Class="m-auto" Type="IconType.DownChevron" Color="Color.Secondary" Interactive></Icon>
+      <button class="place-self-end">
+        <Card Class="w-48" Color="Color.Secondary">
+          <Typography Interactive Bold Uppercase>Dodaj</Typography>
+        </Card>
+      </button>
+    </div>
   </div>
 </section>
+
+@code {
+  private RenderFragment header =>
+    @<div class="flex w-full items-center gap-2">
+      <Title>Dobro - Drewno</Title>
+      <div class="flex gap-0.5 ml-auto">
+        <button>
+          <Icon Type="IconType.Pen" Size="Size.Sm" Interactive></Icon>
+        </button>
+        <button>
+          <Icon Type="IconType.Bin" Size="Size.Sm" Interactive></Icon>
+        </button>
+      </div>
+    </div>;
+  private RenderFragment footer =>
+    @<NavLink href="goods/wood">
+      <Title Class="flex gap-2">
+        <Icon Type="IconType.RightChevron" Size="Size.Sm" Interactive></Icon>
+        Dodatkowe informacje
+      </Title>
+    </NavLink>;
+}
