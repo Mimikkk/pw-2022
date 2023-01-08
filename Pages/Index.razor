@@ -1,33 +1,42 @@
 ﻿@page "/"
+@using pw_2022.Shared.Types
 
 <PageTitle>pw-2022 | Encyclopedia</PageTitle>
 
-<Card Header="@header">
-  <Typography>
-    Aplikacja zaliczeniowa utworzona na rzecz przedmiotu <strong>Programowanie Wizualne</strong>.
-  </Typography>
-  <Typography>
-    Jest to encyklopedia pozwalająca na katalogowanie wystepujących ras oraz produktów, ktore te rasy są w stanie wytworzyć.
-  </Typography>
-  <Typography Interactive>
-    Przejdź do katalogu
+<div class="px-2 py-4 flex flex-col gap-2">
+  <Card Header="@header">
+    <Typography>
+      Aplikacja zaliczeniowa utworzona na rzecz przedmiotu <strong>Programowanie Wizualne</strong>.
+    </Typography>
+    <Typography>
+      Jest to encyklopedia pozwalająca na katalogowanie wystepujących ras oraz produktów, ktore te rasy są w stanie wytworzyć.
+    </Typography>
+  </Card>
+  <Card Color="Color.Accent">
     <NavLink href="goods">
-      <strong>
-        dóbr
-      </strong>
+      <Typography Interactive Class="flex">
+        <Icon Size="Size.Sm" Type="IconType.RightChevronDouble"/>
+        Przejdź do katalogu&nbsp;
+        <strong>
+          Dóbr
+        </strong>
+        .
+      </Typography>
     </NavLink>
-    .
-  </Typography>
-  <Typography Interactive>
-    Przejdź do katalogu
+  </Card>
+  <Card Color="Color.Accent">
     <NavLink href="goods">
-      <strong>
-        ras
-      </strong>
+      <Typography Interactive Class="flex">
+        <Icon Size="Size.Sm" Type="IconType.RightChevronDouble"/>
+        Przejdź do katalogu&nbsp;
+        <strong>
+          Ras
+        </strong>
+        .
+      </Typography>
     </NavLink>
-    .
-  </Typography>
-</Card>
+  </Card>
+</div>
 
 @code {
   private readonly RenderFragment header = @<Title>Encyklopedia występowania</Title>;

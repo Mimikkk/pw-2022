@@ -1,3 +1,12 @@
 ﻿@page "/goods"
+@using pw_2022.Shared.Types
 
 <PageTitle>pw-2022 | Goods</PageTitle>
+
+<section class="grid grid-cols-12">
+  <div class="@Cx(@Color.Primary["bg", 2], "h-full col-span-3")">Filtry i szukajka</div>
+  <div class="col-span-9 flex flex-col gap-2">
+    <div>Content</div>
+    <div class="mt-auto">Stópka</div>
+  </div>
+</section>
