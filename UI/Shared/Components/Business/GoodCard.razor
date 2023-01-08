@@ -9,12 +9,30 @@
       Drewno to podstawowy surowiec w grach survivalowych, który służy do wielu różnych celów. Może być wykorzystywane do tworzenia narzędzi, budowy schronienia, rozpalania ognia oraz produkcji przedmiotów takich jak kajdanki, tarcze i wiele innych.
     </Typography>
   </div>
-  Wytwarzane przez:
-  <ul>
-  </ul>
+  <div>
+    <Typography Bold>Wytwarzane przez:</Typography>
+    <div class="flex gap-1">
+      @foreach (var producer in producers) {
+        <Icon Type="IconType.Person" Size="Size.Sm" Title="@_accessName(producer)" Interactive/>
+      }
+    </div>
+  </div>
 </Card>
 
 @code {
+  private List<object> producers = new() {
+    new {
+      Name = "1"
+    },
+    new {
+      Name = "2"
+    },
+    new {
+      Name = "3"
+    },
+  };
+
+  private string? _accessName(object producer) => producer.Access<string>("Name");
   private RenderFragment header =>
     @<div class="flex w-full items-center gap-2">
       <Title>Dobro - Drewno</Title>
