@@ -1,0 +1,17 @@
+﻿@inherits Component
+
+<section class="@Cx("flex flex-col gap-2 p-2 w-full h-full", Color["bg", Shade], border, hoverable, Class)">
+  @ChildContent
+</section>
+
+@code {
+  [Parameter]
+  public int Shade { get; set; } = 1;
+  [Parameter]
+  public Color Color { get; set; } = Color.Shade;
+  [Parameter]
+  public bool NotHoverable { get; set; }
+
+  private string? hoverable => !NotHoverable ? $"hover:shadow-lg transition-all hover:{Color["bg", Math.Min(Shade + 1, 9)]}" : null;
+  private string border => $"border-t-2 shadow rounded {Color.Secondary["border", 8]}";
+}

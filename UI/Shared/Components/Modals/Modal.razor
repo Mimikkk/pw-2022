@@ -1,15 +1,14 @@
-﻿@if (IsOpen) {
+﻿@inherits Component
+
+@if (IsOpen) {
   <div Class="absolute flex justify-center items-center w-full h-full left-0 top-0 backdrop-blur">
-    <Card Class="z-10 w-fit h-fit">
+    <Card Class="@Cx("z-10 w-fit h-fit", Class)">
       @ChildContent
     </Card>
   </div>
 }
 
 @code {
-  [Parameter]
-  public RenderFragment? ChildContent { get; set; }
-
   [Parameter]
   public bool IsOpen { get; set; }
 }

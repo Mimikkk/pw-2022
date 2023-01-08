@@ -1,4 +1,5 @@
-﻿<Card Class="@Class" Header="@header" Footer="@footer">
+﻿<Card Class="@Class">
+  <CardHeader>@header</CardHeader>
   <div class="flex gap-2">
     <Card Color="Color.Secondary" Shade="5">
       <div class="w-48 h-48 flex items-center justify-center">
@@ -8,7 +9,9 @@
     <Typography Overflow OverflowLines="10">
       @Description
     </Typography>
-  </div></Card>
+  </div>
+  <CardFooter>@footer</CardFooter>
+</Card>
 
 @code {
   [Parameter]

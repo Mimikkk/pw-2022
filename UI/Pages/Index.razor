@@ -3,7 +3,8 @@
 <PageTitle>UI | Encyclopedia</PageTitle>
 
 <div class="px-2 py-4 flex flex-col gap-2">
-  <Card Header="@header">
+  <Card>
+    <CardHeader>@header</CardHeader>
     <Typography>
       Aplikacja zaliczeniowa utworzona na rzecz przedmiotu <strong>Programowanie Wizualne</strong>.
     </Typography>
@@ -36,10 +37,20 @@
     </NavLink>
   </Card>
 </div>
-<Modal IsOpen="false">
-  <div>1231123</div>
+<Icon Type="IconType.X" Interactive OnClick="ToggleOpen"/>
+<Modal Class="h-48" IsOpen="@IsOpen">
+  <div class="flex gap-2 justify-between">
+    <Title>Tytuł Modalu</Title>
+    <Icon Size="Size.Sm" Type="IconType.X" Interactive OnClick="ToggleOpen"/>
+  </div>
+  <div class="flex gap-2 justify-between mt-auto bg-slate-300 h-12 items-center px-2 -m-2 rounded-b">
+    <Title>Tytuł Modalu</Title>
+    <Icon Size="Size.Sm" Type="IconType.X" Interactive OnClick="ToggleOpen"/>
+  </div>
 </Modal>
 
 @code {
   private readonly RenderFragment header = @<Title>Encyklopedia występowania</Title>;
+  private bool IsOpen { get; set; } = true;
+  private void ToggleOpen() => IsOpen = !IsOpen;
 }
