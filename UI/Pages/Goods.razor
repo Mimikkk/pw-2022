@@ -4,7 +4,7 @@
 
 <section class="h-full grid grid-cols-6">
   <div class="@Cx(@Color.Primary["bg", 2], "h-full py-4 px-2 flex flex-col gap-4")">
-    <TextField Icon="IconType.Magnifier" Label="Szukaj..." Value="@SearchValue"/>
+    <TextField Icon="IconType.Magnifier" Label="Szukaj..." Value="@_searchValue"/>
     <Divider/>
     <SelectField Icon="IconType.Filter" Label="wymogi">
       <option value="low">Niskie</option>
@@ -22,7 +22,7 @@
       <option value="high">Wysoka</option>
     </SelectField>
   </div>
-  <div class="h-full col-span-5 flex flex-col gap-2">
+  <div class="h-full px-48 col-span-5 flex flex-col gap-2">
     <div class="h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
       @foreach (var item in Items) {
         <GoodCard/>
@@ -54,5 +54,5 @@
     new { },
   };
 
-  private string SearchValue = null!;
+  private string _searchValue = null!;
 }

@@ -1,12 +1,12 @@
-﻿<Card Header="@header" Footer="@footer">
+﻿<Card Class="@Class" Header="@header" Footer="@footer">
   <div class="flex gap-2">
     <Card Color="Color.Secondary" Shade="5">
       <div class="w-24 h-24 flex items-center justify-center">
-        <Icon Type="IconType.Sun" Size="Size.Lg"></Icon>
+        <Icon Type="IconType.Sun" Size="Size.Lg"/>
       </div>
     </Card>
     <Typography Overflow OverflowLines="5">
-      Drewno to podstawowy surowiec w grach survivalowych, który służy do wielu różnych celów. Może być wykorzystywane do tworzenia narzędzi, budowy schronienia, rozpalania ognia oraz produkcji przedmiotów takich jak kajdanki, tarcze i wiele innych.
+      @Description
     </Typography>
   </div>
   <div>
@@ -20,6 +20,12 @@
 </Card>
 
 @code {
+  [Parameter]
+  public string? Class { get; set; }
+
+  private string? Name = "Drewno";
+  private string Description { get; set; } = "Drewno to podstawowy surowiec w grach survivalowych, który służy do wielu różnych celów. Może być wykorzystywane do tworzenia narzędzi, budowy schronienia, rozpalania ognia oraz produkcji przedmiotów takich jak kajdanki, tarcze i wiele innych.";
+
   private List<object> producers = new() {
     new {
       Name = "Jaszczurka"
@@ -35,7 +41,7 @@
   private string? _accessName(object producer) => producer.Access<string>("Name");
   private RenderFragment header =>
     @<div class="flex w-full items-center gap-2">
-      <Title>Dobro - Drewno</Title>
+      <Title>Dobro - @Name</Title>
       <div class="flex gap-0.5 ml-auto">
         <button>
           <Icon Type="IconType.Pen" Size="Size.Sm" Interactive></Icon>
@@ -45,11 +51,13 @@
         </button>
       </div>
     </div>;
+
   private RenderFragment footer =>
-    @<NavLink href="goods/wood">
+    @<NavLink href="@_link">
       <Title Class="flex gap-2" Interactive>
         <Icon Type="IconType.RightChevron" Size="Size.Sm" Interactive></Icon>
         Więcej informacji
       </Title>
     </NavLink>;
+  private string _link => $"goods/{Name}";
 }

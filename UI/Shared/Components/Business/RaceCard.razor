@@ -1,5 +1,41 @@
-﻿<h3>GoodCard</h3>
+﻿<Card Class="@Class" Header="@header" Footer="@footer">
+  <div class="flex gap-2">
+    <Card Color="Color.Secondary" Shade="5">
+      <div class="w-48 h-48 flex items-center justify-center">
+        <Icon Type="IconType.Person" Size="Size.Lg"/>
+      </div>
+    </Card>
+    <Typography Overflow OverflowLines="10">
+      @Description
+    </Typography>
+  </div></Card>
 
 @code {
-  
+  [Parameter]
+  public string? Class { get; set; }
+
+  private string Name { get; set; } = "Jaszczurka";
+  private string Description { get; set; } = "Drewno to podstawowy surowiec w grach survivalowych, który służy do wielu różnych celów. Może być wykorzystywane do tworzenia narzędzi, budowy schronienia, rozpalania ognia oraz produkcji przedmiotów takich jak kajdanki, tarcze i wiele innych.";
+  private string? _accessName(object producer) => producer.Access<string>("Name");
+  private RenderFragment header =>
+    @<div class="flex w-full items-center gap-2">
+      <Title>Rasa - @Name</Title>
+      <div class="flex gap-0.5 ml-auto">
+        <button>
+          <Icon Type="IconType.Pen" Size="Size.Sm" Interactive></Icon>
+        </button>
+        <button>
+          <Icon Type="IconType.Bin" Size="Size.Sm" Interactive></Icon>
+        </button>
+      </div>
+    </div>;
+
+  private RenderFragment footer =>
+    @<NavLink href="@_link">
+      <Title Class="flex gap-2" Interactive>
+        <Icon Type="IconType.RightChevron" Size="Size.Sm" Interactive></Icon>
+        Więcej informacji
+      </Title>
+    </NavLink>;
+  private string _link => $"races/{Name}";
 }
