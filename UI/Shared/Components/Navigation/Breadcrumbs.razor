@@ -6,7 +6,7 @@
   </NavLink>
   <Typography Color="Color.Secondary" Shade="4" Unselectable>|</Typography>
   @foreach (var (link, crumb) in Crumbs()) {
-    <Typography Color="Color.Accent" Shade="@selected(crumb)" Interactive>
+    <Typography Class="capitalize" Color="Color.Accent" Shade="@selected(crumb)" Interactive>
       <NavLink href="@link">@crumb</NavLink>
     </Typography>
     <Typography Color="Color.Secondary" Shade="4" Unselectable>></Typography>
