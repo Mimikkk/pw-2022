@@ -1,5 +1,5 @@
 ﻿@using pw_2022.Shared.Types
-<span class="@Cx(Color["text", Shade], interactive, overflow, capitalize, uppercase, bold, "select-none", Class)">@ChildContent</span>
+<span class="@Cx(Color["text", Shade], interactive, overflow, capitalize, uppercase, bold, unselectable, Class)">@ChildContent</span>
 
 @code {
   [Parameter]
@@ -24,6 +24,9 @@
   public bool Bold { get; set; }
 
   [Parameter]
+  public bool Unselectable { get; set; }
+
+  [Parameter]
   public bool Uppercase { get; set; }
 
   [Parameter]
@@ -34,5 +37,5 @@
   private string? capitalize => Capitalize ? "capitalize" : null;
   private string? bold => Bold ? "font-bold" : null;
   private string? uppercase => Uppercase ? "uppercase" : null;
+  private string? unselectable => Unselectable ? "select-none" : null;
 }
-
