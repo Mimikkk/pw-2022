@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pw-2022", "pw-2022.csproj", "{DFFDCB18-2493-4209-BA2B-498E22B928FB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{1B2B307A-AFA5-4767-8E99-AE8930B0801A}"
 EndProject
 Global
