@@ -54,9 +54,9 @@
 
 @code {
   private bool _isFormDirty = false;
-  private async void HandleSubmit() {
+  private async Task HandleSubmit() {
     await Task.Delay(1000);
-    Log("hh");
+    _toggleModal(false);
   }
 
   private List<object> Items => new() {
