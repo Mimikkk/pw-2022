@@ -1,7 +1,7 @@
 ﻿@inherits Component
 
 <span
-  class="@Cx(Color["text", Shade], interactive, overflow, capitalize, uppercase, bold, unselectable, Class)"
+  class="@Cx(Color["text", Shade], interactive, centered, overflow, capitalize, uppercase, bold, unselectable, Class)"
   style="@Cx(lineClamp)">
   @ChildContent
 </span>
@@ -25,7 +25,10 @@
   public bool Uppercase { get; set; }
   [Parameter]
   public bool Interactive { get; set; }
+  [Parameter]
+  public bool Centered { get; set; }
 
+  private string? centered => Centered ? "flex items-center justify-center" : null;
   private string? interactive => Interactive ? $"transition-all hover:{Color["text", Math.Min(Shade + 2, 9)]}" : null;
   private string? overflow => Overflow ? "ellipsis" : null;
   private string? capitalize => Capitalize ? "capitalize" : null;

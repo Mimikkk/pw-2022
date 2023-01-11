@@ -4,7 +4,9 @@
 
 <div class="px-2 py-4 flex flex-col gap-2">
   <Card>
-    <CardHeader>@header</CardHeader>
+    <CardHeader>
+      <Title>Encyklopedia występowania</Title>
+    </CardHeader>
     <Typography>
       Aplikacja zaliczeniowa utworzona na rzecz przedmiotu <strong>Programowanie Wizualne</strong>.
     </Typography>
@@ -37,17 +39,20 @@
     </NavLink>
   </Card>
 </div>
-<Icon Type="IconType.X" Interactive OnClick="ToggleOpen"/>
-<Modal Class="h-48" IsOpen="@IsOpen">
-  <ModalHeader OnClose="ToggleOpen">Tytuł Modala</ModalHeader>
-  <ModalActions>
-    <Card>123</Card>
-    <Card>123</Card>
+<span>
+  @IsOpen()
+</span>
+<Icon Type="IconType.X" Interactive OnClick="() => Toggle(null)"/>
+<Modal Class="h-48 min-w-[600px]" IsOpen="@IsOpen()">
+  <ModalHeader OnClose="() => Toggle(null)">Tytuł Modala</ModalHeader>
+  <ModalActions OnSubmit="() => Toggle(null)">
   </ModalActions>
 </Modal>
 
 @code {
-  private readonly RenderFragment header = @<Title>Encyklopedia występowania</Title>;
-  private bool IsOpen { get; set; } = true;
-  private void ToggleOpen() => IsOpen = !IsOpen;
+  private Func<bool> IsOpen = null!;
+  private Action<bool?> Toggle = null!;
+
+  protected override void OnInitialized() =>
+    (IsOpen, Toggle) = CreateToggle(this);
 }

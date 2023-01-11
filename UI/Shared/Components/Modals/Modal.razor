@@ -2,7 +2,7 @@
 
 @if (IsOpen) {
   <div Class="absolute flex justify-center items-center w-full h-full left-0 top-0 backdrop-blur">
-    <Card Class="@Cx("z-10 w-fit h-fit", Class)">
+    <Card Class="@Cx(Class)">
       @ChildContent
     </Card>
   </div>
@@ -11,4 +11,6 @@
 @code {
   [Parameter]
   public bool IsOpen { get; set; }
+  [Parameter, EditorRequired]
+  public string Id { get; init; }
 }

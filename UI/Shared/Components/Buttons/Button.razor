@@ -26,15 +26,15 @@
     if (Disabled || Submitting) return;
     Submitting = true;
     StateHasChanged();
-    
+
     await OnClickAsync.InvokeAsync();
-    
+
     Submitting = false;
     StateHasChanged();
   }
   private void HandleClickSync() {
-    if (Disabled) return;
-    OnClick?.Invoke();
+    if (Disabled || OnClick is null) return;
+    OnClick();
   }
 
   // we don't care about the result

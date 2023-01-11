@@ -1,5 +1,17 @@
 ﻿@inherits Component
 
-<CardFooter Class="@Cx("min-h-12 px-2 -m-2 gap-2 justify-between mt-auto rounded-b", Color.Shade["bg", 3], Class)">
+<CardFooter Class="@Cx("min-h-12 p-2 -m-2 gap-2 justify-end mt-auto rounded-b", Color.Shade["bg", 3], Class)">
   @ChildContent
+  @if (OnSubmit is not null) {
+    <Button OnClick="@OnSubmit">123</Button>
+  }
 </CardFooter>
+
+@code {
+  [Parameter]
+  public bool Disabled { get; set; }
+  [Parameter]
+  public EventCallback OnSubmitAsync { get; set; }
+  [Parameter]
+  public Action? OnSubmit { get; set; }
+}
