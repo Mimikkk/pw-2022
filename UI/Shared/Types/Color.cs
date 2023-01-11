@@ -2,7 +2,7 @@
 
 namespace UI.Shared.Types;
 
-public class Color : SmartEnum<Color> {
+public class Color : SmarterEnum<Color> {
   public static readonly Color Shade = new("stone");
   public static readonly Color Primary = new("indigo");
   public static readonly Color Secondary = new("violet");
@@ -14,11 +14,11 @@ public class Color : SmartEnum<Color> {
 
 
   public Color(string name)
-    : base(name, ++_count) { }
+    : base(name) { }
 
   public static implicit operator Color(string name) => FromName(name);
 
-  public class ColorType : SmartEnum<ColorType> {
+  public class ColorType : SmarterEnum<ColorType> {
     public static readonly ColorType Background = new("bg");
     public static readonly ColorType Text = new(nameof(Text));
     public static readonly ColorType Border = new(nameof(Border));
@@ -30,10 +30,9 @@ public class Color : SmartEnum<Color> {
     public static readonly ColorType To = new(nameof(To));
 
     public ColorType(string name)
-      : base(name.ToLower(), ++_count) { }
+      : base(name.ToLower()) { }
 
     public static implicit operator ColorType(string name) => FromName(name);
-    private static int _count;
   }
 
   public string this[ColorType type, int shade] => shade switch {
@@ -46,5 +45,4 @@ public class Color : SmartEnum<Color> {
     "white" => $"{type}-{this}",
     _       => $"{type}-{this}-500"
   };
-  private static int _count;
 }

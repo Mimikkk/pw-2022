@@ -1,9 +1,4 @@
-﻿.animated {
-    animation-duration: 600ms;
-    animation-fill-mode: both;
-}
-
-@keyframes bounce-in-right {
+﻿@keyframes bounce-in-right {
     from, 60%, 75%, 90%, to {
         animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
     }
@@ -51,45 +46,24 @@
     animation-name: bounce-out-right;
 }
 
-.toast-container {
+.container {
     z-index: 9999;
     position: fixed;
     padding: 5px;
     box-sizing: border-box;
     width: 320px;
     color: #FFFFFF;
-}
-
-.bottom-right {
     bottom: 1em;
     right: 1em;
 }
 
 @media only screen and (max-width: 480px) {
-    .toast-container {
+    .container {
         width: 100vw;
         padding: 0px;
         margin: 0px;
-    }
-
-    .top-left {
-        top: 0;
-        left: 0;
-    }
-
-    .top-right {
-        top: 0;
-        right: 1em;
-    }
-
-    .bottom-right {
         bottom: 0;
         right: 1em;
-    }
-
-    .bottom-left {
-        bottom: 0;
-        left: 0;
     }
 }
 
@@ -112,6 +86,9 @@
     font-family: sans-serif;
     cursor: pointer;
     align-items: center;
+
+    animation-duration: 600ms;
+    animation-fill-mode: both;
 }
 
 .info {
@@ -149,8 +126,5 @@
     opacity: 0.7;
     transform-origin: left;
     background-color: rgba(255, 255, 255, 0.7);
-}
-
-.track-progress {
     animation: track-progress linear 1500ms forwards;
 }

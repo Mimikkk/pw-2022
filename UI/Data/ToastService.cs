@@ -1,47 +1,43 @@
+using UI.Shared.Types;
+
 namespace UI.Data;
 
 public class ToastService {
-  public List<Toast> Toasts { get; set; }
+  public List<Toast> Toasts { get; } = new();
 
-  public event Action? ToastsStateChanged;
+  public event Action ToastsStateChanged = null!;
 
-  public ToastService() => Toasts = new List<Toast>();
-
-  public async Task AddToastAsync(string message, string type = "success") {
-    var toast = new Toast(type, message);
+  public async Task AddAsync(string message, ToastType? type = default) {
+    var toast = new Toast(message, type);
     Toasts.Add(toast);
-    NotifyToastsStateHasChanged();
+    ToastsStateChanged();
 
     await Task.Delay(1500);
-    toast.EnterAnimation = false;
-    toast.ExitAnimation = true;
-    NotifyToastsStateHasChanged();
+    toast.IsEntering = false;
+    ToastsStateChanged();
 
     await Task.Delay(600);
-    toast.Visible = false;
-    NotifyToastsStateHasChanged();
+    toast.IsVisible = false;
+    ToastsStateChanged();
     ClearAllToasts();
   }
 
-  public async Task RemoveToastAsync(Toast toast) {
-    toast.EnterAnimation = false;
-    toast.ExitAnimation = true;
-    NotifyToastsStateHasChanged();
+  public async Task RemoveAsync(Toast toast) {
+    toast.IsEntering = false;
+    ToastsStateChanged();
 
     await Task.Delay(600);
 
-    toast.Visible = false;
-    NotifyToastsStateHasChanged();
+    toast.IsVisible = false;
+    ToastsStateChanged();
 
     ClearAllToasts();
   }
 
   public void ClearAllToasts() {
-    if (Toasts.Any(toast => toast.Visible)) return;
+    if (Toasts.Any(toast => toast.IsVisible)) return;
 
     Toasts.Clear();
-    NotifyToastsStateHasChanged();
+    ToastsStateChanged();
   }
-
-  private void NotifyToastsStateHasChanged() => ToastsStateChanged?.Invoke();
 }

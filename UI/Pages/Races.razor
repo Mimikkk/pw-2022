@@ -60,7 +60,7 @@
   private bool _isFormDirty = false;
   private async Task HandleSubmit() {
     _toggleModal(false);
-    await ToastService.AddToastAsync(
+    await ToastService.AddAsync(
       message: "Hello I am a success toast!",
       type: "success"
       );

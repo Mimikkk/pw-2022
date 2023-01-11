@@ -1,14 +1,15 @@
+using UI.Shared.Types;
+
 namespace UI.Data;
 
 public class Toast {
-  public string Type { get; } = "success";
+  public ToastType Type { get; } = ToastType.Info;
   public string Message { get; }
-  public bool Visible { get; set; } = true;
-  public bool EnterAnimation { get; set; } = true;
-  public bool ExitAnimation { get; set; }
+  public bool IsVisible { get; set; } = true;
+  public bool IsEntering { get; set; } = true;
 
-  public Toast(string type, string message) {
-    Type = type;
+  public Toast(string message, ToastType? type) {
+    if (type is not null) Type = type;
     Message = message;
   }
 }
