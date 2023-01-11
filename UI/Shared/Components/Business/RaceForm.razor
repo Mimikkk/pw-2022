@@ -1,0 +1,61 @@
+﻿@inject ToastService ToastService
+@using UI.Data
+<form id="race-form" class="flex flex-col gap-2" @onsubmit="OnSubmit">
+  <div class="flex gap-2 justify-center">
+    <Card Color="Color.Secondary" Shade="5">
+      <div class="w-24 h-24 flex items-center justify-center">
+        <Icon Type="IconType.Person" Size="Size.Lg"/>
+      </div>
+    </Card>
+    <TextField Required Value="@_name()" OnChange="_changeName" Label="Nazwa"/>
+    <TextField Optional Lines="8" Value="@_name()" OnChange="_changeName" Label="Opis"/>
+  </div>
+  <Divider/>
+  <SelectField Required Icon="IconType.Moon" Label="wymogi" Value="@_needs()" OnChange="_selectNeeds">
+    <option value="low">Niskie</option>
+    <option value="medium">Średnie</option>
+    <option value="high">Wysokie</option>
+  </SelectField>
+  <SelectField Required Icon="IconType.Money" Label="dekadencja" Value="@_decadency()" OnChange="_selectDecadency">
+    <option value="low">Niska</option>
+    <option value="medium">Średnia</option>
+    <option value="high">Wysoka</option>
+  </SelectField>
+  <SelectField Required Icon="IconType.Hat" Label="oporność" Value="@_will()" OnChange="_selectWill">
+    <option value="low">Niska</option>
+    <option value="medium">Średnia</option>
+    <option value="high">Wysoka</option>
+  </SelectField>
+</form>
+
+@code {
+  [Parameter]
+  public object? Initial { get; set; }
+
+#pragma warning disable CS4014
+  private async Task OnSubmit() {
+    await Task.Delay(500);
+
+    ToastService.AddAsync(
+      Initial is not null ? "Utworzono rasę" : "Edytowano rasę",
+      "success"
+      );
+  }
+#pragma warning restore CS4014
+
+  private Func<string> _name = null!;
+  private Action<string> _changeName = null!;
+  private Func<string?> _needs = null!;
+  private Action<string?> _selectNeeds = null!;
+  private Func<string?> _decadency = null!;
+  private Action<string?> _selectDecadency = null!;
+  private Func<string?> _will = null!;
+  private Action<string?> _selectWill = null!;
+
+  protected override void OnInitialized() {
+    (_name, _changeName) = CreateSignal(this, Initial?.Access<string>("Name") ?? string.Empty);
+    (_needs, _selectNeeds) = CreateSignal(this, Initial?.Access<string>("Needs") ?? default);
+    (_decadency, _selectDecadency) = CreateSignal(this, Initial?.Access<string>("Decadency") ?? default);
+    (_will, _selectWill) = CreateSignal(this, Initial?.Access<string>("Will") ?? default);
+  }
+}

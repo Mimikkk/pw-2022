@@ -1,11 +1,15 @@
-﻿.group {
+﻿input, textarea {
+    background: inherit;
+}
+
+.group {
     display: flex;
     align-items: center;
     gap: 0.25rem;
     width: 100%;
-    
+
     cursor: text;
-    height: 2.5rem;
+    min-height: 2.5rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 
@@ -23,7 +27,6 @@
     position: absolute;
     padding-left: 0.5rem;
     transition: all 200ms;
-    background: white;
     border-radius: 0.25rem;
     left: 0;
     cursor: text;
@@ -34,10 +37,39 @@
     overflow: hidden;
 }
 
-.group:focus-within .label, :not(input:placeholder-shown) + .label {
+textarea + .label {
+    top: 0.5rem;
+}
+
+.group:focus-within .label, :is(input, textarea):not(:placeholder-shown) + .label {
+    background: white;
     transform: translateY(-1rem);
     font-size: 0.75rem;
     padding-left: 0.25rem;
     padding-right: 0.25rem;
     line-height: normal;
+}
+
+.group:focus-within .label, textarea:not(:placeholder-shown) + .label {
+    transform: translateY(-1rem);
+}
+
+textarea {
+    margin-top: 0.5rem;
+    resize: none;
+    overflow-y: auto;
+    white-space: normal;
+    height: 100%;
+}
+
+.group.optional .label:after {
+    content: " *";
+}
+
+.group.optional {
+    background: #fef9c3;
+}
+
+.optional:focus-within .label, .optional :is(input, textarea):not(:placeholder-shown) + .label {
+    background: #fef9c3;
 }

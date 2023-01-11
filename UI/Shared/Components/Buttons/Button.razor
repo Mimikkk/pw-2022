@@ -3,14 +3,15 @@
 
 
 <Card
-  OnClick="@HandleClick"
   NoOverline
   Class="@Cx("h-fit", pointer, submitting, Class)" Color="Color.Secondary">
-  @if (Submitting) {
-    <Icon Class="flex items-center justify-center" Type="IconType.Spinner" Size="Size.Sm"/>
-  } else {
-    <Typography Interactive Bold Uppercase Class="flex items-center justify-center">@ChildContent</Typography>
-  }
+  <button @onclick="@HandleClick" type="@Type" disabled="@Disabled" form="@Form">
+    @if (Submitting) {
+      <Icon Class="flex items-center justify-center" Type="IconType.Spinner" Size="Size.Sm"/>
+    } else {
+      <Typography Interactive Bold Uppercase Class="flex items-center justify-center">@ChildContent</Typography>
+    }
+  </button>
 </Card>
 
 @code {
@@ -22,12 +23,16 @@
   public bool Disabled { get; set; }
   [Parameter]
   public bool Submitting { get; set; }
+  [Parameter]
+  public string Type { get; set; } = "button";
+  [Parameter]
+  public string? Form { get; set; }
 
   private async Task HandleClickAsync() {
     if (Disabled || Submitting) return;
     Submitting = true;
     StateHasChanged();
-    
+
     await OnClickAsync.InvokeAsync();
 
     Submitting = false;

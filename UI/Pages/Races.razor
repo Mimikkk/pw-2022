@@ -9,17 +9,17 @@
     <Title>Wyszukiwanie Ras</Title>
     <TextField Icon="IconType.Magnifier" Label="Szukaj..." Value="@_name()" OnChange="_searchName"/>
     <Divider/>
-    <SelectField Icon="IconType.Filter" Label="wymogi" Value="@_needs()" OnChange="_selectNeeds">
+    <SelectField Icon="IconType.Filter" Label="wymogi" Value="@_needs()" OnChange="_filterNeeds">
       <option value="low">Niskie</option>
       <option value="medium">Średnie</option>
       <option value="high">Wysokie</option>
     </SelectField>
-    <SelectField Icon="IconType.Filter" Label="dekadencja" Value="@_decadency()" OnChange="_selectDecadency">
+    <SelectField Icon="IconType.Filter" Label="dekadencja" Value="@_decadency()" OnChange="_filterDecadency">
       <option value="low">Niska</option>
       <option value="medium">Średnia</option>
       <option value="high">Wysoka</option>
     </SelectField>
-    <SelectField Icon="IconType.Filter" Label="oporność" Value="@_will()" OnChange="_selectWill">
+    <SelectField Icon="IconType.Filter" Label="oporność" Value="@_will()" OnChange="_filterWill">
       <option value="low">Niska</option>
       <option value="medium">Średnia</option>
       <option value="high">Wysoka</option>
@@ -47,31 +47,9 @@
       @(_isEdit ? $"Edycja rasy {_name()}" : "Dodawanie nowej rasy")
     </Title>
   </ModalHeader>
-  <div class="flex gap-2 justify-center">
-    <Card Color="Color.Secondary" Shade="5">
-      <div class="w-24 h-24 flex items-center justify-center">
-        <Icon Type="IconType.Person" Size="Size.Lg"/>
-      </div>
-    </Card>
-    <TextField Value="@_name()" Label="Nazwa rasy"/>
-  </div>
-  <SelectField Icon="IconType.Moon" Label="wymogi" Value="@_needs()" OnChange="_selectNeeds">
-    <option value="low">Niskie</option>
-    <option value="medium">Średnie</option>
-    <option value="high">Wysokie</option>
-  </SelectField>
-  <SelectField Icon="IconType.Money" Label="dekadencja" Value="@_decadency()" OnChange="_selectDecadency">
-    <option value="low">Niska</option>
-    <option value="medium">Średnia</option>
-    <option value="high">Wysoka</option>
-  </SelectField>
-  <SelectField Icon="IconType.Hat" Label="oporność" Value="@_will()" OnChange="_selectWill">
-    <option value="low">Niska</option>
-    <option value="medium">Średnia</option>
-    <option value="high">Wysoka</option>
-  </SelectField>
+  <RaceForm Initial="@Initial"/>
   <ModalActions>
-    <Button OnClickAsync="HandleSubmit">
+    <Button Type="submit" Form="race-form">
       @(_isEdit ? "Edytuj" : "Dodaj")
     </Button>
   </ModalActions>
@@ -82,6 +60,7 @@
 
 
 @code {
+#pragma warning disable CS4014
   private async Task HandleRemove() {
     await Task.Delay(500);
     ToastService.AddAsync(
@@ -94,21 +73,9 @@
   private bool _isFormDirty = false;
   private async Task HandleSubmit() {
     await Task.Delay(500);
-    if (_isEdit) {
-      ToastService.AddAsync(
-        "Edytowano rasę",
-        "success"
-        );
-      _isEdit = false;
-    } else {
-      ToastService.AddAsync(
-        "Utworzono rasę",
-        "success"
-        );
-    }
-
     _toggleFormModal(false);
   }
+#pragma warning restore CS4014
 
   private List<object> Items => new() {
     new { },
@@ -126,31 +93,39 @@
   private Func<string> _name = null!;
   private Action<string> _searchName = null!;
   private Func<string?> _needs = null!;
-  private Action<string?> _selectNeeds = null!;
+  private Action<string?> _filterNeeds = null!;
   private Func<string?> _decadency = null!;
-  private Action<string?> _selectDecadency = null!;
+  private Action<string?> _filterDecadency = null!;
   private Func<string?> _will = null!;
-  private Action<string?> _selectWill = null!;
+  private Action<string?> _filterWill = null!;
   private Func<bool> _isFormModalVisible = null!;
   private Action<bool?> _toggleFormModal = null!;
   private Func<bool> _isDeleteModalVisible = null!;
   private Action<bool?> _toggleDeleteModal = null!;
-  private bool _isEdit = false;
+  private bool _isEdit;
 
   protected override void OnInitialized() {
     (_name, _searchName) = CreateSignal<string>(this);
-    (_needs, _selectNeeds) = CreateSignal<string?>(this);
-    (_decadency, _selectDecadency) = CreateSignal<string?>(this);
-    (_will, _selectWill) = CreateSignal<string?>(this);
+    (_needs, _filterNeeds) = CreateSignal<string?>(this);
+    (_decadency, _filterDecadency) = CreateSignal<string?>(this);
+    (_will, _filterWill) = CreateSignal<string?>(this);
     (_isFormModalVisible, _toggleFormModal) = CreateToggle(this);
     (_isDeleteModalVisible, _toggleDeleteModal) = CreateToggle(this);
   }
 
+  private object? Initial =>
+    _isEdit ? new {
+      Name = _name(),
+      Needs = _needs(),
+      Decadency = _decadency(),
+      Will = _will(),
+    } : null;
+
   private void ToggleEditModal() {
     _searchName("Jaszczurka");
-    _selectNeeds("low");
-    _selectDecadency("low");
-    _selectWill("low");
+    _filterNeeds("low");
+    _filterDecadency("low");
+    _filterWill("low");
     _toggleFormModal(true);
     _isEdit = true;
   }
