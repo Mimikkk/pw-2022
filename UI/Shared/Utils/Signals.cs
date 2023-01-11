@@ -15,8 +15,8 @@ public static partial class Utils {
     return (Getter, Setter);
   }
 
-  public static (Func<bool>, Action<bool?>) CreateToggle(ComponentBase element) {
-    var (getter, setter) = CreateSignal<bool>(element);
+  public static (Func<bool>, Action<bool?>) CreateToggle(ComponentBase element, bool? initialValue = null) {
+    var (getter, setter) = CreateSignal(element, initialValue ?? false);
     void Toggle(bool? value) => setter(value ?? !getter());
     return (getter, Toggle);
   }

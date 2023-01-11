@@ -6,12 +6,14 @@
   <NotFound>
     <PageTitle>Not found</PageTitle>
     <LayoutView Layout="@typeof(Layout)">
-      <Card>
-        <CardHeader>@header</CardHeader>
-        <Typography>
-          Sorry, Page of given address does not exist.
-        </Typography>
-      </Card>
+      <div class="flex items-center justify-center p-40">
+        <Card Class="w-[800px]">
+          <CardHeader>@header</CardHeader>
+          <Typography>
+            Sorry, Page of given address does not exist.
+          </Typography>
+        </Card>
+      </div>
     </LayoutView>
   </NotFound>
 </Router>

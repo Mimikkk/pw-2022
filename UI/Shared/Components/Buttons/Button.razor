@@ -1,10 +1,12 @@
 ﻿@using System.Linq.Expressions
 @inherits Component
 
+
 <Card
   OnClick="@HandleClick"
   NoOverline
   Class="@Cx("h-fit", pointer, submitting, Class)" Color="Color.Secondary">
+  <span>@Submitting</span>
   @if (Submitting) {
     <Icon Class="flex items-center justify-center" Type="IconType.Spinner" Size="Size.Sm"/>
   } else {
@@ -26,7 +28,7 @@
     if (Disabled || Submitting) return;
     Submitting = true;
     StateHasChanged();
-
+    
     await OnClickAsync.InvokeAsync();
 
     Submitting = false;

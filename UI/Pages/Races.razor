@@ -34,12 +34,31 @@
     </Card>
     <div class="mt-auto flex gap-2 justify-center items-center p-2">
       <Icon Class="m-auto" Type="IconType.DownChevron" Color="Color.Secondary" Interactive/>
-      <Button Class="place-self-end w-48">Dodaj</Button>
+      <Button Class="place-self-end w-48" OnClick="() => _toggleModal(true)">Dodaj</Button>
     </div>
   </div>
 </section>
+<Modal Class="w-[600px]" IsOpen="@_isModalVisible()">
+  <ModalHeader OnClose="() => _toggleModal(false)">
+    <Title>
+      Rasa - @_name() - @(_isEdit ? "Edycja" : "Dodawanie")
+    </Title>
+  </ModalHeader>
+  <ModalActions>
+    <Button OnClickAsync="HandleSubmit">
+      @(_isEdit ? "Edytuj" : "Dodaj")
+    </Button>
+  </ModalActions>
+</Modal>
+
 
 @code {
+  private bool _isFormDirty = false;
+  private async void HandleSubmit() {
+    await Task.Delay(1000);
+    Log("hh");
+  }
+
   private List<object> Items => new() {
     new { },
     new { },
@@ -61,12 +80,15 @@
   private Action<string?> _selectDecadency = null!;
   private Func<string?> _will = null!;
   private Action<string?> _selectWill = null!;
-
+  private Func<bool> _isModalVisible = null!;
+  private Action<bool?> _toggleModal = null!;
+  private bool _isEdit = false;
   protected override void OnInitialized() {
     (_name, _searchName) = CreateSignal<string>(this);
     (_needs, _selectNeeds) = CreateSignal<string?>(this);
     (_decadency, _selectDecadency) = CreateSignal<string?>(this);
     (_will, _selectWill) = CreateSignal<string?>(this);
+    (_isModalVisible, _toggleModal) = CreateToggle(this);
   }
 
   private readonly string _gradient = $"bg-gradient-to-r {Color.Primary["from", 3]} {Color.Primary["to", 2]}";
