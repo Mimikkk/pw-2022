@@ -11,30 +11,29 @@ public class ToastService {
     var toast = new Toast(message, type);
     Toasts.Add(toast);
     ToastsStateChanged();
-
     await Task.Delay(1500);
+
     toast.IsEntering = false;
     ToastsStateChanged();
-
     await Task.Delay(600);
+
     toast.IsVisible = false;
     ToastsStateChanged();
-    ClearAllToasts();
+    ClearAll();
   }
 
   public async Task RemoveAsync(Toast toast) {
     toast.IsEntering = false;
     ToastsStateChanged();
-
     await Task.Delay(600);
 
     toast.IsVisible = false;
     ToastsStateChanged();
 
-    ClearAllToasts();
+    ClearAll();
   }
 
-  public void ClearAllToasts() {
+  public void ClearAll() {
     if (Toasts.Any(toast => toast.IsVisible)) return;
 
     Toasts.Clear();

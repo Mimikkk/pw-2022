@@ -1,10 +1,10 @@
-﻿using Ardalis.SmartEnum;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using UI.Shared.Components.Icons.Paths;
+using UI.Shared.Types;
 
 namespace UI.Shared.Components.Icons;
 
-public class IconType : SmartEnum<IconType> {
+public class IconType : SmarterEnum<IconType> {
   public static readonly IconType Bin = new(nameof(Bin), typeof(BinPath));
   public static readonly IconType Burger = new(nameof(Burger), typeof(BurgerPath));
   public static readonly IconType DownChevron = new(nameof(DownChevron), typeof(DownChevronPath));
@@ -29,7 +29,7 @@ public class IconType : SmartEnum<IconType> {
   public static readonly IconType Spinner = new(nameof(Spinner), typeof(SpinnerPath));
 
   public IconType(string name, Type component)
-    : base(name, ++_count) => _component = component;
+    : base(name) => _component = component;
 
   public RenderFragment Component => builder => {
     builder.OpenComponent(0, _component);
@@ -38,5 +38,4 @@ public class IconType : SmartEnum<IconType> {
 
   public static implicit operator IconType(string name) => FromName(name);
   private readonly Type _component;
-  private static int _count;
 }
