@@ -3,21 +3,21 @@
 <PageTitle>UI | Goods</PageTitle>
 
 <section class="h-full grid grid-cols-6">
-  <div class="@Cx(gradient, "h-full py-4 px-2 flex flex-col gap-4")">
+  <div class="@Cx(_gradient, "h-full py-4 px-2 flex flex-col gap-4")">
     <Title>Wyszukiwanie Dóbr</Title>
-    <TextField Icon="IconType.Magnifier" Label="Szukaj..." Value="@_searchValue"/>
+    <TextField Icon="IconType.Magnifier" Label="Szukaj..." Value="@_name()" OnChange="_searchName"/>
     <Divider/>
-    <SelectField Icon="IconType.Filter" Label="wymogi">
+    <SelectField Icon="IconType.Filter" Label="wymogi" Value="@_needs()" OnChange="_selectNeeds">
       <option value="low">Niskie</option>
       <option value="medium">Średnie</option>
       <option value="high">Wysokie</option>
     </SelectField>
-    <SelectField Icon="IconType.Filter" Label="dekadencja">
+    <SelectField Icon="IconType.Filter" Label="dekadencja" Value="@_decadency()" OnChange="_selectDecadency">
       <option value="low">Niska</option>
       <option value="medium">Średnia</option>
       <option value="high">Wysoka</option>
     </SelectField>
-    <SelectField Icon="IconType.Filter" Label="oporność">
+    <SelectField Icon="IconType.Filter" Label="oporność" Value="@_will()" OnChange="_selectWill">
       <option value="low">Niska</option>
       <option value="medium">Średnia</option>
       <option value="high">Wysoka</option>
@@ -38,6 +38,7 @@
   </div>
 </section>
 
+
 @code {
   private List<object> Items => new() {
     new { },
@@ -53,6 +54,21 @@
     new { },
   };
 
-  private string _searchValue = null!;
-  private string gradient => $"bg-gradient-to-r {Color.Secondary["from", 3]} {Color.Secondary["to", 2]}";
+  private Func<string> _name = null!;
+  private Action<string> _searchName = null!;
+  private Func<string?> _needs = null!;
+  private Action<string?> _selectNeeds = null!;
+  private Func<string?> _decadency = null!;
+  private Action<string?> _selectDecadency = null!;
+  private Func<string?> _will = null!;
+  private Action<string?> _selectWill = null!;
+
+  protected override void OnInitialized() {
+    (_name, _searchName) = CreateSignal<string>(this);
+    (_needs, _selectNeeds) = CreateSignal<string?>(this);
+    (_decadency, _selectDecadency) = CreateSignal<string?>(this);
+    (_will, _selectWill) = CreateSignal<string?>(this);
+  }
+
+  private readonly string _gradient = $"bg-gradient-to-r {Color.Secondary["from", 3]} {Color.Secondary["to", 2]}";
 }
