@@ -1,0 +1,22 @@
+﻿@using UI.Data
+@inject ToastService ToastService
+
+<div class="toast-container bottom-right">
+  @foreach (var toast in ToastService.Toasts) {
+    const string animationIn = "bounce-in-right";
+    const string animationOut = "bounce-out-right";
+
+    <div @onclick="@(() => ToastService.RemoveToastAsync(toast))"
+         class="toast @toast.Type animated @(toast.EnterAnimation ? animationIn : "") @(toast.ExitAnimation ? animationOut : "")"
+         style="display:@(toast.Visible ? "flex" : "none")">
+      @toast.Message
+      <div class="progress track-progress"></div>
+    </div>
+  }
+</div>
+
+@code {
+  protected override void OnInitialized() {
+    ToastService.ToastsStateChanged += StateHasChanged;
+  }
+}

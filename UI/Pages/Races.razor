@@ -1,6 +1,9 @@
 ﻿@page "/races"
+@using UI.Data
+@inject ToastService ToastService
 
 <PageTitle>UI | Races</PageTitle>
+
 <section class="h-full grid grid-cols-6">
   <div class="@Cx(_gradient, "h-full py-4 px-2 flex flex-col gap-4")">
     <Title>Wyszukiwanie Ras</Title>
@@ -23,6 +26,7 @@
     </SelectField>
   </div>
   <div class="h-full px-48 py-8 col-span-5 flex flex-col gap-2">
+    <Button OnClickAsync="HandleSubmit">231</Button>
     <Card Color="Color.Secondary" Class="p-4 h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
       @foreach (var item in Items) {
         <div class="col-span-3 grid grid-cols-4 gap-2">
@@ -55,8 +59,11 @@
 @code {
   private bool _isFormDirty = false;
   private async Task HandleSubmit() {
-    await Task.Delay(1000);
     _toggleModal(false);
+    await ToastService.AddToastAsync(
+      message: "Hello I am a success toast!",
+      type: "success"
+      );
   }
 
   private List<object> Items => new() {
