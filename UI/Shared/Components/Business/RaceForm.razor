@@ -2,13 +2,15 @@
 @using UI.Data
 <form id="race-form" class="flex flex-col gap-2" @onsubmit="OnSubmit">
   <div class="flex gap-2 justify-center">
-    <Card Color="Color.Secondary" Shade="5">
-      <div class="w-24 h-24 flex items-center justify-center">
+    <div class="w-24 h-24 flex items-center justify-center">
+      <Card Color="Color.Secondary" Shade="5">
         <Icon Type="IconType.Person" Size="Size.Lg"/>
-      </div>
-    </Card>
-    <TextField Required Value="@_name()" OnChange="_changeName" Label="Nazwa"/>
-    <TextField Optional Lines="8" Value="@_name()" OnChange="_changeName" Label="Opis"/>
+      </Card>
+    </div>
+    <div class="flex flex-col w-full gap-2">
+      <TextField Required Value="@_name()" OnChange="_changeName" Label="Nazwa"/>
+      <TextField Optional Lines="4" Value="@_name()" OnChange="_changeName" Label="Opis"/>
+    </div>
   </div>
   <Divider/>
   <SelectField Required Icon="IconType.Moon" Label="wymogi" Value="@_needs()" OnChange="_selectNeeds">
