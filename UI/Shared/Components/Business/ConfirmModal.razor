@@ -1,0 +1,38 @@
+﻿<Modal IsOpen="@IsOpen">
+  <ModalHeader OnClose="OnCancel">
+    <div class="flex gap-2 items-center">
+      <Icon Type="IconType.ExclamationCircle" Contour="Color.Error" Size="Size.Lg"/>
+      <Title>
+        @Title
+      </Title>
+    </div>
+  </ModalHeader>
+  <Typography>
+    @ChildContent
+  </Typography>
+  <ModalActions>
+    <Button OnClick="OnCancel">
+      Anuluj
+    </Button>
+    <Button OnClickAsync="OnConfirm">
+      Zatwierdź
+    </Button>
+  </ModalActions>
+</Modal>
+
+@code {
+  [Parameter, EditorRequired]
+  public bool IsOpen { get; set; }
+
+  [Parameter, EditorRequired]
+  public Action OnCancel { get; set; } = null!;
+
+  [Parameter, EditorRequired]
+  public EventCallback OnConfirm { get; set; }
+
+  [Parameter]
+  public string Title { get; set; } = "wymagane potwierdzenie";
+
+  [Parameter]
+  public RenderFragment? ChildContent { get; set; }
+}

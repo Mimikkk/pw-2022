@@ -4,12 +4,12 @@
     <Typography>|</Typography>
   }
   <div class="relative w-full">
-    <input type="text" value="@value" id="@Name" class="px-2 rounded w-full outline-none" placeholder=" " @onchange="HandleChange"/>
+    <input type="text" disabled="@Disabled" value="@value" id="@Name" class="px-2 rounded w-full outline-none" placeholder=" " @onchange="HandleChange"/>
     @if (Label is not null) {
       <label for="@Name" class="label">@Label</label>
     }
   </div>
-  @if (value is not "") {
+  @if (value is not "" && !Disabled) {
     <Icon Type="IconType.X" Size="Size.Sm" Interactive OnClick="HandleClear"/>
   }
 </label>
@@ -17,6 +17,9 @@
 @code {
   [Parameter]
   public string Name { get; set; } = CreateStr();
+
+  [Parameter]
+  public bool Disabled { get; set; }
 
   [Parameter]
   public string? Value { get; set; }
@@ -37,8 +40,10 @@
   private void HandleClear() =>
     OnChange(value = string.Empty);
 
-  private void HandleChange(ChangeEventArgs args) =>
+  private void HandleChange(ChangeEventArgs args) {
+    if (Disabled) return;
     OnChange(value = args.Value as string ?? string.Empty);
+  }
 
   private string value = string.Empty;
 }

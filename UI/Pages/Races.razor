@@ -29,7 +29,7 @@
     <Card Color="Color.Secondary" Class="p-4 h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
       @foreach (var item in Items) {
         <div class="col-span-3 grid grid-cols-4 gap-2">
-          <RaceCard Class="col-span-2"/>
+          <RaceCard OnEdit="ToggleEditModal" OnRemove="() => _toggleDeleteModal(true)" Class="col-span-2"/>
           <GoodCard/>
           <GoodCard/>
         </div>
@@ -37,12 +37,12 @@
     </Card>
     <div class="mt-auto flex gap-2 justify-center items-center p-2">
       <Icon Class="m-auto" Type="IconType.DownChevron" Color="Color.Secondary" Interactive/>
-      <Button Class="place-self-end w-48" OnClick="() => _toggleModal(true)">Dodaj</Button>
+      <Button Class="place-self-end w-48" OnClick="() => _toggleFormModal(true)">Dodaj</Button>
     </div>
   </div>
 </section>
-<Modal Class="w-[600px]" IsOpen="@_isModalVisible()">
-  <ModalHeader OnClose="() => _toggleModal(false)">
+<Modal Class="w-[600px]" IsOpen="@_isFormModalVisible()">
+  <ModalHeader OnClose="() => _toggleFormModal(false)">
     <Title>
       @(_isEdit ? $"Edycja rasy {_name()}" : "Dodawanie nowej rasy")
     </Title>
@@ -53,7 +53,7 @@
         <Icon Type="IconType.Person" Size="Size.Lg"/>
       </div>
     </Card>
-    <TextField Label="Nazwa rasy"/>
+    <TextField Value="@_name()" Label="Nazwa rasy"/>
   </div>
   <SelectField Icon="IconType.Moon" Label="wymogi" Value="@_needs()" OnChange="_selectNeeds">
     <option value="low">Niskie</option>
@@ -76,17 +76,38 @@
     </Button>
   </ModalActions>
 </Modal>
+<ConfirmModal IsOpen="@_isDeleteModalVisible()" OnCancel="() => _toggleDeleteModal(false)" OnConfirm="HandleRemove">
+  Czy na pewno chcesz usunąć rasę <strong>@_name()</strong>?
+</ConfirmModal>
 
 
 @code {
+  private async Task HandleRemove() {
+    await Task.Delay(500);
+    ToastService.AddAsync(
+      "Usunięto rasę",
+      "success"
+      );
+    _toggleDeleteModal(false);
+  }
+
   private bool _isFormDirty = false;
   private async Task HandleSubmit() {
     await Task.Delay(500);
-    await ToastService.AddAsync(
-      message: "Hello I am a success toast!",
-      type: "success"
-      );
-    _toggleModal(false);
+    if (_isEdit) {
+      ToastService.AddAsync(
+        "Edytowano rasę",
+        "success"
+        );
+      _isEdit = false;
+    } else {
+      ToastService.AddAsync(
+        "Utworzono rasę",
+        "success"
+        );
+    }
+
+    _toggleFormModal(false);
   }
 
   private List<object> Items => new() {
@@ -110,16 +131,28 @@
   private Action<string?> _selectDecadency = null!;
   private Func<string?> _will = null!;
   private Action<string?> _selectWill = null!;
-  private Func<bool> _isModalVisible = null!;
-  private Action<bool?> _toggleModal = null!;
+  private Func<bool> _isFormModalVisible = null!;
+  private Action<bool?> _toggleFormModal = null!;
+  private Func<bool> _isDeleteModalVisible = null!;
+  private Action<bool?> _toggleDeleteModal = null!;
   private bool _isEdit = false;
+
   protected override void OnInitialized() {
     (_name, _searchName) = CreateSignal<string>(this);
     (_needs, _selectNeeds) = CreateSignal<string?>(this);
     (_decadency, _selectDecadency) = CreateSignal<string?>(this);
     (_will, _selectWill) = CreateSignal<string?>(this);
-    (_isModalVisible, _toggleModal) = CreateToggle(this);
+    (_isFormModalVisible, _toggleFormModal) = CreateToggle(this);
+    (_isDeleteModalVisible, _toggleDeleteModal) = CreateToggle(this);
   }
 
+  private void ToggleEditModal() {
+    _searchName("Jaszczurka");
+    _selectNeeds("low");
+    _selectDecadency("low");
+    _selectWill("low");
+    _toggleFormModal(true);
+    _isEdit = true;
+  }
   private readonly string _gradient = $"bg-gradient-to-r {Color.Primary["from", 3]} {Color.Primary["to", 2]}";
 }
