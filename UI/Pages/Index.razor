@@ -39,20 +39,3 @@
     </NavLink>
   </Card>
 </div>
-<span>
-  @IsOpen()
-</span>
-<Icon Type="IconType.X" Interactive OnClick="() => Toggle(null)"/>
-<Modal Class="h-48 min-w-[600px]" IsOpen="@IsOpen()">
-  <ModalHeader OnClose="() => Toggle(null)">Tytuł Modala</ModalHeader>
-  <ModalActions OnSubmit="() => Toggle(null)">
-  </ModalActions>
-</Modal>
-
-@code {
-  private Func<bool> IsOpen = null!;
-  private Action<bool?> Toggle = null!;
-
-  protected override void OnInitialized() =>
-    (IsOpen, Toggle) = CreateToggle(this);
-}
