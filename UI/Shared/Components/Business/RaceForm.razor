@@ -1,6 +1,7 @@
 ﻿@inject ToastService ToastService
 @using UI.Data
-<form id="race-form" class="flex flex-col gap-2" @onsubmit="OnSubmit">
+
+<form id="race-form" class="flex flex-col gap-2">
   <div class="flex gap-2 justify-center">
     <div class="w-24 h-24 flex items-center justify-center">
       <Card Color="Color.Secondary" Shade="5">
@@ -35,18 +36,26 @@
   public object? Initial { get; set; }
 
 #pragma warning disable CS4014
-  private async Task OnSubmit() {
+  public async Task OnSubmit() {
+    if (!Validate()) return;
     await Task.Delay(500);
 
     ToastService.AddAsync(
-      Initial is not null ? "Utworzono rasę" : "Edytowano rasę",
+      Initial is null ? "Utworzono rasę" : "Edytowano rasę",
       "success"
       );
   }
 #pragma warning restore CS4014
+  public bool IsValid { get; private set; }
+  private bool Validate() => IsValid = _name().Length > 0
+                                       && _needs() is not null
+                                       && _decadency() is not null
+                                       && _will() is not null;
 
   private Func<string> _name = null!;
   private Action<string> _changeName = null!;
+  private Func<string> _description = null!;
+  private Action<string> _changeDescription = null!;
   private Func<string?> _needs = null!;
   private Action<string?> _selectNeeds = null!;
   private Func<string?> _decadency = null!;
@@ -56,6 +65,7 @@
 
   protected override void OnInitialized() {
     (_name, _changeName) = CreateSignal(this, Initial?.Access<string>("Name") ?? string.Empty);
+    (_description, _changeDescription) = CreateSignal(this, Initial?.Access<string>("Description") ?? string.Empty);
     (_needs, _selectNeeds) = CreateSignal(this, Initial?.Access<string>("Needs") ?? default);
     (_decadency, _selectDecadency) = CreateSignal(this, Initial?.Access<string>("Decadency") ?? default);
     (_will, _selectWill) = CreateSignal(this, Initial?.Access<string>("Will") ?? default);

@@ -5,7 +5,14 @@
 <Card
   NoOverline
   Class="@Cx("h-fit", pointer, submitting, Class)" Color="Color.Secondary">
-  <button @onclick="@HandleClick" type="@Type" disabled="@Disabled" form="@Form">
+  <button
+    Class="-m-2 p-2"
+    @onclick="@HandleClick"
+    @onclick:preventDefault
+    @onclick:stopPropagation
+    type="@Type"
+    disabled="@Disabled"
+    form="@Form">
     @if (Submitting) {
       <Icon Class="flex items-center justify-center" Type="IconType.Spinner" Size="Size.Sm"/>
     } else {

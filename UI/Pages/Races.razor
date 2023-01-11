@@ -41,19 +41,7 @@
     </div>
   </div>
 </section>
-<Modal Class="w-[600px]" IsOpen="@_isFormModalVisible()">
-  <ModalHeader OnClose="() => _toggleFormModal(false)">
-    <Title>
-      @(_isEdit ? $"Edycja rasy {_name()}" : "Dodawanie nowej rasy")
-    </Title>
-  </ModalHeader>
-  <RaceForm Initial="@Initial"/>
-  <ModalActions>
-    <Button Type="submit" Form="race-form">
-      @(_isEdit ? "Edytuj" : "Dodaj")
-    </Button>
-  </ModalActions>
-</Modal>
+<RaceModal Initial="@Initial" IsOpen="_isFormModalVisible()" OnClose="() => _toggleFormModal(false)" OnConfirm="() => _toggleFormModal(false)"/>
 <ConfirmModal IsOpen="@_isDeleteModalVisible()" OnCancel="() => _toggleDeleteModal(false)" OnConfirm="HandleRemove">
   Czy na pewno chcesz usunąć rasę <strong>@_name()</strong>?
 </ConfirmModal>
@@ -70,11 +58,6 @@
     _toggleDeleteModal(false);
   }
 
-  private bool _isFormDirty = false;
-  private async Task HandleSubmit() {
-    await Task.Delay(500);
-    _toggleFormModal(false);
-  }
 #pragma warning restore CS4014
 
   private List<object> Items => new() {
@@ -117,6 +100,7 @@
     _isEdit ? new {
       Name = _name(),
       Needs = _needs(),
+      Description = "opis",
       Decadency = _decadency(),
       Will = _will(),
     } : null;

@@ -6,9 +6,9 @@
       @(_isEdit ? $"Edycja rasy {_name}" : "Dodawanie nowej rasy")
     </Title>
   </ModalHeader>
-  <RaceForm Initial="@Initial"/>
+  <RaceForm Initial="@Initial" @ref="Form"/>
   <ModalActions>
-    <Button Type="submit" Form="race-form">
+    <Button Type="submit" Form="race-form" OnClickAsync="Submit">
       @(_isEdit ? "Edytuj" : "Dodaj")
     </Button>
   </ModalActions>
@@ -25,7 +25,14 @@
   public Action OnClose { get; set; } = null!;
 
   [Parameter, EditorRequired]
-  public EventCallback OnConfirm { get; set; }
+  public Action OnConfirm { get; set; } = null!;
+
+  private async Task Submit() {
+    await Form.OnSubmit();
+    if (Form.IsValid) OnConfirm();
+  }
+
+  private RaceForm Form { get; set; } = null!;
 
   private string? _name => Initial?.Access<string>("Name");
   private bool _isEdit => Initial is not null;
