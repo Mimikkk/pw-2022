@@ -27,6 +27,8 @@ public class IconType : SmarterEnum<IconType> {
   public static readonly IconType Sun = new(nameof(Sun), typeof(SunPath));
   public static readonly IconType X = new(nameof(X), typeof(XPath));
   public static readonly IconType Spinner = new(nameof(Spinner), typeof(SpinnerPath));
+  public static readonly IconType Hat = new(nameof(Hat), typeof(HatPath));
+  public static readonly IconType Money = new(nameof(Money), typeof(MoneyPath));
 
   public IconType(string name, Type component)
     : base(name) => _component = component;

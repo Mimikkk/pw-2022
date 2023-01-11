@@ -26,7 +26,6 @@
     </SelectField>
   </div>
   <div class="h-full px-48 py-8 col-span-5 flex flex-col gap-2">
-    <Button OnClickAsync="HandleSubmit">231</Button>
     <Card Color="Color.Secondary" Class="p-4 h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
       @foreach (var item in Items) {
         <div class="col-span-3 grid grid-cols-4 gap-2">
@@ -45,9 +44,32 @@
 <Modal Class="w-[600px]" IsOpen="@_isModalVisible()">
   <ModalHeader OnClose="() => _toggleModal(false)">
     <Title>
-      Rasa - @_name() - @(_isEdit ? "Edycja" : "Dodawanie")
+      @(_isEdit ? $"Edycja rasy {_name()}" : "Dodawanie nowej rasy")
     </Title>
   </ModalHeader>
+  <div class="flex gap-2 justify-center">
+    <Card Color="Color.Secondary" Shade="5">
+      <div class="w-24 h-24 flex items-center justify-center">
+        <Icon Type="IconType.Person" Size="Size.Lg"/>
+      </div>
+    </Card>
+    <TextField Label="Nazwa rasy"/>
+  </div>
+  <SelectField Icon="IconType.Moon" Label="wymogi" Value="@_needs()" OnChange="_selectNeeds">
+    <option value="low">Niskie</option>
+    <option value="medium">Średnie</option>
+    <option value="high">Wysokie</option>
+  </SelectField>
+  <SelectField Icon="IconType.Money" Label="dekadencja" Value="@_decadency()" OnChange="_selectDecadency">
+    <option value="low">Niska</option>
+    <option value="medium">Średnia</option>
+    <option value="high">Wysoka</option>
+  </SelectField>
+  <SelectField Icon="IconType.Hat" Label="oporność" Value="@_will()" OnChange="_selectWill">
+    <option value="low">Niska</option>
+    <option value="medium">Średnia</option>
+    <option value="high">Wysoka</option>
+  </SelectField>
   <ModalActions>
     <Button OnClickAsync="HandleSubmit">
       @(_isEdit ? "Edytuj" : "Dodaj")
@@ -59,11 +81,12 @@
 @code {
   private bool _isFormDirty = false;
   private async Task HandleSubmit() {
-    _toggleModal(false);
+    await Task.Delay(500);
     await ToastService.AddAsync(
       message: "Hello I am a success toast!",
       type: "success"
       );
+    _toggleModal(false);
   }
 
   private List<object> Items => new() {

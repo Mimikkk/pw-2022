@@ -4,7 +4,6 @@ namespace UI.Data;
 
 public class ToastService {
   public List<Toast> Toasts { get; } = new();
-
   public event Action ToastsStateChanged = null!;
 
   public async Task AddAsync(string message, ToastType? type = default) {
