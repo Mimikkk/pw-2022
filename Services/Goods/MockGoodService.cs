@@ -1,8 +1,8 @@
 using DataModels.Goods;
 
-namespace Services;
+namespace Services.Goods;
 
-public class GoodService : IGoodService {
+public class MockGoodService : IGoodService {
   public Task<GoodResource> Read(Guid id) {
     throw new NotImplementedException();
   }

@@ -1,6 +1,6 @@
 using DataModels.Goods;
 
-namespace Services;
+namespace Services.Goods;
 
 public interface IGoodService {
   public Task<GoodResource> Read(Guid id);

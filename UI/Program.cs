@@ -1,6 +1,6 @@
-global using static UI.Shared.Utils.Utils;
-using Services;
-using UI.Data;
+using Services.Goods;
+using Services.Races;
+using Services.Toasts;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,6 +1,6 @@
 using DataModels.Races;
 
-namespace Services;
+namespace Services.Races;
 
 public class RaceService : IRaceService {
   public Task<RaceResource> Read(Guid id) {

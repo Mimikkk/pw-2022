@@ -1,6 +1,6 @@
 using DataModels.Toasts;
 
-namespace UI.Data;
+namespace Services.Toasts;
 
 public interface IToastService {
   public List<Toast> Toasts { get; }
