@@ -1,4 +1,4 @@
-namespace Interfaces;
+namespace DataModels.Races;
 
 public interface IRace {
   string Name { get; init; }

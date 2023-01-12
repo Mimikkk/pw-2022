@@ -1,4 +1,4 @@
-namespace Interfaces;
+namespace DataModels.Goods;
 
 public interface IGood {
   string Name { get; init; }

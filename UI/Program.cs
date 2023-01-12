@@ -1,12 +1,13 @@
 global using static UI.Shared.Utils.Utils;
+using Services;
 using UI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<RaceService>();
-builder.Services.AddSingleton<GoodService>();
+builder.Services.AddSingleton<IRaceService, RaceService>();
+builder.Services.AddSingleton<IGoodService, GoodService>();
 builder.Services.AddScoped<ToastService>();
 
 var app = builder.Build();

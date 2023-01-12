@@ -1,4 +1,4 @@
-namespace Interfaces;
+namespace DataModels; 
 
 public interface IResource {
   Guid Id { get; init; }
