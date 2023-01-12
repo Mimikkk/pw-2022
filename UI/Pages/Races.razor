@@ -28,10 +28,16 @@
   <div class="h-full px-48 py-8 col-span-5 flex flex-col gap-2">
     <Card Color="Color.Secondary" Class="p-4 h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
       @foreach (var item in Items) {
-        <div class="col-span-3 grid grid-cols-4 gap-2">
-          <RaceCard OnEdit="ToggleEditModal" OnRemove="() => _toggleDeleteModal(true)" Class="col-span-2"/>
-          <GoodCard/>
-          <GoodCard/>
+        <div class="col-span-3 grid grid-cols-2 gap-2">
+          <RaceCard OnEdit="ToggleEditModal" OnRemove="() => _toggleDeleteModal(true)"/>
+          <div class="flex pb-2 gap-1 overflow-auto">
+            <GoodCard/>
+            <GoodCard/>
+            <GoodCard/>
+            <GoodCard/>
+            <GoodCard/>
+            <GoodCard/>
+          </div>
         </div>
       }
     </Card>
@@ -62,8 +68,23 @@
 #pragma warning restore CS4014
 
   private List<object> Items => new() {
-    new { },
-    new { },
+    new {
+      Goods = new List<object>() {
+        new { },
+        new { },
+        new { },
+        new { },
+        new { },
+      },
+    },
+    new {
+      Goods = new List<object>() {
+        new { },
+        new { },
+        new { },
+      },
+
+    },
     new { },
     new { },
     new { },
