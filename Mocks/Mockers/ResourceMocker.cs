@@ -1,9 +1,9 @@
-using DataModels;
 using Bogus;
+using DataModels;
 
-namespace MockServices;
+namespace Mocks.Mockers;
 
-public static class ResourceMocker {
+internal static class ResourceMocker {
   public static Faker<T> ApplyResourceRules<T>(this Faker<T> faker)
     where T : class, IResource
     => faker

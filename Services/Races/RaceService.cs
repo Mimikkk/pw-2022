@@ -4,10 +4,10 @@ using DataModels.Races;
 namespace Services.Races;
 
 public sealed class RaceService : IRaceService {
-  public Task<RaceResource> Read(Guid id) {
+  public Task<RaceResource?> Read(Guid id) {
     throw new NotImplementedException();
   }
-  public Task<RaceResourceWithProducts<GoodResource>> ReadWithProducts(Guid id) {
+  public Task<RaceResourceWithProducts<GoodResource>?> ReadWithProducts(Guid id) {
     throw new NotImplementedException();
   }
   public Task<IEnumerable<RaceResource>> ReadAll() {
@@ -25,13 +25,13 @@ public sealed class RaceService : IRaceService {
     FilterWithProductsBy(string? name, string? decadency, string? needs, string? will) {
     throw new NotImplementedException();
   }
-  public Task Save(RaceModel model) {
+  public Task<bool> Save(RaceModel model) {
     throw new NotImplementedException();
   }
-  public Task Delete(Guid id) {
+  public Task<bool> Delete(Guid id) {
     throw new NotImplementedException();
   }
-  public Task Update(Guid id, RaceModel model) {
+  public Task<bool> Update(Guid id, RaceModel model) {
     throw new NotImplementedException();
   }
 }

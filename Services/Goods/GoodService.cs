@@ -4,10 +4,10 @@ using DataModels.Races;
 namespace Services.Goods;
 
 public sealed class GoodService : IGoodService {
-  public Task<GoodResource> Read(Guid id) {
+  public Task<GoodResource?> Read(Guid id) {
     throw new NotImplementedException();
   }
-  public Task<GoodResourceWithProducers<RaceResource>> ReadWithProducers(Guid id) {
+  public Task<GoodResourceWithProducers<RaceResource>?> ReadWithProducers(Guid id) {
     throw new NotImplementedException();
   }
   public Task<IEnumerable<GoodResource>> ReadAll() {
@@ -26,13 +26,13 @@ public sealed class GoodService : IGoodService {
     FilterWithProducersBy(string? name, string? decadency, string? needs, string? will) {
     throw new NotImplementedException();
   }
-  public Task Save(GoodModel model) {
+  public Task<bool> Save(GoodModel model) {
     throw new NotImplementedException();
   }
-  public Task Delete(Guid id) {
+  public Task<bool> Delete(Guid id) {
     throw new NotImplementedException();
   }
-  public Task Update(Guid id, GoodModel model) {
+  public Task<bool> Update(Guid id, GoodModel model) {
     throw new NotImplementedException();
   }
 }

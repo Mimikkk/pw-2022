@@ -1,10 +1,10 @@
-using DataModels.Goods;
 using Bogus;
+using DataModels.Goods;
 using DataModels.Races;
 
-namespace MockServices;
+namespace Mocks.Mockers;
 
-public static class GoodMocker {
+internal static class GoodMocker {
   public static Faker<T> ApplyGoodRules<T>(this Faker<T> faker) where T : class, IGood =>
     faker
       .RuleFor(g => g.Name, f => f.Commerce.ProductName())
@@ -39,6 +39,18 @@ public static class GoodMocker {
       )
       .Generate();
 
+  public static GoodResourceWithProducers<T>
+    CreateResourceWithProducts<T>(int count, IEnumerable<T> products)
+    where T : class, IRace =>
+    new Faker<GoodResourceWithProducers<T>>()
+      .ApplyResourceRules()
+      .ApplyGoodRules()
+      .RuleFor(
+        r => r.Producers,
+        f => products.Where(_ => f.Random.Bool())
+      )
+      .Generate();
+
   public static IEnumerable<GoodResourceWithProducers<RaceResource>>
     CreateResourcesWithProducts(int count, int maxProducts = 5) =>
     new Faker<GoodResourceWithProducers<RaceResource>>()
@@ -48,5 +60,20 @@ public static class GoodMocker {
         r => r.Producers,
         f => RaceMocker.CreateResources(f.Random.Int(1, maxProducts))
       )
+      .Generate(count);
+
+  public static IEnumerable<GoodResourceWithProducers<T>>
+    CreateResourcesWithProducts<T>(int count, IEnumerable<T> products)
+    where T : class, IRace =>
+    new Faker<GoodResourceWithProducers<T>>()
+      .ApplyResourceRules()
+      .ApplyGoodRules()
+      .RuleFor(
+        r => r.Producers,
+        f => {
+          var resources = products.ToList();
+
+          return resources.Where(_ => f.Random.Bool(10f / resources.Count));
+        })
       .Generate(count);
 }

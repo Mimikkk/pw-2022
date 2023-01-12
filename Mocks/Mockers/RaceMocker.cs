@@ -1,11 +1,11 @@
-using DataModels.Races;
 using Bogus;
 using Core;
 using DataModels.Goods;
+using DataModels.Races;
 
-namespace MockServices;
+namespace Mocks.Mockers;
 
-public static class RaceMocker {
+internal static class RaceMocker {
   public static Faker<T> ApplyRaceRules<T>(this Faker<T> faker) where T : class, IRace =>
     faker
       .RuleFor(g => g.Name, f => f.Lorem.Word())
@@ -52,5 +52,20 @@ public static class RaceMocker {
         r => r.Products,
         f => GoodMocker.CreateResources(f.Random.Int(1, maxProducts))
       )
+      .Generate(count);
+
+  public static IEnumerable<RaceResourceWithProducts<T>>
+    CreateResourcesWithProducts<T>(int count, IEnumerable<T> goods)
+    where T : class, IGood =>
+    new Faker<RaceResourceWithProducts<T>>()
+      .ApplyResourceRules()
+      .ApplyRaceRules()
+      .RuleFor(
+        r => r.Products,
+        f => {
+          var resources = goods.ToList();
+
+          return resources.Where(_ => f.Random.Bool(10f / resources.Count));
+        })
       .Generate(count);
 }
