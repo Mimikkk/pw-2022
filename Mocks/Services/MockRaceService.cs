@@ -5,7 +5,7 @@ using Services.Races;
 namespace Mocks.Services;
 
 public sealed class MockRaceService : MockService, IRaceService {
-  public static IRaceService Instance { get; } = new MockRaceService();
+  internal static IRaceService Instance { get; } = new MockRaceService();
 
   public async Task<RaceResource?> Read(Guid id)
     => await ReadWithProducts(id);

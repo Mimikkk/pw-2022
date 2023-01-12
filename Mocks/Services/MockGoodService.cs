@@ -5,7 +5,7 @@ using Services.Goods;
 namespace Mocks.Services;
 
 public sealed class MockGoodService : MockService, IGoodService {
-  public static IGoodService Instance { get; } = new MockGoodService();
+  internal static IGoodService Instance { get; } = new MockGoodService();
 
   public async Task<GoodResource?> Read(Guid id) {
     await Delay();
