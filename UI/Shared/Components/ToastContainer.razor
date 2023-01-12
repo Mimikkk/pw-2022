@@ -4,8 +4,19 @@
 <div class="container">
   @foreach (var toast in Service.Toasts) {
     <div @onclick="@(() => Service.RemoveAsync(toast))"
-         class="@Cx("toast", toast.IsVisible ? "flex" : "hidden", toast.Type.Name, toast.IsEntering ? In : Out)">
-      @toast.Message
+         class="@Cx("toast gap-2 ", Color.Secondary["border", 8], _color(toast), _visibility(toast), _entering(toast))">
+      <div class="flex flex-col gap-2">
+        <div class="flex flex-col">
+          <Title>
+            @toast.Title
+          </Title>
+          <Divider/>
+        </div>
+        <Typography>
+          @toast.Message
+        </Typography>
+      </div>
+      <Icon Type="@_icon(toast)"></Icon>
       <div class="progress"></div>
     </div>
   }
@@ -13,6 +24,21 @@
 
 @code {
   protected override void OnInitialized() => Service.ToastsStateChanged += StateHasChanged;
+
+  private string _color(Toast type) => type.Type.Name switch {
+    "info" => Color.Shade["bg", 2],
+    "warning" =>Color.Warning["bg", 2],
+    "success" => Color.Secondary["bg", 2],
+    "error" => Color.Error["bg", 2]
+    };
+  private string _visibility(Toast type) => type.IsVisible ? "flex" : "hidden";
+  private string _entering(Toast type) => type.IsEntering ? In : Out;
+  private IconType _icon(Toast type) => type.Type.Name switch {
+    "info" => IconType.ExclamationCircle,
+    "warning" =>IconType.ExclamationCircle,
+    "success" => IconType.CheckmarkCircle,
+    "error" => IconType.ExclamationTriangle
+    };
 
     private const string In = "bounce-in-right";
     private const string Out = "bounce-out-right";

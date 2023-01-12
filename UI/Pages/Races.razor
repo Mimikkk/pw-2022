@@ -52,8 +52,24 @@
   private async Task HandleRemove() {
     await Task.Delay(500);
     ToastService.AddAsync(
-      "Usunięto rasę",
+      "Serwis ras",
+      "Pomyślnie usunięto",
       "success"
+      );
+    ToastService.AddAsync(
+      "Serwis ras",
+      "Pomyślnie usunięto",
+      "warning"
+      );
+    ToastService.AddAsync(
+      "Serwis ras",
+      "Pomyślnie usunięto",
+      "info"
+      );
+    ToastService.AddAsync(
+      "Serwis ras",
+      "Pomyślnie usunięto",
+      "error"
       );
     _toggleDeleteModal(false);
   }

@@ -50,61 +50,44 @@
     z-index: 9999;
     position: fixed;
     padding: 5px;
-    box-sizing: border-box;
-    width: 320px;
-    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
     bottom: 1em;
     right: 1em;
+    gap: 0.5rem;
 }
 
 @media only screen and (max-width: 480px) {
     .container {
         width: 100vw;
-        padding: 0px;
-        margin: 0px;
+        padding: 0;
+        margin: 0;
         bottom: 0;
         right: 1em;
     }
 }
 
 .toast {
+    border-radius: 0.5rem;
+    border-top: 2px solid;
+    
     position: relative;
     opacity: 1;
     display: flex;
-    margin-top: 3%;
     justify-content: space-between;
     overflow: hidden;
     min-height: 72px;
     max-height: 600px;
     box-sizing: border-box;
-    padding: 7px;
-    border-radius: 1px;
+    padding: 0.5rem;
     box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1), 0 2px 15px 0 rgba(0, 0, 0, 0.05);
-    color: #FFFFFF;
-    background-color: #000000;
-    direction: ltr;
     font-family: sans-serif;
     cursor: pointer;
     align-items: center;
 
     animation-duration: 600ms;
     animation-fill-mode: both;
-}
-
-.info {
-    background-color: #17A2B8;
-}
-
-.success {
-    background-color: #28A745;
-}
-
-.warning {
-    background-color: #FFC107;
-}
-
-.error {
-    background-color: #DC3545;
 }
 
 @keyframes track-progress {
@@ -125,6 +108,6 @@
     left: 0;
     opacity: 0.7;
     transform-origin: left;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(0, 0, 0, 0.8);
     animation: track-progress linear 1500ms forwards;
 }

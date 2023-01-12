@@ -41,7 +41,8 @@
     await Task.Delay(500);
 
     ToastService.AddAsync(
-      Initial is null ? "Utworzono rasę" : "Edytowano rasę",
+      "Serwis Ras",
+      Initial is null ? "Utworzono pomyślnie" : "Edycja zakończona pomyślnie",
       "success"
       );
   }

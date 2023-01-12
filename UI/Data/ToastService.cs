@@ -6,8 +6,8 @@ public class ToastService {
   public List<Toast> Toasts { get; } = new();
   public event Action ToastsStateChanged = null!;
 
-  public async Task AddAsync(string message, ToastType? type = default) {
-    var toast = new Toast(message, type);
+  public async Task AddAsync(string title, string message, ToastType? type = default) {
+    var toast = new Toast(title, message, type);
     Toasts.Add(toast);
     ToastsStateChanged();
     await Task.Delay(1500);
