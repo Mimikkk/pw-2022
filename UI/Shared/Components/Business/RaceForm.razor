@@ -1,5 +1,7 @@
 ﻿@inject ToastService ToastService
+@inject IJSRuntime JS
 @using UI.Data
+@using Microsoft.AspNetCore.Components.Web.Infrastructure
 
 <form id="race-form" class="flex flex-col gap-2">
   <div class="flex gap-2 justify-center">
@@ -37,6 +39,7 @@
 
 #pragma warning disable CS4014
   public async Task OnSubmit() {
+    reportValidity();
     if (!Validate()) return;
     await Task.Delay(500);
 
@@ -63,6 +66,9 @@
   private Action<string?> _selectDecadency = null!;
   private Func<string?> _will = null!;
   private Action<string?> _selectWill = null!;
+
+  private async Task reportValidity() =>
+    await JS.InvokeVoidAsync("reportValidity", "race-form");
 
   protected override void OnInitialized() {
     (_name, _changeName) = CreateSignal(this, Initial?.Access<string>("Name") ?? string.Empty);
