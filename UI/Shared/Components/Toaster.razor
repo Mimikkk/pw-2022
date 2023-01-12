@@ -1,5 +1,6 @@
 ﻿@using UI.Data
-@inject ToastService Service
+@using DataModels.Toasts
+@inject IToastService Service
 
 <div class="container">
   @foreach (var toast in Service.Toasts) {

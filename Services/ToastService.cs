@@ -1,8 +1,8 @@
-using UI.Shared.Types;
+using DataModels.Toasts;
 
 namespace UI.Data;
 
-public class ToastService {
+public class ToastService : IToastService {
   public List<Toast> Toasts { get; } = new();
   public event Action ToastsStateChanged = null!;
 

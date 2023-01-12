@@ -1,4 +1,4 @@
-﻿using Ardalis.SmartEnum;
+﻿using Core;
 
 namespace UI.Shared.Types;
 

@@ -1,8 +1,6 @@
-using UI.Shared.Types;
+namespace DataModels.Toasts;
 
-namespace UI.Data;
-
-public class Toast {
+public class Toast : IToast {
   public ToastType Type { get; } = ToastType.Info;
   public string Message { get; }
   public string Title { get; }

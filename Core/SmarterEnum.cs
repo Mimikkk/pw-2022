@@ -1,6 +1,6 @@
 using Ardalis.SmartEnum;
 
-namespace UI.Shared.Types;
+namespace Core;
 
 public abstract class SmarterEnum<TEnum> : SmartEnum<TEnum> where TEnum : SmartEnum<TEnum, int> {
   protected SmarterEnum(string name)

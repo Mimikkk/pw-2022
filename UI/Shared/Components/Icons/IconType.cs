@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Core;
+using Microsoft.AspNetCore.Components;
 using UI.Shared.Components.Icons.Paths;
-using UI.Shared.Types;
-
 namespace UI.Shared.Components.Icons;
 
 public class IconType : SmarterEnum<IconType> {

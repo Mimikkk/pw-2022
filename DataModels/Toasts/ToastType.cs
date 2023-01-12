@@ -1,4 +1,6 @@
-namespace UI.Shared.Types;
+using Core;
+
+namespace DataModels.Toasts;
 
 public class ToastType : SmarterEnum<ToastType> {
   public static readonly ToastType Success = new(nameof(Success));

@@ -8,7 +8,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<IRaceService, RaceService>();
 builder.Services.AddSingleton<IGoodService, GoodService>();
-builder.Services.AddScoped<ToastService>();
+builder.Services.AddScoped<IToastService, ToastService>();
 
 var app = builder.Build();
 
