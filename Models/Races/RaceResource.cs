@@ -1,8 +1,10 @@
+using Core;
+
 namespace DataModels.Races;
 
-public record RaceResource(
+public sealed record RaceResource(
     Guid Id, DateTime CreatedAt, DateTime? UpdatedAt,
-    string Name, string? Description, string Needs, string Decadency, string Will
+    string Name, string? Description, Category Needs, Category Decadency, Category Will
   )
   : IRace,
     IResource;

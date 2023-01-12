@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using UI.Shared.Components.Icons.Paths;
 namespace UI.Shared.Components.Icons;
 
-public class IconType : SmarterEnum<IconType> {
+public sealed class IconType : SmarterEnum<IconType> {
   public static readonly IconType Bin = new(nameof(Bin), typeof(BinPath));
   public static readonly IconType Burger = new(nameof(Burger), typeof(BurgerPath));
   public static readonly IconType DownChevron = new(nameof(DownChevron), typeof(DownChevronPath));

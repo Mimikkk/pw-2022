@@ -2,7 +2,7 @@
 
 namespace UI.Shared.Types;
 
-public class Size : SmartEnum<Size> {
+public sealed class Size : SmartEnum<Size> {
   public static readonly Size Xs = new(nameof(Xs), 1);
   public static readonly Size Sm = new(nameof(Sm), 2);
   public static readonly Size Md = new(nameof(Md), 3);

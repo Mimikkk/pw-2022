@@ -2,7 +2,7 @@ using DataModels.Toasts;
 
 namespace Services.Toasts;
 
-public class ToastService : IToastService {
+public sealed class ToastService : IToastService {
   public List<Toast> Toasts { get; } = new();
   public event Action ToastsStateChanged = null!;
 

@@ -2,7 +2,7 @@
 
 namespace UI.Shared.Types;
 
-public class Color : SmarterEnum<Color> {
+public sealed class Color : SmarterEnum<Color> {
   public static readonly Color Shade = new("stone");
   public static readonly Color Primary = new("indigo");
   public static readonly Color Secondary = new("violet");

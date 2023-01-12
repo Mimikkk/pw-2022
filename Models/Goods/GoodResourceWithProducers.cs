@@ -2,9 +2,10 @@ using DataModels.Races;
 
 namespace DataModels.Goods;
 
-public record GoodResourceWithProducers(
+public sealed record GoodResourceWithProducers<T>(
     Guid Id, DateTime CreatedAt, DateTime? UpdatedAt,
     string Name, string? Description,
-    List<IRace> Producers)
+    List<T> Producers)
   : IGood,
-    IResource;
+    IResource
+  where T : IRace;

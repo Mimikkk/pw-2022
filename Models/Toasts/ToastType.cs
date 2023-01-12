@@ -2,7 +2,7 @@ using Core;
 
 namespace DataModels.Toasts;
 
-public class ToastType : SmarterEnum<ToastType> {
+public sealed class ToastType : SmarterEnum<ToastType> {
   public static readonly ToastType Success = new(nameof(Success));
   public static readonly ToastType Info = new(nameof(Info));
   public static readonly ToastType Warning = new(nameof(Warning));

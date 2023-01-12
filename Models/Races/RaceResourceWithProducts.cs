@@ -1,10 +1,12 @@
+using Core;
 using DataModels.Goods;
 
 namespace DataModels.Races;
 
-public record RaceResourceWithProducts(
+public sealed record RaceResourceWithProducts<T>(
     Guid Id, DateTime CreatedAt, DateTime? UpdatedAt,
-    string Name, string? Description, string Needs, string Decadency, string Will,
-    List<IGood> Products)
+    string Name, string? Description, Category Needs, Category Decadency, Category Will,
+    List<T> Products)
   : IRace,
-    IResource;
+    IResource
+  where T : IGood;
