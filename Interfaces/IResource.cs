@@ -1,4 +1,4 @@
-namespace UI.Data;
+namespace Interfaces;
 
 public interface IResource {
   Guid Id { get; init; }
