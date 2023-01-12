@@ -12,10 +12,7 @@ public interface IRaceService {
   public Task<IEnumerable<RaceResource>> FilterBy(
     string? name, string? decadency, string? needs, string? will
   );
-  public Task<IEnumerable<RaceResourceWithProducts<GoodResource>>>
-    FilterWithProductsBy(
-      string? name, string? decadency, string? needs, string? will
-    );
+  public Task<IEnumerable<RaceResourceWithProducts<GoodResource>>> FilterWithProductsBy(string? name, string? decadency, string? needs, string? will);
   public Task<bool> Save(RaceModel model);
   public Task<bool> Delete(Guid id);
   public Task<bool> Update(Guid id, RaceModel model);

@@ -1,63 +1,87 @@
-using Bogus;
 using DataModels.Goods;
 using DataModels.Races;
-using Mocks.Mockers;
 using Services.Goods;
 
 namespace Mocks.Services;
 
-public sealed class MockGoodService : IGoodService {
+public sealed class MockGoodService : MockService, IGoodService {
+  public static IGoodService Instance { get; } = new MockGoodService();
 
   public async Task<GoodResource?> Read(Guid id) {
     await Delay();
-    
     return Repository.Goods.FirstOrDefault(r => r.Id == id);
-  }
-  public async Task<GoodResourceWithProducers<RaceResource>?> ReadWithProducers(Guid id) {
-    await Delay();
-
-    return GoodMocker.CreateResourceWithProducts(5) with { Id = id };
   }
   public async Task<IEnumerable<GoodResource>> ReadAll() {
     await Delay();
+    return Repository.Goods;
+  }
+  public async Task<IEnumerable<GoodResource>> FilterBy(string? name) {
+    await Delay();
+    var goods = Repository.Goods;
 
-    return GoodMocker.CreateResources(5);
+    if (name is not null) goods = goods.Where(g => g.Name.Contains(name)).ToList();
+
+    return goods;
+  }
+  public async Task<bool> Save(Guid raceId, GoodModel model) {
+    var race = await MockRaceService.Instance.ReadWithProducts(raceId);
+    if (race is null) return false;
+    race.Products.Add(new GoodResource(
+      raceId,
+      Guid.NewGuid(),
+      DateTime.Now,
+      null,
+      model.Name,
+      model.Description
+    ));
+
+    return true;
+  }
+  public async Task<bool> Delete(Guid id) {
+    var good = await Read(id);
+    if (good is null) return false;
+
+    Repository.RacesWithProducts
+      .Find(x => x.Products.Any(y => y.Id == id))
+      ?.Products.Remove(good);
+
+    return true;
+  }
+  public async Task<bool> Update(Guid id, GoodModel model) {
+    var good = await Read(id);
+    if (good is null) return false;
+    var race = Repository.RacesWithProducts
+      .Find(x => x.Products.Any(y => y.Id == id))!;
+
+    race.Products.Remove(good);
+    race.Products.Add(new GoodResource(
+      race.Id,
+      id,
+      good.CreatedAt,
+      DateTime.Now,
+      model.Name,
+      model.Description
+    ));
+
+    return true;
+  }
+
+  public async Task<GoodResourceWithProducers<RaceResource>?>
+    ReadWithProducers(Guid id) {
+    var good = await Read(id);
+
+    throw new NotImplementedException();
   }
   public async Task<IEnumerable<GoodResourceWithProducers<RaceResource>>>
     ReadAllWithProducers() {
     await Delay();
 
-    return GoodMocker.CreateResourcesWithProducts(5);
-  }
-  public async Task<IEnumerable<GoodResource>> FilterBy(
-    string? name, string? decadency, string? needs, string? will
-  ) {
-    await Delay();
-
-    return GoodMocker.CreateResources(5);
+    throw new NotImplementedException();
   }
   public async Task<IEnumerable<GoodResourceWithProducers<RaceResource>>>
-    FilterWithProducersBy(string? name, string? decadency, string? needs, string? will) {
+    FilterWithProducersBy(string? name) {
     await Delay();
 
     throw new NotImplementedException();
   }
-  public async Task<bool> Save(GoodModel model) {
-    await Delay();
-
-    throw new NotImplementedException();
-  }
-  public async Task<bool> Delete(Guid id) {
-    await Delay();
-
-    throw new NotImplementedException();
-  }
-  public async Task<bool> Update(Guid id, GoodModel model) {
-    await Delay();
-
-    throw new NotImplementedException();
-  }
-
-  private static Faker Faker { get; } = new();
-  private static async Task Delay() => await Task.Delay(Faker.Random.Int(100, 200));
 }

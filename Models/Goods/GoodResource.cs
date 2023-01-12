@@ -1,7 +1,7 @@
 namespace DataModels.Goods;
 
-public sealed record GoodResource(
-    Guid Id, DateTime CreatedAt, DateTime? UpdatedAt,
+public record GoodResource(
+    Guid RaceId, Guid Id, DateTime CreatedAt, DateTime? UpdatedAt,
     string Name, string? Description)
   : IGood,
     IResource;

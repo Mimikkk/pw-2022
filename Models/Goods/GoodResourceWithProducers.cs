@@ -3,9 +3,8 @@ using DataModels.Races;
 namespace DataModels.Goods;
 
 public sealed record GoodResourceWithProducers<T>(
-    Guid Id, DateTime CreatedAt, DateTime? UpdatedAt,
+    Guid RaceId, Guid Id, DateTime CreatedAt, DateTime? UpdatedAt,
     string Name, string? Description,
     List<T> Producers)
-  : IGood,
-    IResource
+  : GoodResource(RaceId, Id, CreatedAt, UpdatedAt, Name, Description)
   where T : IRace;
