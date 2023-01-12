@@ -1,4 +1,4 @@
-using DataModels;
+using DataModels.Goods;
 
 namespace Services;
 
