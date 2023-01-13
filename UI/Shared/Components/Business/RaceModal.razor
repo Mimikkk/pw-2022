@@ -1,22 +1,23 @@
 ﻿@using Services.Toasts
+@using DataModels.Races
 @inject IToastService ToastService
 <Modal Class="w-[600px]" IsOpen="@IsOpen">
   <ModalHeader OnClose="OnClose">
     <Title>
-      @(_isEdit ? $"Edycja rasy {_name}" : "Dodawanie nowej rasy")
+      @(Initial is not null ? $"Edycja rasy {Initial.Name}" : "Dodawanie nowej rasy")
     </Title>
   </ModalHeader>
   <RaceForm Initial="@Initial" @ref="Form"/>
   <ModalActions>
     <Button Type="submit" Form="race-form" OnClickAsync="Submit">
-      @(_isEdit ? "Edytuj" : "Dodaj")
+      @(Initial is not null ? "Edytuj" : "Dodaj")
     </Button>
   </ModalActions>
 </Modal>
 
 @code {
   [Parameter]
-  public object? Initial { get; set; }
+  public RaceResource? Initial { get; set; }
 
   [Parameter, EditorRequired]
   public bool IsOpen { get; set; }
@@ -33,7 +34,4 @@
   }
 
   private RaceForm Form { get; set; } = null!;
-
-  private string? _name => Initial?.Access<string>("Name");
-  private bool _isEdit => Initial is not null;
 }

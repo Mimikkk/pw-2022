@@ -22,7 +22,7 @@ public sealed class GoodService : IGoodService {
   public Task<IEnumerable<GoodResourceWithProducers<RaceResource>>> FilterWithProducersBy(string? name) {
     throw new NotImplementedException();
   }
-  public Task<bool> Save(Guid raceId, GoodModel model) {
+  public Task<bool> Create(Guid raceId, GoodModel model) {
     throw new NotImplementedException();
   }
   public Task<bool> Delete(Guid id) {

@@ -38,7 +38,7 @@ public sealed class MockRaceService : MockService, IRaceService {
     return Repository.RacesWithProducts;
   }
 
-  public async Task<bool> Save(RaceModel model) {
+  public async Task<bool> Create(RaceModel model) {
     await Delay();
 
     Repository.RacesWithProducts.Add(new RaceResourceWithProducts<GoodResource>(
@@ -55,7 +55,7 @@ public sealed class MockRaceService : MockService, IRaceService {
 
     return true;
   }
-  public async Task<bool> Delete(Guid id) {
+  public async Task<bool> Remove(Guid id) {
     var race = await ReadWithProducts(id);
     if (race?.Products.Count is not 0) return false;
 

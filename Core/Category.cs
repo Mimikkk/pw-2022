@@ -7,4 +7,5 @@ public sealed class Category : SmarterEnum<Category> {
 
   public Category(string name)
     : base(name.ToLower()) { }
+  public static implicit operator Category?(string? name) => name is null ? null : FromName(name);
 }

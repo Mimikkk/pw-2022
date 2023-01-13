@@ -3,7 +3,7 @@
 @using DataModels.Races
 @using Services.Races
 @using DataModels.Goods
-@using DataModels
+@using Core
 @inject IToastService ToastService
 @inject IRaceService RaceService
 
@@ -37,10 +37,10 @@
       <Card Color="Color.Secondary" Class="p-4 h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
         @foreach (var race in Items) {
           <div class="col-span-3 grid grid-cols-2 gap-2">
-            <RaceCard Race="@race" OnEdit="ToggleEditModal" OnRemove="() => _toggleDeleteModal(true)"/>
+            <RaceCard Race="@race" OnEdit="() => ToggleEditModal(race)" OnRemove="() => ToggleDeleteModal(race)"/>
             <div>
               <Title>Produkty</Title>
-              <div class="pb-2 flex flex-col gap-1 h-[300px] overflow-y-auto">
+              <div class="pb-2 flex flex-col gap-1 h-[300px] rounded overflow-y-auto">
                 @foreach (var good in race.Products) {
                   <Card>
                     <CardHeader>
@@ -83,23 +83,25 @@
   Czy na pewno chcesz usunąć rasę <strong>@_name()</strong>?
 </ConfirmModal>
 
-
 @code {
 #pragma warning disable CS4014
   private async Task HandleRemove() {
-    await Task.Delay(500);
+    if (Initial is null) return;
+    Log(Initial);
+    var result = await RaceService.Remove(Initial.Id);
+
     ToastService.AddAsync(
       "Serwis ras",
-      "Pomyślnie usunięto",
-      "success"
+      result ? "Pomyślnie usunięto" : "Usuwanie nie powiodło się",
+      result ? "success" : "error"
       );
     _toggleDeleteModal(false);
   }
 #pragma warning restore CS4014
 
   private List<RaceResourceWithProducts<GoodResource>>? Items { get; set; }
-  private Func<string> _name = null!;
-  private Action<string> _searchName = null!;
+  private Func<string?> _name = null!;
+  private Action<string?> _searchName = null!;
   private Func<string?> _needs = null!;
   private Action<string?> _filterNeeds = null!;
   private Func<string?> _decadency = null!;
@@ -110,39 +112,53 @@
   private Action<bool?> _toggleFormModal = null!;
   private Func<bool> _isDeleteModalVisible = null!;
   private Action<bool?> _toggleDeleteModal = null!;
-  private bool _isEdit;
 
   protected override void OnInitialized() {
-    (_name, _searchName) = CreateSignal<string>(this);
+    (_name, _searchName) = CreateSignal<string?>(this);
     (_needs, _filterNeeds) = CreateSignal<string?>(this);
     (_decadency, _filterDecadency) = CreateSignal<string?>(this);
     (_will, _filterWill) = CreateSignal<string?>(this);
     (_isFormModalVisible, _toggleFormModal) = CreateToggle(this);
     (_isDeleteModalVisible, _toggleDeleteModal) = CreateToggle(this);
   }
+  private IRace previousSearch = new RaceModel(string.Empty, string.Empty, null, null, null);
 
-
+  private async Task Search() {
+    var response = await RaceService.FilterWithProductsBy(_name(), _decadency(), _needs(), _will());
+    Items = response.ToList();
+    StateHasChanged();
+  }
   protected override async Task OnInitializedAsync() {
-    Items = (await RaceService.ReadAllWithProducts()).ToList();
+    await Search();
+
   }
 
-  private object? Initial =>
-    _isEdit ? new {
-      Name = _name(),
-      Needs = _needs(),
-      Description = "opis",
-      Decadency = _decadency(),
-      Will = _will(),
-    } : null;
+  protected override async Task OnAfterRenderAsync(bool firstRender) {
+    if (firstRender) return;
+    var search = new RaceModel(_name()!, string.Empty, _needs()!, _decadency()!, _will()!);
+    if (previousSearch.Name != search.Name
+        || previousSearch.Decadency != search.Decadency
+        || previousSearch.Needs != search.Needs
+        || previousSearch.Will != search.Will) {
+      Items = null;
+      await Search();
+      previousSearch = search;
+    }
+  }
 
-  private static string _goodHref(IGood good) => $"/goods/{good.Name}".Replace(" ", "_");
-  private void ToggleEditModal() {
-    _searchName("Jaszczurka");
-    _filterNeeds("low");
-    _filterDecadency("low");
-    _filterWill("low");
+  private RaceResource? Initial;
+  private void ToggleEditModal(RaceResource race) {
+    Initial = race;
     _toggleFormModal(true);
-    _isEdit = true;
+  }
+  private void ToggleDeleteModal(RaceResourceWithProducts<GoodResource> race) {
+    if (race.Products.Count is not 0) {
+      ToastService.AddAsync("serwis ras" ,"Rasa ma produkty", "warning");
+      return;
+    }
+    Initial = race;
+    _toggleDeleteModal(true);
   }
   private readonly string _gradient = $"bg-gradient-to-r {Color.Primary["from", 3]} {Color.Primary["to", 2]}";
+  private static string _goodHref(IGood good) => $"/goods/{good.Name}".Replace(" ", "_");
 }

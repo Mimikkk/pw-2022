@@ -1,7 +1,10 @@
 ﻿@inject IToastService ToastService
 @inject IJSRuntime JS
 @using Microsoft.AspNetCore.Components.Web.Infrastructure
+@using Services.Races
 @using Services.Toasts
+@using DataModels.Races
+@inject IRaceService RaceService
 
 <form id="race-form" class="flex flex-col gap-2">
   <div class="flex gap-2 justify-center">
@@ -35,18 +38,35 @@
 
 @code {
   [Parameter]
-  public object? Initial { get; set; }
+  public RaceResource? Initial { get; set; }
 
 #pragma warning disable CS4014
   public async Task OnSubmit() {
     reportValidity();
     if (!Validate()) return;
-    await Task.Delay(500);
+
+    var wasSuccessful = await (Initial is not null
+      ? RaceService.Update(Initial.Id, new RaceModel(
+        _name(),
+        _description(),
+        _needs(),
+        _decadency(),
+        _will()
+        ))
+      : RaceService.Create(new RaceModel(
+        _name(),
+        _description(),
+        _needs(),
+        _decadency(),
+        _will()
+        )));
 
     ToastService.AddAsync(
       "Serwis Ras",
-      Initial is null ? "Utworzono pomyślnie" : "Edycja zakończona pomyślnie",
-      "success"
+      wasSuccessful
+        ? Initial is null ? "Utworzono pomyślnie" : "Edycja zakończona pomyślnie"
+        : Initial is null ? "Błąd utworzenia" : "Edycja zakończona niepomyślnie",
+      wasSuccessful ? "success" : "error"
       );
   }
 #pragma warning restore CS4014
@@ -71,10 +91,10 @@
     await JS.InvokeVoidAsync("reportValidity", "race-form");
 
   protected override void OnInitialized() {
-    (_name, _changeName) = CreateSignal(this, Initial?.Access<string>("Name") ?? string.Empty);
-    (_description, _changeDescription) = CreateSignal(this, Initial?.Access<string>("Description") ?? string.Empty);
-    (_needs, _selectNeeds) = CreateSignal(this, Initial?.Access<string>("Needs") ?? default);
-    (_decadency, _selectDecadency) = CreateSignal(this, Initial?.Access<string>("Decadency") ?? default);
-    (_will, _selectWill) = CreateSignal(this, Initial?.Access<string>("Will") ?? default);
+    (_name, _changeName) = CreateSignal(this, Initial?.Name ?? string.Empty);
+    (_description, _changeDescription) = CreateSignal(this, Initial?.Description ?? string.Empty);
+    (_needs, _selectNeeds) = CreateSignal(this, Initial?.Needs.Name ?? default);
+    (_decadency, _selectDecadency) = CreateSignal(this, Initial?.Decadency.Name ?? default);
+    (_will, _selectWill) = CreateSignal(this, Initial?.Will.Name ?? default);
   }
 }

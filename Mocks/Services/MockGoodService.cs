@@ -23,7 +23,7 @@ public sealed class MockGoodService : MockService, IGoodService {
 
     return goods;
   }
-  public async Task<bool> Save(Guid raceId, GoodModel model) {
+  public async Task<bool> Create(Guid raceId, GoodModel model) {
     var race = await MockRaceService.Instance.ReadWithProducts(raceId);
     if (race is null) return false;
     race.Products.Add(new GoodResource(

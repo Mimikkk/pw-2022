@@ -25,10 +25,10 @@ public sealed class RaceService : IRaceService {
     FilterWithProductsBy(string? name, string? decadency, string? needs, string? will) {
     throw new NotImplementedException();
   }
-  public Task<bool> Save(RaceModel model) {
+  public Task<bool> Create(RaceModel model) {
     throw new NotImplementedException();
   }
-  public Task<bool> Delete(Guid id) {
+  public Task<bool> Remove(Guid id) {
     throw new NotImplementedException();
   }
   public Task<bool> Update(Guid id, RaceModel model) {

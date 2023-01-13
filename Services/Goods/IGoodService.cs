@@ -10,7 +10,7 @@ public interface IGoodService {
   public Task<IEnumerable<GoodResourceWithProducers<RaceResource>>> ReadAllWithProducers();
   public Task<IEnumerable<GoodResource>> FilterBy(string? name = default);
   public Task<IEnumerable<GoodResourceWithProducers<RaceResource>>> FilterWithProducersBy(string? name = default);
-  public Task<bool> Save(Guid raceId, GoodModel model);
+  public Task<bool> Create(Guid raceId, GoodModel model);
   public Task<bool> Delete(Guid id);
   public Task<bool> Update(Guid id, GoodModel model);
 }
