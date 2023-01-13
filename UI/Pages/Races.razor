@@ -37,7 +37,7 @@
       <Card Color="Color.Secondary" Class="p-4 h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
         @foreach (var race in Items) {
           <div class="col-span-3 grid grid-cols-2 gap-2">
-            <RaceCard Race="@race" OnEdit="() => ToggleEditModal(race)" OnRemove="() => ToggleDeleteModal(race)"/>
+            <RaceCard Race="@race" OnEdit="() => ToggleEditModal(race)" OnRemove="() => ToggleRemoveModal(race)"/>
             <div>
               <Title>Produkty</Title>
               <div class="pb-2 flex flex-col gap-1 h-[300px] rounded overflow-y-auto">
@@ -79,7 +79,7 @@
   </div>
 </section>
 <RaceModal Initial="@Initial" IsOpen="_isFormModalVisible()" OnClose="() => _toggleFormModal(false)" OnConfirm="() => _toggleFormModal(false)"/>
-<ConfirmModal IsOpen="@_isDeleteModalVisible()" OnCancel="() => _toggleDeleteModal(false)" OnConfirm="HandleRemove">
+<ConfirmModal IsOpen="@_isRemoveModalVisible()" OnCancel="() => _toggleRemoveModal(false)" OnConfirm="HandleRemove">
   Czy na pewno chcesz usunąć rasę <strong>@_name()</strong>?
 </ConfirmModal>
 
@@ -95,7 +95,7 @@
       result ? "Pomyślnie usunięto" : "Usuwanie nie powiodło się",
       result ? "success" : "error"
       );
-    _toggleDeleteModal(false);
+    _toggleRemoveModal(false);
   }
 #pragma warning restore CS4014
 
@@ -110,8 +110,8 @@
   private Action<string?> _filterWill = null!;
   private Func<bool> _isFormModalVisible = null!;
   private Action<bool?> _toggleFormModal = null!;
-  private Func<bool> _isDeleteModalVisible = null!;
-  private Action<bool?> _toggleDeleteModal = null!;
+  private Func<bool> _isRemoveModalVisible = null!;
+  private Action<bool?> _toggleRemoveModal = null!;
 
   protected override void OnInitialized() {
     (_name, _searchName) = CreateSignal<string?>(this);
@@ -119,30 +119,49 @@
     (_decadency, _filterDecadency) = CreateSignal<string?>(this);
     (_will, _filterWill) = CreateSignal<string?>(this);
     (_isFormModalVisible, _toggleFormModal) = CreateToggle(this);
-    (_isDeleteModalVisible, _toggleDeleteModal) = CreateToggle(this);
+    (_isRemoveModalVisible, _toggleRemoveModal) = CreateToggle(this);
   }
-  private IRace previousSearch = new RaceModel(string.Empty, string.Empty, null, null, null);
+  private PreviousState Previous { get; set; } = new();
 
   private async Task Search() {
-    var response = await RaceService.FilterWithProductsBy(_name(), _decadency(), _needs(), _will());
+    var response = await RaceService.FilterWithProductsBy(
+      _name(), _decadency(), _needs(), _will()
+      );
     Items = response.ToList();
-    StateHasChanged();
   }
   protected override async Task OnInitializedAsync() {
     await Search();
-
   }
 
   protected override async Task OnAfterRenderAsync(bool firstRender) {
     if (firstRender) return;
+
     var search = new RaceModel(_name()!, string.Empty, _needs()!, _decadency()!, _will()!);
-    if (previousSearch.Name != search.Name
-        || previousSearch.Decadency != search.Decadency
-        || previousSearch.Needs != search.Needs
-        || previousSearch.Will != search.Will) {
+    if (Previous.Name != search.Name
+        || Previous.Decadency != search.Decadency?.Name
+        || Previous.Needs != search.Needs?.Name
+        || Previous.Will != search.Will?.Name) {
       Items = null;
+      StateHasChanged();
+
       await Search();
-      previousSearch = search;
+      Previous = Previous with {
+        Name = search.Name,
+        Decadency = search.Decadency?.Name,
+        Needs = search.Needs?.Name,
+        Will = search.Will?.Name
+        };
+      StateHasChanged();
+    }
+    if (
+      _isRemoveModalVisible() != Previous.IsRemoveModalVisible
+      || _isFormModalVisible() != Previous.IsFormModalVisible) {
+      await Search();
+      Previous = Previous with {
+        IsRemoveModalVisible = _isRemoveModalVisible(),
+        IsFormModalVisible = _isFormModalVisible(),
+        };
+      StateHasChanged();
     }
   }
 
@@ -151,14 +170,19 @@
     Initial = race;
     _toggleFormModal(true);
   }
-  private void ToggleDeleteModal(RaceResourceWithProducts<GoodResource> race) {
+  private void ToggleRemoveModal(RaceResourceWithProducts<GoodResource> race) {
     if (race.Products.Count is not 0) {
-      ToastService.AddAsync("serwis ras" ,"Rasa ma produkty", "warning");
+      ToastService.AddAsync("serwis ras", "Rasa ma produkty", "warning");
       return;
     }
     Initial = race;
-    _toggleDeleteModal(true);
+    _toggleRemoveModal(true);
   }
+
   private readonly string _gradient = $"bg-gradient-to-r {Color.Primary["from", 3]} {Color.Primary["to", 2]}";
   private static string _goodHref(IGood good) => $"/goods/{good.Name}".Replace(" ", "_");
+  private sealed record PreviousState(bool IsRemoveModalVisible, bool IsFormModalVisible, string? Name, string? Needs, string? Decadency, string? Will) {
+    public PreviousState()
+      : this(false, false, null, null, null, null) { }
+  }
 }
