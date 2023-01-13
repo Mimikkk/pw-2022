@@ -4,7 +4,6 @@
 <Card Class="@Class">
   <CardHeader>
     <div class="flex w-full items-center gap-2">
-      <Title>Dobro - @Good.Name</Title>
       <div class="flex gap-0.5 ml-auto">
         <button>
           <Icon Type="IconType.Pen" Size="Size.Sm" Interactive/>
@@ -15,9 +14,10 @@
       </div>
     </div>
   </CardHeader>
-  <div class="flex gap-2">
-    <Card Color="Color.Secondary" Shade="5">
-      <div class="w-24 h-24 flex items-center justify-center">
+  <Title>Dobro - @Good.Name</Title>
+  <div class="flex flex-col gap-2">
+    <Card Color="Color.Secondary" Shade="5" Class="justify-center items-center max-w-16 max-h-16">
+      <div class="aspect-square flex items-center justify-center">
         <Icon Type="IconType.Sun" Size="Size.Lg"/>
       </div>
     </Card>
@@ -25,24 +25,6 @@
       @Good.Description
     </Typography>
   </div>
-  @if (Producers is not null) {
-    <div>
-      <Typography Bold>Wytwarzane przez:</Typography>
-      <div class="flex gap-1">
-        @foreach (var producer in Producers) {
-          <Icon Type="@IconType.Person" Size="@Size.Sm" Label="@producer.Name" Interactive/>
-        }
-      </div>
-    </div>
-  }
-  <CardFooter>
-    <NavLink href="@_href">
-      <Title Class="flex gap-2" Interactive>
-        <Icon Type="IconType.RightChevron" Size="Size.Sm" Interactive/>
-        Więcej informacji
-      </Title>
-    </NavLink>
-  </CardFooter>
 </Card>
 
 @code {
@@ -52,6 +34,4 @@
   public List<RaceResource>? Producers { get; set; }
   [Parameter]
   public string? Class { get; set; }
-
-  private string _href => $"goods/{Good.Name}";
 }

@@ -3,9 +3,7 @@
 @using DataModels.Races
 @using Services.Races
 @using DataModels.Goods
-@using Mocks.Services
-@using Core
-@using Mocks.Mockers
+@using DataModels
 @inject IToastService ToastService
 @inject IRaceService RaceService
 
@@ -33,18 +31,47 @@
     </SelectField>
   </div>
   <div class="h-full px-48 py-8 col-span-5 flex flex-col gap-2">
-    <Card Color="Color.Secondary" Class="p-4 h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
-      @foreach (var race in Items) {
-        <div class="col-span-3 grid grid-cols-2 gap-2">
-          <RaceCard Race="@race" OnEdit="ToggleEditModal" OnRemove="() => _toggleDeleteModal(true)"/>
-          <div class="flex pb-2 gap-1 overflow-auto">
-            @foreach (var good in race.Products) {
-              <GoodCard Good="@good"/>
-            }
+    @if (Items is null) {
+      <LoadingBarrier/>
+    } else {
+      <Card Color="Color.Secondary" Class="p-4 h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
+        @foreach (var race in Items) {
+          <div class="col-span-3 grid grid-cols-2 gap-2">
+            <RaceCard Race="@race" OnEdit="ToggleEditModal" OnRemove="() => _toggleDeleteModal(true)"/>
+            <div>
+              <Title>Produkty</Title>
+              <div class="pb-2 flex flex-col gap-1 h-[300px] overflow-y-auto">
+                @foreach (var good in race.Products) {
+                  <Card>
+                    <CardHeader>
+                      <NavLink href="@_goodHref(good)">
+                        <Icon Type="IconType.RightChevronDouble" Size="Size.Sm" Interactive>
+                          <Typography Bold>
+                            Więcej informacji
+                          </Typography>
+                        </Icon>
+                      </NavLink>
+                      <Title>
+                        @good.Name
+                      </Title>
+                    </CardHeader>
+                    <div class="flex gap-2">
+                      <Card Color="Color.Secondary" Shade="5">
+
+                        <Icon Type="IconType.Sun"/>
+                      </Card>
+                      <Typography OverflowLines="2" Overflow>
+                        @good.Description
+                      </Typography>
+                    </div>
+                  </Card>
+                }
+              </div>
+            </div>
           </div>
-        </div>
-      }
-    </Card>
+        }
+      </Card>
+    }
     <div class="mt-auto flex gap-2 justify-center items-center p-2">
       <Icon Class="m-auto" Type="IconType.DownChevron" Color="Color.Secondary" Interactive/>
       <Button Class="place-self-end w-48" OnClick="() => _toggleFormModal(true)">Dodaj</Button>
@@ -70,7 +97,7 @@
   }
 #pragma warning restore CS4014
 
-  private List<RaceResourceWithProducts<GoodResource>> Items { get; set; } = new();
+  private List<RaceResourceWithProducts<GoodResource>>? Items { get; set; }
   private Func<string> _name = null!;
   private Action<string> _searchName = null!;
   private Func<string?> _needs = null!;
@@ -108,6 +135,7 @@
       Will = _will(),
     } : null;
 
+  private static string _goodHref(IGood good) => $"/goods/{good.Name}".Replace(" ", "_");
   private void ToggleEditModal() {
     _searchName("Jaszczurka");
     _filterNeeds("low");

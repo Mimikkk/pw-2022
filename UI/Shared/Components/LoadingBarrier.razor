@@ -1,0 +1,16 @@
+﻿<PageTitle>pw-2022 | Ładowanie...</PageTitle>
+<div class="w-full h-1/3 flex items-center justify-center">
+  <Card Class="w-1/2 h-fit items-center justify-center">
+    <div class="w-48">
+      <Icon Type="IconType.Spinner" Size="Size.Xl"></Icon>
+    </div>
+    <Title>
+      Trwa ładaowanie...
+    </Title>
+  </Card>
+</div>
+
+@code{
+  [Parameter]
+  public bool IsLoading { get; set; }
+}

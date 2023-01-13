@@ -1,6 +1,11 @@
 ﻿@using DataModels.Races
 <Card Class="@Class">
   <CardHeader>
+    <NavLink href="@_link">
+      <Icon Type="IconType.RightChevron" Size="Size.Sm" Interactive>
+        <Typography Bold>Więcej informacji</Typography>
+      </Icon>
+    </NavLink>
     <div class="flex w-full items-center gap-2">
       <Title>Rasa - @Race.Name</Title>
       <div class="flex gap-0.5 ml-auto">
@@ -23,14 +28,6 @@
       @Race.Description
     </Typography>
   </div>
-  <CardFooter>
-    <NavLink href="@_link">
-      <Title Class="flex gap-2" Interactive>
-        <Icon Type="IconType.RightChevron" Size="Size.Sm" Interactive/>
-        Więcej informacji
-      </Title>
-    </NavLink>
-  </CardFooter>
 </Card>
 
 @code {
@@ -44,5 +41,5 @@
   public Action? OnRemove { get; set; }
 
   private string? _accessName(object producer) => producer.Access<string>("Name");
-  private string _link => $"races/{Race.Name}";
+  private string _link => $"races/{Race.Name.Replace(' ', '_')}";
 }

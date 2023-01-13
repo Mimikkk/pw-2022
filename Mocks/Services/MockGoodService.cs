@@ -68,9 +68,11 @@ public sealed class MockGoodService : MockService, IGoodService {
 
   public async Task<GoodResourceWithProducers<RaceResource>?>
     ReadWithProducers(Guid id) {
-    var good = await Read(id);
-
-    throw new NotImplementedException();
+    var producers = Repository.RacesWithProducts.Where(
+        r => r.Products.Any(p => p.Id == id)
+      )
+      .ToList();
+    return null;
   }
   public async Task<IEnumerable<GoodResourceWithProducers<RaceResource>>>
     ReadAllWithProducers() {
