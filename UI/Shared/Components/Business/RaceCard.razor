@@ -1,21 +1,31 @@
 ﻿@using DataModels.Races
 <Card Class="@Class">
   <CardHeader>
-    <NavLink href="@_link">
-      <Icon Type="IconType.RightChevron" Size="Size.Sm" Interactive>
-        <Typography Bold>Więcej informacji</Typography>
-      </Icon>
-    </NavLink>
+    @if (GoBackLink) {
+      <NavLink href="/races">
+        <Icon Type="IconType.LeftChevron" Size="Size.Sm" Interactive>
+          <Typography Bold>Wróć do listy</Typography>
+        </Icon>
+      </NavLink>
+    } else {
+      <NavLink href="@_link">
+        <Icon Type="IconType.RightChevron" Size="Size.Sm" Interactive>
+          <Typography Bold>Więcej informacji</Typography>
+        </Icon>
+      </NavLink>
+    }
     <div class="flex w-full items-center gap-2">
       <Title>Rasa - @Race.Name</Title>
-      <div class="flex gap-0.5 ml-auto">
-        <button>
-          <Icon OnClick="@OnEdit" Type="IconType.Pen" Size="Size.Sm" Interactive/>
-        </button>
-        <button>
-          <Icon OnClick="@OnRemove" Type="IconType.Bin" Size="Size.Sm" Interactive/>
-        </button>
-      </div>
+      @if(OnEdit is not null && OnRemove is not null) {
+        <div class="flex gap-0.5 ml-auto">
+          <button>
+            <Icon OnClick="@OnEdit" Type="IconType.Pen" Size="Size.Sm" Interactive/>
+          </button>
+          <button>
+            <Icon OnClick="@OnRemove" Type="IconType.Bin" Size="Size.Sm" Interactive/>
+          </button>
+        </div>
+      }
     </div>
   </CardHeader>
   <div class="flex gap-2">
@@ -46,6 +56,8 @@
   public RaceResource Race { get; set; } = null!;
   [Parameter]
   public string? Class { get; set; }
+  [Parameter]
+  public bool GoBackLink { get; set; }
   [Parameter]
   public Action? OnEdit { get; set; }
   [Parameter]

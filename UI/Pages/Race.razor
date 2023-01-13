@@ -13,46 +13,20 @@
 } else {
   <PageTitle>UI | @Resource.Name</PageTitle>
 
-  <Card Color="Color.Secondary" Class="p-4 h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
-  </Card>
-  <ConfirmModal IsOpen="@_isDeleteModalVisible()" OnCancel="() => _toggleDeleteModal(false)" OnConfirm="HandleRemove">
-    Czy na pewno chcesz usunąć rasę <strong>@Resource.Name</strong>?
-  </ConfirmModal>
+  <div class="flex w-full h-1/2 items-center justify-center">
+    <RaceCard Class="w-1/2" Race="Resource" GoBackLink/>
+  </div>
 }
 
 
 @code {
-  [Parameter]
-  public string Name { get; set; }
-#pragma warning disable CS4014
-  private async Task HandleRemove() {
-    await Task.Delay(500);
-    ToastService.AddAsync(
-      "Serwis ras",
-      "Pomyślnie usunięto",
-      "success"
-      );
-    _toggleDeleteModal(false);
-  }
-#pragma warning restore CS4014
+  [Parameter, EditorRequired]
+  public string Name { get; set; } = null!;
 
   private RaceResourceWithProducts<GoodResource>? Resource { get; set; }
-
-  private Func<bool> _isFormModalVisible = null!;
-  private Action<bool?> _toggleFormModal = null!;
-  private Func<bool> _isDeleteModalVisible = null!;
-  private Action<bool?> _toggleDeleteModal = null!;
-  private bool _isEdit;
-
-  protected override void OnInitialized() {
-    (_isFormModalVisible, _toggleFormModal) = CreateToggle(this);
-    (_isDeleteModalVisible, _toggleDeleteModal) = CreateToggle(this);
-  }
 
   protected override async Task OnInitializedAsync() {
     Resource = (await RaceService.FilterWithProductsBy(name: Name.Replace('_', ' '))).LastOrDefault();
     if (Resource is null) NavManager.NavigateTo("404");
   }
-
-  private readonly string _gradient = $"bg-gradient-to-r {Color.Primary["from", 3]} {Color.Primary["to", 2]}";
 }
