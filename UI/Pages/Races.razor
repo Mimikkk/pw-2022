@@ -3,7 +3,6 @@
 @using DataModels.Races
 @using Services.Races
 @using DataModels.Goods
-@using Core
 @inject IToastService ToastService
 @inject IRaceService RaceService
 
@@ -78,17 +77,16 @@
     </div>
   </div>
 </section>
-<RaceModal Initial="@Initial" IsOpen="_isFormModalVisible()" OnClose="() => _toggleFormModal(false)" OnConfirm="() => _toggleFormModal(false)"/>
+<RaceModal Initial="@Selected" IsOpen="_isFormModalVisible()" OnClose="() => _toggleFormModal(false)" OnConfirm="() => _toggleFormModal(false)"/>
 <ConfirmModal IsOpen="@_isRemoveModalVisible()" OnCancel="() => _toggleRemoveModal(false)" OnConfirm="HandleRemove">
   Czy na pewno chcesz usunąć rasę <strong>@_name()</strong>?
 </ConfirmModal>
 
 @code {
-#pragma warning disable CS4014
   private async Task HandleRemove() {
-    if (Initial is null) return;
-    Log(Initial);
-    var result = await RaceService.Remove(Initial.Id);
+    if (Selected is null) return;
+    Log(Selected);
+    var result = await RaceService.Remove(Selected.Id);
 
     ToastService.AddAsync(
       "Serwis ras",
@@ -97,21 +95,7 @@
       );
     _toggleRemoveModal(false);
   }
-#pragma warning restore CS4014
 
-  private List<RaceResourceWithProducts<GoodResource>>? Items { get; set; }
-  private Func<string?> _name = null!;
-  private Action<string?> _searchName = null!;
-  private Func<string?> _needs = null!;
-  private Action<string?> _filterNeeds = null!;
-  private Func<string?> _decadency = null!;
-  private Action<string?> _filterDecadency = null!;
-  private Func<string?> _will = null!;
-  private Action<string?> _filterWill = null!;
-  private Func<bool> _isFormModalVisible = null!;
-  private Action<bool?> _toggleFormModal = null!;
-  private Func<bool> _isRemoveModalVisible = null!;
-  private Action<bool?> _toggleRemoveModal = null!;
 
   protected override void OnInitialized() {
     (_name, _searchName) = CreateSignal<string?>(this);
@@ -121,18 +105,9 @@
     (_isFormModalVisible, _toggleFormModal) = CreateToggle(this);
     (_isRemoveModalVisible, _toggleRemoveModal) = CreateToggle(this);
   }
-  private PreviousState Previous { get; set; } = new();
-
-  private async Task Search() {
-    var response = await RaceService.FilterWithProductsBy(
-      _name(), _decadency(), _needs(), _will()
-      );
-    Items = response.ToList();
-  }
   protected override async Task OnInitializedAsync() {
     await Search();
   }
-
   protected override async Task OnAfterRenderAsync(bool firstRender) {
     if (firstRender) return;
 
@@ -165,22 +140,42 @@
     }
   }
 
-  private RaceResource? Initial;
+  private async Task Search() {
+    var response = await RaceService.FilterWithProductsBy(
+      _name(), _decadency(), _needs(), _will()
+      );
+    Items = response.ToList();
+  }
   private void ToggleEditModal(RaceResource race) {
-    Initial = race;
+    Selected = race;
     _toggleFormModal(true);
   }
   private void ToggleRemoveModal(RaceResourceWithProducts<GoodResource> race) {
     if (race.Products.Count is not 0) {
-      ToastService.AddAsync("serwis ras", "Rasa ma produkty", "warning");
+      ToastService.AddAsync("serwis ras", "Rasa ma produkty!", "warning");
       return;
     }
-    Initial = race;
+    Selected = race;
     _toggleRemoveModal(true);
   }
 
-  private readonly string _gradient = $"bg-gradient-to-r {Color.Primary["from", 3]} {Color.Primary["to", 2]}";
   private static string _goodHref(IGood good) => $"/goods/{good.Name}".Replace(" ", "_");
+  private readonly string _gradient = $"bg-gradient-to-r {Color.Primary["from", 3]} {Color.Primary["to", 2]}";
+  private List<RaceResourceWithProducts<GoodResource>>? Items { get; set; }
+  private Func<string?> _name = null!;
+  private Action<string?> _searchName = null!;
+  private Func<string?> _needs = null!;
+  private Action<string?> _filterNeeds = null!;
+  private Func<string?> _decadency = null!;
+  private Action<string?> _filterDecadency = null!;
+  private Func<string?> _will = null!;
+  private Action<string?> _filterWill = null!;
+  private Func<bool> _isFormModalVisible = null!;
+  private Action<bool?> _toggleFormModal = null!;
+  private Func<bool> _isRemoveModalVisible = null!;
+  private Action<bool?> _toggleRemoveModal = null!;
+  private PreviousState Previous { get; set; } = new();
+  private RaceResource? Selected;
   private sealed record PreviousState(bool IsRemoveModalVisible, bool IsFormModalVisible, string? Name, string? Needs, string? Decadency, string? Will) {
     public PreviousState()
       : this(false, false, null, null, null, null) { }
