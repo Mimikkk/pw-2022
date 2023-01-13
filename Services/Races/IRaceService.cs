@@ -5,7 +5,9 @@ namespace Services.Races;
 
 public interface IRaceService {
   public Task<RaceResource?> Read(Guid id);
+  public Task<RaceResource?> Read(string name);
   public Task<RaceResourceWithProducts<GoodResource>?> ReadWithProducts(Guid id);
+  public Task<RaceResourceWithProducts<GoodResource>?> ReadWithProducts(string name);
   public Task<IEnumerable<RaceResource>> ReadAll();
   public Task<IEnumerable<RaceResourceWithProducts<GoodResource>>>
     ReadAllWithProducts();

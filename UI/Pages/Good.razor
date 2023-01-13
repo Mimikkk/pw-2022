@@ -1,8 +1,8 @@
-﻿@page "/races/{Name}"
+﻿@page "/goods/{Name}"
 @using DataModels.Races
-@using Services.Races
 @using DataModels.Goods
-@inject IRaceService RaceService
+@using Services.Goods
+@inject IGoodService GoodService
 @inject NavigationManager NavManager
 
 
@@ -12,7 +12,7 @@
   <PageTitle>UI | @Resource.Name</PageTitle>
 
   <div class="flex w-full h-1/2 items-center justify-center">
-    <RaceCard Class="w-1/2" Race="Resource" GoBackLink/>
+    <GoodCard Class="w-1/2" Good="Resource" GoBackLink/>
   </div>
 }
 
@@ -21,10 +21,10 @@
   [Parameter, EditorRequired]
   public string Name { get; set; } = null!;
 
-  private RaceResourceWithProducts<GoodResource>? Resource { get; set; }
+  private GoodResourceWithProducer<RaceResource>? Resource { get; set; }
 
   protected override async Task OnInitializedAsync() {
-    Resource = await RaceService.ReadWithProducts(Name.Replace('_', ' '));
+    Resource = await GoodService.ReadWithProducer(Name.Replace('_', ' '));
     if (Resource is null) NavManager.NavigateTo("404");
   }
 }

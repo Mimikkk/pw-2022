@@ -7,19 +7,22 @@ public sealed class GoodService : IGoodService {
   public Task<GoodResource?> Read(Guid id) {
     throw new NotImplementedException();
   }
-  public Task<GoodResourceWithProducers<RaceResource>?> ReadWithProducers(Guid id) {
+  public Task<GoodResource?> Read(string name) {
+    throw new NotImplementedException();
+  }
+  public Task<GoodResourceWithProducer<RaceResource>?> ReadWithProducer(Guid id) {
+    throw new NotImplementedException();
+  }
+  public Task<GoodResourceWithProducer<RaceResource>?> ReadWithProducer(string name) {
     throw new NotImplementedException();
   }
   public Task<IEnumerable<GoodResource>> ReadAll() {
     throw new NotImplementedException();
   }
-  public Task<IEnumerable<GoodResourceWithProducers<RaceResource>>> ReadAllWithProducers() {
-    throw new NotImplementedException();
-  }
   public Task<IEnumerable<GoodResource>> FilterBy(string? name) {
     throw new NotImplementedException();
   }
-  public Task<IEnumerable<GoodResourceWithProducers<RaceResource>>> FilterWithProducersBy(string? name) {
+  public Task<IEnumerable<GoodResourceWithProducer<RaceResource>>> FilterWithProducerBy(string? name = default) {
     throw new NotImplementedException();
   }
   public Task<bool> Create(Guid raceId, GoodModel model) {

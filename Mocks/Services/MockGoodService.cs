@@ -11,6 +11,10 @@ public sealed class MockGoodService : MockService, IGoodService {
     await Delay();
     return Repository.Goods.FirstOrDefault(r => r.Id == id);
   }
+  public async Task<GoodResource?> Read(string name) {
+    await Delay();
+    return Repository.Goods.LastOrDefault(x => string.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase));
+  }
   public async Task<IEnumerable<GoodResource>> ReadAll() {
     await Delay();
     return Repository.Goods;
@@ -23,6 +27,7 @@ public sealed class MockGoodService : MockService, IGoodService {
 
     return goods;
   }
+
   public async Task<bool> Create(Guid raceId, GoodModel model) {
     var race = await MockRaceService.Instance.ReadWithProducts(raceId);
     if (race is null) return false;
@@ -66,24 +71,44 @@ public sealed class MockGoodService : MockService, IGoodService {
     return true;
   }
 
-  public async Task<GoodResourceWithProducers<RaceResource>?>
-    ReadWithProducers(Guid id) {
-    var producers = Repository.RacesWithProducts.Where(
-        r => r.Products.Any(p => p.Id == id)
-      )
-      .ToList();
-    return null;
-  }
-  public async Task<IEnumerable<GoodResourceWithProducers<RaceResource>>>
-    ReadAllWithProducers() {
-    await Delay();
+  public async Task<GoodResourceWithProducer<RaceResource>?>
+    ReadWithProducer(Guid id) {
+    var producer = Repository.RacesWithProducts.FirstOrDefault(
+      r => r.Products.Any(p => p.Id == id)
+    );
+    if (producer is null) return null;
 
-    throw new NotImplementedException();
-  }
-  public async Task<IEnumerable<GoodResourceWithProducers<RaceResource>>>
-    FilterWithProducersBy(string? name) {
-    await Delay();
+    var good = await Read(id);
+    if (good is null) return null;
 
-    throw new NotImplementedException();
+    return new GoodResourceWithProducer<RaceResource>(
+      good.RaceId,
+      good.Id,
+      good.CreatedAt,
+      good.UpdatedAt,
+      good.Name,
+      good.Description,
+      producer
+    );
+  }
+  public async Task<GoodResourceWithProducer<RaceResource>?>
+    ReadWithProducer(string name) {
+    var good = Repository.Goods.LastOrDefault(x => string.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase));
+    if (good is null) return null;
+
+    var producer = Repository.RacesWithProducts.FirstOrDefault(
+      r => r.Products.Any(p => p.Id == good.Id)
+    );
+    if (producer is null) return null;
+
+    return new GoodResourceWithProducer<RaceResource>(
+      good.RaceId,
+      good.Id,
+      good.CreatedAt,
+      good.UpdatedAt,
+      good.Name,
+      good.Description,
+      producer
+    );
   }
 }

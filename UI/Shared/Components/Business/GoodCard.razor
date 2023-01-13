@@ -1,37 +1,63 @@
 ﻿@using DataModels.Goods
 @using DataModels.Races
-@using Bogus.DataSets
 <Card Class="@Class">
   <CardHeader>
+    @if (GoBackLink) {
+      <NavLink href="/goods">
+        <Icon Type="IconType.LeftChevron" Size="Size.Sm" Interactive>
+          <Typography Bold>Wróć do listy dóbr</Typography>
+        </Icon>
+      </NavLink>
+    } else {
+      <NavLink href="@_link">
+        <Icon Type="IconType.RightChevron" Size="Size.Sm" Interactive>
+          <Typography Bold>Więcej informacji</Typography>
+        </Icon>
+      </NavLink>
+    }
     <div class="flex w-full items-center gap-2">
-      <div class="flex gap-0.5 ml-auto">
-        <button>
-          <Icon Type="IconType.Pen" Size="Size.Sm" Interactive/>
-        </button>
-        <button>
-          <Icon Type="IconType.Bin" Size="Size.Sm" Interactive/>
-        </button>
-      </div>
+      <Title>Dobro - @Good.Name</Title>
+      @if (OnEdit is not null && OnRemove is not null) {
+        <div class="flex gap-0.5 ml-auto">
+          <button>
+            <Icon OnClick="@OnEdit" Type="IconType.Pen" Size="Size.Sm" Interactive/>
+          </button>
+          <button>
+            <Icon OnClick="@OnRemove" Type="IconType.Bin" Size="Size.Sm" Interactive/>
+          </button>
+        </div>
+      }
     </div>
   </CardHeader>
-  <Title>Dobro - @Good.Name</Title>
-  <div class="flex flex-col gap-2">
-    <Card Color="Color.Secondary" Shade="5" Class="justify-center items-center max-w-16 max-h-16">
-      <div class="aspect-square flex items-center justify-center">
+  <div class="flex gap-2">
+    <Card Color="Color.Secondary" Shade="5">
+      <div class="w-24 h-24 flex items-center justify-center">
         <Icon Type="IconType.Sun" Size="Size.Lg"/>
       </div>
     </Card>
-    <Typography Overflow OverflowLines="5">
+    <Typography Overflow OverflowLines="10">
       @Good.Description
     </Typography>
   </div>
+  <Typography Bold Class="flex">
+    <Icon Type="IconType.Person" Size="Size.Sm" Interactive/>
+    Producent:
+    @Good.Producer.Name
+  </Typography>
 </Card>
 
 @code {
   [Parameter, EditorRequired]
-  public GoodResource Good { get; set; } = null!;
-  [Parameter]
-  public List<RaceResource>? Producers { get; set; }
+  public GoodResourceWithProducer<RaceResource> Good { get; set; } = null!;
   [Parameter]
   public string? Class { get; set; }
+  [Parameter]
+  public bool GoBackLink { get; set; }
+  [Parameter]
+  public Action? OnEdit { get; set; }
+  [Parameter]
+  public Action? OnRemove { get; set; }
+
+  private string? _accessName(object producer) => producer.Access<string>("Name");
+  private string _link => $"goods/{Good.Name.Replace(' ', '_')}";
 }

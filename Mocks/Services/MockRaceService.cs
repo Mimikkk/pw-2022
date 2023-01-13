@@ -9,6 +9,15 @@ public sealed class MockRaceService : MockService, IRaceService {
 
   public async Task<RaceResource?> Read(Guid id)
     => await ReadWithProducts(id);
+  public async Task<RaceResource?> Read(string name) {
+    await Delay();
+    return Repository.RacesWithProducts.LastOrDefault(x => x.Name == name);
+  }
+
+  public async Task<RaceResourceWithProducts<GoodResource>?> ReadWithProducts(string name) {
+    await Delay();
+    return Repository.RacesWithProducts.LastOrDefault(x => x.Name == name);
+  }
   public async Task<IEnumerable<RaceResource>> ReadAll()
     => await ReadAllWithProducts();
   public async Task<IEnumerable<RaceResource>>

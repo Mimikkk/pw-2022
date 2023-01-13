@@ -7,7 +7,13 @@ public sealed class RaceService : IRaceService {
   public Task<RaceResource?> Read(Guid id) {
     throw new NotImplementedException();
   }
+  public Task<RaceResource?> Read(string name) {
+    throw new NotImplementedException();
+  }
   public Task<RaceResourceWithProducts<GoodResource>?> ReadWithProducts(Guid id) {
+    throw new NotImplementedException();
+  }
+  public Task<RaceResourceWithProducts<GoodResource>?> ReadWithProducts(string name) {
     throw new NotImplementedException();
   }
   public Task<IEnumerable<RaceResource>> ReadAll() {

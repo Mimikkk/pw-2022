@@ -22,7 +22,7 @@
     var link = "";
     foreach (var path in paths) {
       link = $"{link}/{path}";
-      result.Add((link, path));
+      result.Add((link, path.Replace('_', ' ')));
     }
     if (result.Count == 0) result.Add(("/", "Home"));
 
