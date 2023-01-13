@@ -1,49 +1,10 @@
-﻿<Card Class="@Class">
-  <CardHeader>@header</CardHeader>
-  <div class="flex gap-2">
-    <Card Color="Color.Secondary" Shade="5">
-      <div class="w-24 h-24 flex items-center justify-center">
-        <Icon Type="IconType.Sun" Size="Size.Lg"/>
-      </div>
-    </Card>
-    <Typography Overflow OverflowLines="5">
-      @Description
-    </Typography>
-  </div>
-  <div>
-    <Typography Bold>Wytwarzane przez:</Typography>
-    <div class="flex gap-1">
-      @foreach (var producer in producers) {
-        <Icon Type="IconType.Person" Size="Size.Sm" Label="@_accessName(producer)" Interactive/>
-      }
-    </div>
-  </div>
-  <CardFooter>@footer</CardFooter>
-</Card>
-
-@code {
-  [Parameter]
-  public string? Class { get; set; }
-
-  private string? Name = "Drewno";
-  private string Description { get; set; } = "Drewno to podstawowy surowiec w grach survivalowych, który służy do wielu różnych celów. Może być wykorzystywane do tworzenia narzędzi, budowy schronienia, rozpalania ognia oraz produkcji przedmiotów takich jak kajdanki, tarcze i wiele innych.";
-
-  private List<object> producers = new() {
-    new {
-      Name = "Jaszczurka"
-    },
-    new {
-      Name = "Bóbr"
-    },
-    new {
-      Name = "Harpia"
-    },
-  };
-
-  private string? _accessName(object producer) => producer.Access<string>("Name");
-  private RenderFragment header =>
-    @<div class="flex w-full items-center gap-2">
-      <Title>Dobro - @Name</Title>
+﻿@using DataModels.Goods
+@using DataModels.Races
+@using Bogus.DataSets
+<Card Class="@Class">
+  <CardHeader>
+    <div class="flex w-full items-center gap-2">
+      <Title>Dobro - @Good.Name</Title>
       <div class="flex gap-0.5 ml-auto">
         <button>
           <Icon Type="IconType.Pen" Size="Size.Sm" Interactive/>
@@ -52,14 +13,45 @@
           <Icon Type="IconType.Bin" Size="Size.Sm" Interactive/>
         </button>
       </div>
-    </div>;
-
-  private RenderFragment footer =>
-    @<NavLink href="@_link">
+    </div>
+  </CardHeader>
+  <div class="flex gap-2">
+    <Card Color="Color.Secondary" Shade="5">
+      <div class="w-24 h-24 flex items-center justify-center">
+        <Icon Type="IconType.Sun" Size="Size.Lg"/>
+      </div>
+    </Card>
+    <Typography Overflow OverflowLines="5">
+      @Good.Description
+    </Typography>
+  </div>
+  @if (Producers is not null) {
+    <div>
+      <Typography Bold>Wytwarzane przez:</Typography>
+      <div class="flex gap-1">
+        @foreach (var producer in Producers) {
+          <Icon Type="@IconType.Person" Size="@Size.Sm" Label="@producer.Name" Interactive/>
+        }
+      </div>
+    </div>
+  }
+  <CardFooter>
+    <NavLink href="@_href">
       <Title Class="flex gap-2" Interactive>
         <Icon Type="IconType.RightChevron" Size="Size.Sm" Interactive/>
         Więcej informacji
       </Title>
-    </NavLink>;
-  private string _link => $"goods/{Name}";
+    </NavLink>
+  </CardFooter>
+</Card>
+
+@code {
+  [Parameter, EditorRequired]
+  public GoodResource Good { get; set; } = null!;
+  [Parameter]
+  public List<RaceResource>? Producers { get; set; }
+  [Parameter]
+  public string? Class { get; set; }
+
+  private string _href => $"goods/{Good.Name}";
 }

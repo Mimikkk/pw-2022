@@ -1,7 +1,8 @@
-﻿<Card Class="@Class">
+﻿@using DataModels.Races
+<Card Class="@Class">
   <CardHeader>
     <div class="flex w-full items-center gap-2">
-      <Title>Rasa - @Name</Title>
+      <Title>Rasa - @Race.Name</Title>
       <div class="flex gap-0.5 ml-auto">
         <button>
           <Icon OnClick="@OnEdit" Type="IconType.Pen" Size="Size.Sm" Interactive/>
@@ -19,7 +20,7 @@
       </div>
     </Card>
     <Typography Overflow OverflowLines="10">
-      @Description
+      @Race.Description
     </Typography>
   </div>
   <CardFooter>
@@ -33,6 +34,8 @@
 </Card>
 
 @code {
+  [Parameter, EditorRequired]
+  public RaceResource Race { get; set; } = null!;
   [Parameter]
   public string? Class { get; set; }
   [Parameter]
@@ -40,9 +43,6 @@
   [Parameter]
   public Action? OnRemove { get; set; }
 
-  private string Name { get; set; } = "Jaszczurka";
-  private string Description { get; set; } = "Drewno to podstawowy surowiec w grach survivalowych, który służy do wielu różnych celów. Może być wykorzystywane do tworzenia narzędzi, budowy schronienia, rozpalania ognia oraz produkcji przedmiotów takich jak kajdanki, tarcze i wiele innych.";
   private string? _accessName(object producer) => producer.Access<string>("Name");
-
-  private string _link => $"races/{Name}";
+  private string _link => $"races/{Race.Name}";
 }

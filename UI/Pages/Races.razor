@@ -1,6 +1,13 @@
 ﻿@page "/races"
 @using Services.Toasts
+@using DataModels.Races
+@using Services.Races
+@using DataModels.Goods
+@using Mocks.Services
+@using Core
+@using Mocks.Mockers
 @inject IToastService ToastService
+@inject IRaceService RaceService
 
 <PageTitle>UI | Races</PageTitle>
 
@@ -27,16 +34,13 @@
   </div>
   <div class="h-full px-48 py-8 col-span-5 flex flex-col gap-2">
     <Card Color="Color.Secondary" Class="p-4 h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
-      @foreach (var item in Items) {
+      @foreach (var race in Items) {
         <div class="col-span-3 grid grid-cols-2 gap-2">
-          <RaceCard OnEdit="ToggleEditModal" OnRemove="() => _toggleDeleteModal(true)"/>
+          <RaceCard Race="@race" OnEdit="ToggleEditModal" OnRemove="() => _toggleDeleteModal(true)"/>
           <div class="flex pb-2 gap-1 overflow-auto">
-            <GoodCard/>
-            <GoodCard/>
-            <GoodCard/>
-            <GoodCard/>
-            <GoodCard/>
-            <GoodCard/>
+            @foreach (var good in race.Products) {
+              <GoodCard Good="@good"/>
+            }
           </div>
         </div>
       }
@@ -64,37 +68,9 @@
       );
     _toggleDeleteModal(false);
   }
-
 #pragma warning restore CS4014
 
-  private List<object> Items => new() {
-    new {
-      Goods = new List<object>() {
-        new { },
-        new { },
-        new { },
-        new { },
-        new { },
-      },
-    },
-    new {
-      Goods = new List<object>() {
-        new { },
-        new { },
-        new { },
-      },
-
-    },
-    new { },
-    new { },
-    new { },
-    new { },
-    new { },
-    new { },
-    new { },
-    new { },
-    new { },
-  };
+  private List<RaceResourceWithProducts<GoodResource>> Items { get; set; } = new();
   private Func<string> _name = null!;
   private Action<string> _searchName = null!;
   private Func<string?> _needs = null!;
@@ -116,6 +92,11 @@
     (_will, _filterWill) = CreateSignal<string?>(this);
     (_isFormModalVisible, _toggleFormModal) = CreateToggle(this);
     (_isDeleteModalVisible, _toggleDeleteModal) = CreateToggle(this);
+  }
+
+
+  protected override async Task OnInitializedAsync() {
+    Items = (await RaceService.ReadAllWithProducts()).ToList();
   }
 
   private object? Initial =>
