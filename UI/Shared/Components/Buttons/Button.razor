@@ -50,12 +50,10 @@
     OnClick();
   }
 
-#pragma warning disable CS4014
   private void HandleClick() {
     if (OnClick is not null) HandleClickSync();
     else HandleClickAsync();
   }
-#pragma warning restore CS4014
 
   private string pointer => Disabled ? "cursor-not-allowed" : "cursor-pointer";
   private string? submitting => Submitting ? "cursor-wait" : null;

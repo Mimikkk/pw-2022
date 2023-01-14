@@ -32,7 +32,7 @@ public sealed class MockRaceService : MockService, IRaceService {
     FilterWithProductsBy(string? name, string? decadency, string? needs, string? will) {
     var races = await ReadAllWithProducts();
 
-    if (name is not null) races = races.Where(r => r.Name.Contains(name)).ToList();
+    if (name is not null) races = races.Where(r => r.Name.ToLower().Contains(name.ToLower())).ToList();
     if (decadency is not null) races = races.Where(r => r.Decadency.Name.Equals(decadency)).ToList();
     if (needs is not null) races = races.Where(r => r.Needs.Name.Equals(needs)).ToList();
     if (will is not null) races = races.Where(r => r.Will.Name.Equals(will)).ToList();

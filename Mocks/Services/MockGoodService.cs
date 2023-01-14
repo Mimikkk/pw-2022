@@ -22,8 +22,8 @@ public sealed class MockGoodService : MockService, IGoodService {
   public async Task<IEnumerable<GoodResource>> FilterBy(string? name) {
     await Delay();
     var goods = Repository.Goods;
-
-    if (name is not null) goods = goods.Where(g => g.Name.Contains(name)).ToList();
+     
+    if (name is not null) goods = goods.Where(g => g.Name.ToLower().Contains(name.ToLower())).ToList();
 
     return goods;
   }
