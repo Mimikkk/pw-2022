@@ -19,7 +19,7 @@ public sealed class DatabaseContext : DbContext {
     builder.Entity<RaceEntity>()
       .HasMany(race => race.Products)
       .WithOne(producer => producer.Producer)
-      .HasForeignKey(producer => producer.ProducerId)
+      .HasForeignKey(producer => producer.ProducerId);
 
     builder.Entity<RaceEntity>().SeedValues();
   }
