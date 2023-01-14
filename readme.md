@@ -85,3 +85,7 @@ Aby uruchomić bazę danych dyskową należy:
 
 <img src="Screenshots/races-race-view.png" width="640">
 
+
+- Wyskakujący tost
+
+<img src="Screenshots/toast.png" width="320">
