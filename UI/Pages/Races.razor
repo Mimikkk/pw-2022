@@ -112,18 +112,18 @@
 
     var search = new RaceModel(_name()!, string.Empty, _needs()!, _decadency()!, _will()!);
     if (Previous.Name != search.Name
-        || Previous.Decadency != search.Decadency?.Name
-        || Previous.Needs != search.Needs?.Name
-        || Previous.Will != search.Will?.Name) {
+        || Previous.Decadency != search.Decadency
+        || Previous.Needs != search.Needs
+        || Previous.Will != search.Will) {
       Items = null;
       StateHasChanged();
 
       await Search();
       Previous = Previous with {
         Name = search.Name,
-        Decadency = search.Decadency?.Name,
-        Needs = search.Needs?.Name,
-        Will = search.Will?.Name
+        Decadency = search.Decadency,
+        Needs = search.Needs,
+        Will = search.Will
         };
       StateHasChanged();
     }

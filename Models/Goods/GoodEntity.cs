@@ -12,4 +12,12 @@ public record GoodEntity(
     => new(good.Producer.Id, good.Id, good.CreatedAt, good.UpdatedAt,
       good.Name, good.Description,
       null!);
+      
+  /// <summary>
+  /// EF constructor
+  /// </summary>
+  private GoodEntity(
+    Guid ProducerId, Guid Id, DateTime CreatedAt, DateTime? UpdatedAt,
+    string Name, string? Description
+  ) : this(ProducerId, Id, CreatedAt,  UpdatedAt, Name, Description, null!) { } 
 }

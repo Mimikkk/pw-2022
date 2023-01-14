@@ -1,4 +1,3 @@
-using Mocks.Services;
 using Services.Goods;
 using Services.Races;
 using Services.Toasts;
@@ -7,8 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<IRaceService, MockRaceService>();
-builder.Services.AddSingleton<IGoodService, MockGoodService>();
+builder.Services.AddSingleton<IRaceService, RaceService>();
+builder.Services.AddSingleton<IGoodService, GoodService>();
 builder.Services.AddScoped<IToastService, ToastService>();
 
 var app = builder.Build();

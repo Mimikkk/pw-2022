@@ -5,7 +5,7 @@ namespace Models.Races;
 
 public sealed record RaceResourceWithProducts<T>(
     Guid Id, DateTime CreatedAt, DateTime? UpdatedAt,
-    string Name, string? Description, Category Needs, Category Decadency, Category Will,
+    string Name, string? Description, string Needs, string Decadency, string Will,
     List<T> Products)
   : RaceResource(Id, CreatedAt, UpdatedAt, Name, Description, Needs, Decadency, Will)
   where T : IGood {

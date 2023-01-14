@@ -91,8 +91,8 @@
   protected override void OnInitialized() {
     (_name, _changeName) = CreateSignal(this, Initial?.Name ?? string.Empty);
     (_description, _changeDescription) = CreateSignal(this, Initial?.Description ?? string.Empty);
-    (_needs, _selectNeeds) = CreateSignal(this, Initial?.Needs.Name ?? default);
-    (_decadency, _selectDecadency) = CreateSignal(this, Initial?.Decadency.Name ?? default);
-    (_will, _selectWill) = CreateSignal(this, Initial?.Will.Name ?? default);
+    (_needs, _selectNeeds) = CreateSignal(this, Initial?.Needs ?? default);
+    (_decadency, _selectDecadency) = CreateSignal(this, Initial?.Decadency ?? default);
+    (_will, _selectWill) = CreateSignal(this, Initial?.Will ?? default);
   }
 }
