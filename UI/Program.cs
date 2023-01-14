@@ -1,16 +1,23 @@
 using Database;
 using Microsoft.EntityFrameworkCore;
+using Mocks.Services;
 using Services.Goods;
 using Services.Races;
 using Services.Toasts;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var cx = builder.Configuration.GetValue<string>("HHh");
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlite("Filename=../Database/Database.db"));
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddScoped<IRaceService, RaceService>();
-builder.Services.AddScoped<IGoodService, GoodService>();
+
+if (builder.Configuration.GetValue<bool>("UseInMemoryDatabase")) {
+  builder.Services.AddScoped<IRaceService, MockRaceService>();
+  builder.Services.AddScoped<IGoodService, MockGoodService>();
+} else {
+  builder.Services.AddScoped<IRaceService, RaceService>();
+  builder.Services.AddScoped<IGoodService, GoodService>();
+}
 builder.Services.AddScoped<IToastService, ToastService>();
 
 var app = builder.Build();
