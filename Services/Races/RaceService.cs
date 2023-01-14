@@ -83,16 +83,15 @@ public sealed class RaceService : IRaceService {
     try {
       var race = _context.Races.FirstOrDefault(x => x.Id == id);
       if (race is null) return false;
-      _context.Races.Update(
-        race with {
+      _context.Entry(race)
+        .CurrentValues.SetValues(race with {
           Name = model.Name,
           Description = model.Description,
           Decadency = model.Decadency,
           Needs = model.Needs,
           Will = model.Will,
           UpdatedAt = DateTime.Now
-        }
-      );
+        });
       await _context.SaveChangesAsync();
       return true;
     } catch {

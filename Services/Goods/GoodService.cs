@@ -31,7 +31,7 @@ public sealed class GoodService : IGoodService {
   }
   public async Task<IEnumerable<GoodResource>> ReadAll()
     => _context.Goods
-    .Select(GoodResource.From);
+      .Select(GoodResource.From);
 
   public async Task<IEnumerable<GoodResource>> FilterBy(string? name)
     => _context.Goods
@@ -60,21 +60,15 @@ public sealed class GoodService : IGoodService {
     }
   }
   public async Task<bool> Update(Guid id, GoodModel model) {
-    try {
-      var good = _context.Goods.FirstOrDefault(x => x.Id == id);
-      if (good is null) return false;
-      _context.Goods.Update(
-        good with {
-          Name = model.Name,
-          Description = model.Description,
-          UpdatedAt = DateTime.Now
-        }
-      );
-      await _context.SaveChangesAsync();
-      return true;
-    } catch {
-      return false;
-    }
+    var good = _context.Goods.FirstOrDefault(x => x.Id == id);
+    if (good is null) return false;
+    _context.Entry(good).CurrentValues.SetValues(good with {
+      Name = model.Name,
+      Description = model.Description,
+      UpdatedAt = DateTime.Now
+    });
+    await _context.SaveChangesAsync();
+    return true;
   }
 
   public GoodService(DatabaseContext context) => _context = context;
