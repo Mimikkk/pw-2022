@@ -62,6 +62,7 @@ public sealed class RaceService : IRaceService {
   public async Task<bool> Create(RaceModel model) {
     try {
       _context.Races.Add(RaceEntity.From(model));
+      await _context.SaveChangesAsync();
       return true;
     } catch {
       return false;
@@ -72,6 +73,7 @@ public sealed class RaceService : IRaceService {
       var race = _context.Races.FirstOrDefault(x => x.Id == id);
       if (race is null) return false;
       _context.Races.Remove(race);
+      await _context.SaveChangesAsync();
       return true;
     } catch {
       return false;
@@ -91,6 +93,7 @@ public sealed class RaceService : IRaceService {
           UpdatedAt = DateTime.Now
         }
       );
+      await _context.SaveChangesAsync();
       return true;
     } catch {
       return false;

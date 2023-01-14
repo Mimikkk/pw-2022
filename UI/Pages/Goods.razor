@@ -23,6 +23,11 @@
         @foreach (var good in Items) {
           <GoodCard Good="@good" OnEdit="() => ToggleEditModal(good)" OnRemove="() => ToggleRemoveModal(good)"/>
         }
+        @if (Items.Count is 0) {
+          <div class="col-span-2 text-center">
+            <Title>Lista dóbr jest pusta</Title>
+          </div>
+        }
       </Card>
     }
     <div class="mt-auto flex gap-2 justify-center items-center p-2">

@@ -42,6 +42,7 @@ public sealed class GoodService : IGoodService {
   public async Task<bool> Create(Guid raceId, GoodModel model) {
     try {
       _context.Goods.Add(GoodEntity.From(raceId, model));
+      await _context.SaveChangesAsync();
       return true;
     } catch {
       return false;
@@ -52,6 +53,7 @@ public sealed class GoodService : IGoodService {
       var good = _context.Goods.FirstOrDefault(x => x.Id == id);
       if (good is null) return false;
       _context.Goods.Remove(good);
+      await _context.SaveChangesAsync();
       return true;
     } catch {
       return false;
@@ -68,6 +70,7 @@ public sealed class GoodService : IGoodService {
           UpdatedAt = DateTime.Now
         }
       );
+      await _context.SaveChangesAsync();
       return true;
     } catch {
       return false;

@@ -65,8 +65,18 @@
                     </div>
                   </Card>
                 }
+                @if (race.Products.Count is 0) {
+                  <Typography>
+                    Brak wytwarzanych produktów...
+                  </Typography>
+                }
               </div>
             </div>
+          </div>
+        }
+        @if (Items.Count is 0) {
+          <div class="col-span-3 text-center">
+            <Title>Lista ras jest pusta</Title>
           </div>
         }
       </Card>
