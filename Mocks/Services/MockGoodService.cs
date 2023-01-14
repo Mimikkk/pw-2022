@@ -17,7 +17,7 @@ public sealed class MockGoodService : MockService, IGoodService {
   }
   public async Task<IEnumerable<GoodResource>> ReadAll() {
     await Delay();
-    return Repository.Goods;
+    return Repository.Goods.OrderByDescending(x => x.UpdatedAt ?? x.CreatedAt);
   }
   public async Task<IEnumerable<GoodResource>> FilterBy(string? name) {
     await Delay();
@@ -25,7 +25,7 @@ public sealed class MockGoodService : MockService, IGoodService {
      
     if (name is not null) goods = goods.Where(g => g.Name.ToLower().Contains(name.ToLower())).ToList();
 
-    return goods;
+    return goods.OrderByDescending(x => x.UpdatedAt ?? x.CreatedAt);
   }
 
   public async Task<bool> Create(Guid raceId, GoodModel model) {

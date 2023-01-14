@@ -37,14 +37,14 @@ public sealed class MockRaceService : MockService, IRaceService {
     if (needs is not null) races = races.Where(r => r.Needs.Name.Equals(needs)).ToList();
     if (will is not null) races = races.Where(r => r.Will.Name.Equals(will)).ToList();
 
-    return races;
+    return races.OrderByDescending(x => x.UpdatedAt ?? x.CreatedAt);
   }
 
   public async Task<IEnumerable<RaceResourceWithProducts<GoodResource>>>
     ReadAllWithProducts() {
     await Delay();
 
-    return Repository.RacesWithProducts;
+    return Repository.RacesWithProducts.OrderByDescending(x => x.UpdatedAt ?? x.CreatedAt);
   }
 
   public async Task<bool> Create(RaceModel model) {
