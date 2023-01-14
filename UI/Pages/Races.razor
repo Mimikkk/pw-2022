@@ -6,7 +6,7 @@
 @inject IToastService ToastService
 @inject IRaceService RaceService
 
-<PageTitle>UI | Races</PageTitle>
+<PageTitle>UI | Rasy</PageTitle>
 
 <section class="h-full grid grid-cols-6">
   <div class="@Cx(_gradient, "h-full py-4 px-2 flex flex-col gap-4")">
@@ -85,7 +85,6 @@
 @code {
   private async Task HandleRemove() {
     if (Selected is null) return;
-    Log(Selected);
     var result = await RaceService.Remove(Selected.Id);
 
     ToastService.AddAsync(
@@ -128,14 +127,22 @@
         };
       StateHasChanged();
     }
-    if (
-      _isRemoveModalVisible() != Previous.IsRemoveModalVisible
-      || _isFormModalVisible() != Previous.IsFormModalVisible) {
+    if (_isRemoveModalVisible() != Previous.IsRemoveModalVisible) {
       await Search();
+      if (Previous.IsRemoveModalVisible) Selected = null;
       Previous = Previous with {
-        IsRemoveModalVisible = _isRemoveModalVisible(),
-        IsFormModalVisible = _isFormModalVisible(),
+        IsRemoveModalVisible = _isRemoveModalVisible()
         };
+
+      StateHasChanged();
+    }
+    if (_isFormModalVisible() != Previous.IsFormModalVisible) {
+      await Search();
+      if (Previous.IsFormModalVisible) Selected = null;
+      Previous = Previous with {
+        IsFormModalVisible = _isFormModalVisible()
+        };
+
       StateHasChanged();
     }
   }

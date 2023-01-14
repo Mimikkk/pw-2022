@@ -1,0 +1,80 @@
+﻿@inject IToastService ToastService
+@inject IJSRuntime JS
+@using Microsoft.AspNetCore.Components.Web.Infrastructure
+@using Services.Races
+@using Services.Toasts
+@using DataModels.Races
+@using DataModels.Goods
+@using Services.Goods
+@inject IGoodService GoodService
+
+<form id="good-form" class="flex flex-col gap-2">
+  <div class="flex gap-2 justify-center">
+    <div class="w-24 h-24 flex items-center justify-center">
+      <Card Color="Color.Secondary" Shade="5">
+        <Icon Type="IconType.Sun" Size="Size.Lg"/>
+      </Card>
+    </div>
+    <div class="flex flex-col w-full gap-2">
+      <TextField Required Value="@_name()" OnChange="_changeName" Label="Nazwa"/>
+      <TextField Optional Lines="4" Value="@_name()" OnChange="_changeName" Label="Opis"/>
+    </div>
+  </div>
+  <Divider/>
+  <SelectField
+    Disabled="@(Initial is not null)"
+    Required Icon="IconType.Moon"
+    Label="Producent" Value="@_producer()" OnChange="_selectProducer">
+    @foreach (var race in Races) {
+      <option value="@race.Id">@race.Name</option>
+    }
+  </SelectField>
+</form>
+
+@code {
+  [Parameter]
+  public GoodResourceWithProducer<RaceResource>? Initial { get; set; }
+  private List<RaceResource> Races = new();
+#pragma warning disable CS4014
+  public async Task OnSubmit() {
+    reportValidity();
+    if (!Validate()) return;
+    var wasSuccessful = await (Initial is not null
+      ? GoodService.Update(Initial.Id, new GoodModel(
+        _name(),
+        _description()
+        ))
+      : GoodService.Create(Guid.Parse(_producer()!), new GoodModel(
+        _name(),
+        _description()
+        )));
+
+    ToastService.AddAsync(
+      "Serwis dóbr",
+      wasSuccessful
+        ? Initial is null ? "Utworzono pomyślnie" : "Edycja zakończona pomyślnie"
+        : Initial is null ? "Błąd utworzenia" : "Edycja zakończona niepomyślnie",
+      wasSuccessful ? "success" : "error"
+      );
+  }
+#pragma warning restore CS4014
+  public bool IsValid { get; private set; }
+  private bool Validate() => IsValid = _name().Length > 0
+                                       && _producer() is not null;
+
+  private Func<string> _name = null!;
+  private Action<string> _changeName = null!;
+  private Func<string> _description = null!;
+  private Action<string> _changeDescription = null!;
+  private Func<string?> _producer = null!;
+  private Action<string?> _selectProducer = null!;
+
+  private async Task reportValidity() =>
+    await JS.InvokeVoidAsync("reportValidity", "good-form");
+
+  protected override void OnInitialized() {
+    (_name, _changeName) = CreateSignal(this, Initial?.Name ?? string.Empty);
+    (_description, _changeDescription) = CreateSignal(this, Initial?.Description ?? string.Empty);
+    (_producer, _selectProducer) = CreateSignal(this, $"{Initial?.Producer.Id}" ?? default);
+  }
+}

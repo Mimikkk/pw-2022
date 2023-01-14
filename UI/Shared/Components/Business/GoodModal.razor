@@ -1,0 +1,37 @@
+﻿@using DataModels.Goods
+@using DataModels.Races
+
+<Modal Class="w-[600px]" IsOpen="@IsOpen">
+  <ModalHeader OnClose="OnClose">
+    <Title>
+      @(Initial is not null ? $"Edycja dobra {Initial.Name}" : "Dodawanie nowego dobra")
+    </Title>
+  </ModalHeader>
+  <GoodForm Initial="@Initial" @ref="Form"/>
+  <ModalActions>
+    <Button Type="submit" Form="race-form" OnClickAsync="Submit">
+      @(Initial is not null ? "Edytuj" : "Dodaj")
+    </Button>
+  </ModalActions>
+</Modal>
+
+@code {
+  [Parameter]
+  public GoodResourceWithProducer<RaceResource>? Initial { get; set; }
+
+  [Parameter, EditorRequired]
+  public bool IsOpen { get; set; }
+
+  [Parameter, EditorRequired]
+  public Action OnClose { get; set; } = null!;
+
+  [Parameter, EditorRequired]
+  public Action OnConfirm { get; set; } = null!;
+
+  private async Task Submit() {
+    await Form.OnSubmit();
+    if (Form.IsValid) OnConfirm();
+  }
+
+  private GoodForm Form { get; set; } = null!;
+}

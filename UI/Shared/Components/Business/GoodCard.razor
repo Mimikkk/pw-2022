@@ -39,16 +39,24 @@
       @Good.Description
     </Typography>
   </div>
-  <Typography Bold Class="flex">
-    <Icon Type="IconType.Person" Size="Size.Sm" Interactive/>
-    Producent:
-    @Good.Producer.Name
-  </Typography>
+  @if (Producer is not null) {
+    <Typography Bold Class="flex">
+      <NavLink href="@_raceHref(Producer)">
+        <Icon Type="IconType.Person" Size="Size.Sm" Interactive>
+          Przejdź
+        </Icon>
+      </NavLink>
+      Producent:
+      @Producer.Name
+    </Typography>
+  }
 </Card>
 
 @code {
   [Parameter, EditorRequired]
-  public GoodResourceWithProducer<RaceResource> Good { get; set; } = null!;
+  public GoodResource Good { get; set; } = null!;
+  [Parameter]
+  public RaceResource? Producer { get; set; }
   [Parameter]
   public string? Class { get; set; }
   [Parameter]
@@ -58,6 +66,6 @@
   [Parameter]
   public Action? OnRemove { get; set; }
 
-  private string? _accessName(object producer) => producer.Access<string>("Name");
+  private string _raceHref(IRace race) => $"races/{race.Name.Replace(' ', '_')}";
   private string _link => $"goods/{Good.Name.Replace(' ', '_')}";
 }

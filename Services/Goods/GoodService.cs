@@ -28,7 +28,7 @@ public sealed class GoodService : IGoodService {
   public Task<bool> Create(Guid raceId, GoodModel model) {
     throw new NotImplementedException();
   }
-  public Task<bool> Delete(Guid id) {
+  public Task<bool> Remove(Guid id) {
     throw new NotImplementedException();
   }
   public Task<bool> Update(Guid id, GoodModel model) {

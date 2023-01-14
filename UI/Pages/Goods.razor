@@ -1,64 +1,122 @@
 ﻿@page "/goods"
+@using Services.Toasts
 @using DataModels.Goods
+@using DataModels.Races
+@using Services.Goods
+@using DataModels
+@inject IToastService ToastService
+@inject IGoodService GoodService
 
-<PageTitle>UI | Goods</PageTitle>
+<PageTitle>UI | Dobra</PageTitle>
 
 <section class="h-full grid grid-cols-6">
   <div class="@Cx(_gradient, "h-full py-4 px-2 flex flex-col gap-4")">
     <Title>Wyszukiwanie Dóbr</Title>
     <TextField Icon="IconType.Magnifier" Label="Szukaj..." Value="@_name()" OnChange="_searchName"/>
     <Divider/>
-    <SelectField Icon="IconType.Filter" Label="wymogi" Value="@_needs()" OnChange="_selectNeeds">
-      <option value="low">Niskie</option>
-      <option value="medium">Średnie</option>
-      <option value="high">Wysokie</option>
-    </SelectField>
-    <SelectField Icon="IconType.Filter" Label="dekadencja" Value="@_decadency()" OnChange="_selectDecadency">
-      <option value="low">Niska</option>
-      <option value="medium">Średnia</option>
-      <option value="high">Wysoka</option>
-    </SelectField>
-    <SelectField Icon="IconType.Filter" Label="oporność" Value="@_will()" OnChange="_selectWill">
-      <option value="low">Niska</option>
-      <option value="medium">Średnia</option>
-      <option value="high">Wysoka</option>
-    </SelectField>
   </div>
   <div class="h-full px-48 py-8 col-span-5 flex flex-col gap-2">
     @if (Items is null) {
       <LoadingBarrier/>
     } else {
-      <Card Color="Color.Secondary" Class="p-4 h-[800px] content-baseline grid grid-cols-3 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
+      <Card Color="Color.Secondary" Class="p-4 h-[800px] content-baseline grid grid-cols-2 gap-x-4 gap-y-2 py-4 px-2 h-full overflow-y-auto">
+        @foreach (var good in Items) {
+          <GoodCard Good="@good" OnEdit="() => ToggleEditModal(good)" OnRemove="() => ToggleRemoveModal(good)"/>
+        }
       </Card>
     }
     <div class="mt-auto flex gap-2 justify-center items-center p-2">
       <Icon Class="m-auto" Type="IconType.DownChevron" Color="Color.Secondary" Interactive/>
-      <Button Class="w-48 place-self-end">
-        Dodaj
-      </Button>
+      <Button Class="place-self-end w-48" OnClick="() => _toggleFormModal(true)">Dodaj</Button>
     </div>
   </div>
 </section>
-
+<GoodModal Initial="@Selected" IsOpen="_isFormModalVisible()" OnClose="() => _toggleFormModal(false)" OnConfirm="() => _toggleFormModal(false)"/>
+<ConfirmModal IsOpen="@_isRemoveModalVisible()" OnCancel="() => _toggleRemoveModal(false)" OnConfirm="HandleRemove">
+  Czy na pewno chcesz usunąć dobro <strong>@_name()</strong>?
+</ConfirmModal>
 
 @code {
-  private List<GoodResource> Items => new();
+  private async Task HandleRemove() {
+    if (Selected is null) return;
+    var result = await GoodService.Remove(Selected.Id);
 
-  private Func<string> _name = null!;
-  private Action<string> _searchName = null!;
-  private Func<string?> _needs = null!;
-  private Action<string?> _selectNeeds = null!;
-  private Func<string?> _decadency = null!;
-  private Action<string?> _selectDecadency = null!;
-  private Func<string?> _will = null!;
-  private Action<string?> _selectWill = null!;
+    ToastService.AddAsync(
+      "Serwis dóbr",
+      result ? "Pomyślnie usunięto" : "Usuwanie nie powiodło się",
+      result ? "success" : "error"
+      );
+    _toggleRemoveModal(false);
+  }
 
   protected override void OnInitialized() {
-    (_name, _searchName) = CreateSignal<string>(this);
-    (_needs, _selectNeeds) = CreateSignal<string?>(this);
-    (_decadency, _selectDecadency) = CreateSignal<string?>(this);
-    (_will, _selectWill) = CreateSignal<string?>(this);
+    (_name, _searchName) = CreateSignal<string?>(this);
+    (_isFormModalVisible, _toggleFormModal) = CreateToggle(this);
+    (_isRemoveModalVisible, _toggleRemoveModal) = CreateToggle(this);
+  }
+  protected override async Task OnInitializedAsync() {
+    await Search();
+  }
+  protected override async Task OnAfterRenderAsync(bool firstRender) {
+    if (firstRender) return;
+
+    var search = new GoodModel(_name()!, string.Empty);
+    if (Previous.Name != search.Name) {
+      Items = null;
+      StateHasChanged();
+
+      await Search();
+      Previous = Previous with {
+        Name = search.Name,
+        };
+      StateHasChanged();
+    }
+    if (_isRemoveModalVisible() != Previous.IsRemoveModalVisible) {
+      await Search();
+      if (Previous.IsRemoveModalVisible) Selected = null;
+      Previous = Previous with {
+        IsRemoveModalVisible = _isRemoveModalVisible(),
+        };
+      StateHasChanged();
+    }
+    if (_isFormModalVisible() != Previous.IsFormModalVisible) {
+      await Search();
+      if (Previous.IsFormModalVisible) Selected = null;
+      Previous = Previous with {
+        IsFormModalVisible = _isFormModalVisible(),
+        };
+      StateHasChanged();
+    }
+  }
+
+  private async Task Search() {
+    var response = await GoodService.FilterBy(_name());
+    Items = response.ToList();
+  }
+  private async Task ToggleEditModal(IResource good) {
+    await SelectResource(good);
+    _toggleFormModal(true);
+  }
+  private async Task ToggleRemoveModal(IResource good) {
+    await SelectResource(good);
+    _toggleRemoveModal(true);
+  }
+  private async Task SelectResource(IResource good) {
+    Selected = await GoodService.ReadWithProducer(good.Id);
   }
 
   private readonly string _gradient = $"bg-gradient-to-r {Color.Secondary["from", 3]} {Color.Secondary["to", 2]}";
+  private List<GoodResource>? Items { get; set; }
+  private Func<string?> _name = null!;
+  private Action<string?> _searchName = null!;
+  private Func<bool> _isFormModalVisible = null!;
+  private Action<bool?> _toggleFormModal = null!;
+  private Func<bool> _isRemoveModalVisible = null!;
+  private Action<bool?> _toggleRemoveModal = null!;
+  private PreviousState Previous { get; set; } = new();
+  private GoodResourceWithProducer<RaceResource>? Selected;
+  private sealed record PreviousState(bool IsRemoveModalVisible, bool IsFormModalVisible, string? Name) {
+    public PreviousState()
+      : this(false, false, null) { }
+  }
 }

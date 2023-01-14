@@ -11,6 +11,6 @@ public interface IGoodService {
   public Task<IEnumerable<GoodResource>> ReadAll();
   public Task<IEnumerable<GoodResource>> FilterBy(string? name = default);
   public Task<bool> Create(Guid raceId, GoodModel model);
-  public Task<bool> Delete(Guid id);
+  public Task<bool> Remove(Guid id);
   public Task<bool> Update(Guid id, GoodModel model);
 }

@@ -42,7 +42,7 @@ public sealed class MockGoodService : MockService, IGoodService {
 
     return true;
   }
-  public async Task<bool> Delete(Guid id) {
+  public async Task<bool> Remove(Guid id) {
     var good = await Read(id);
     if (good is null) return false;
 
