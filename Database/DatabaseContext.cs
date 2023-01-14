@@ -6,8 +6,8 @@ namespace Database;
 using Microsoft.EntityFrameworkCore;
 
 public sealed class DatabaseContext : DbContext {
-  public DbSet<RaceResource> Races { get; set; } = null!;
-  public DbSet<GoodResource> Goods { get; set; } = null!;
+  public DbSet<RaceEntity> Races { get; set; } = null!;
+  public DbSet<GoodEntity> Goods { get; set; } = null!;
 
   public DatabaseContext(DbContextOptions<DatabaseContext> options)
     : base(options) { }

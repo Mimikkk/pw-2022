@@ -15,6 +15,11 @@ public record RaceEntity(
       race.Name, race.Description, race.Needs, race.Decadency, race.Will,
       new());
 
+  public static RaceEntity From(RaceModel race)
+    => new(
+      Guid.NewGuid(), DateTime.Now, null,
+      race.Name, race.Description, race.Needs, race.Decadency, race.Will
+    );
 
   /// <summary>
   /// EF constructor
