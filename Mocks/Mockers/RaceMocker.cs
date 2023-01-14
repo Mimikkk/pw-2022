@@ -18,17 +18,20 @@ public static class RaceMocker {
     new Faker<RaceResource>().WithRecord().ApplyResourceRules().ApplyRaceRules().Generate(count);
 
   public static IEnumerable<RaceResourceWithProducts<GoodResource>>
-    CreateResourcesWithProducts(int count, List<GoodResource> goods)
-    => new Faker<RaceResourceWithProducts<GoodResource>>()
+    CreateResourcesWithProducts(int count, IEnumerable<GoodResource> goods) {
+     var items = goods.ToList(); 
+     
+    return new Faker<RaceResourceWithProducts<GoodResource>>()
       .WithRecord()
       .ApplyResourceRules()
       .ApplyRaceRules()
       .RuleFor(
         r => r.Products,
-        (f, r) => goods
-          .Where(_ => f.Random.Bool(10f / goods.Count))
-          .Select(g => g with { RaceId = r.Id })
+        (f, r) => items
+          .Where(_ => f.Random.Bool(5f / items.Count))
+          .Select(g => g with { ProducerId = r.Id })
           .ToList()
       )
       .Generate(count);
+  }
 }

@@ -1,4 +1,6 @@
 namespace DataModels.Goods;
 
 public sealed record GoodModel(string Name, string? Description)
-  : IGood;
+  : IGood {
+  public static GoodModel From(IGood good) => new(good.Name, good.Description);
+}

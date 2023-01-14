@@ -3,8 +3,14 @@ using DataModels.Races;
 namespace DataModels.Goods;
 
 public sealed record GoodResourceWithProducer<T>(
-    Guid RaceId, Guid Id, DateTime CreatedAt, DateTime? UpdatedAt,
+    Guid ProducerId, Guid Id, DateTime CreatedAt, DateTime? UpdatedAt,
     string Name, string? Description,
     T Producer)
-  : GoodResource(RaceId, Id, CreatedAt, UpdatedAt, Name, Description)
-  where T : IRace;
+  : GoodResource(ProducerId, Id, CreatedAt, UpdatedAt, Name, Description)
+  where T : IRace {
+  public new static GoodResourceWithProducer<RaceResource> From(GoodEntity entity) =>
+    new(entity.ProducerId, entity.Id, entity.CreatedAt, entity.UpdatedAt,
+      entity.Name, entity.Description,
+      RaceResource.From(entity.Producer)
+    );
+}

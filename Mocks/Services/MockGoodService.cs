@@ -82,7 +82,7 @@ public sealed class MockGoodService : MockService, IGoodService {
     if (good is null) return null;
 
     return new GoodResourceWithProducer<RaceResource>(
-      good.RaceId,
+      good.ProducerId,
       good.Id,
       good.CreatedAt,
       good.UpdatedAt,
@@ -102,7 +102,7 @@ public sealed class MockGoodService : MockService, IGoodService {
     if (producer is null) return null;
 
     return new GoodResourceWithProducer<RaceResource>(
-      good.RaceId,
+      good.ProducerId,
       good.Id,
       good.CreatedAt,
       good.UpdatedAt,
