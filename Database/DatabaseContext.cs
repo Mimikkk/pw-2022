@@ -1,6 +1,5 @@
-﻿using DataModels.Goods;
-using DataModels.Races;
-using Mocks.Mockers;
+﻿using Models.Goods;
+using Models.Races;
 
 namespace Database;
 
@@ -21,11 +20,6 @@ public class DatabaseContext : DbContext {
       .HasMany(race => race.Products)
       .WithOne(producer => producer.Producer)
       .HasForeignKey(producer => producer.ProducerId);
-
-    Seed(builder);
   }
 
-  private static void Seed(ModelBuilder builder) =>
-    builder.Entity<RaceEntity>()
-      .HasData(RaceMocker.CreateResources(8).Select(RaceEntity.From));
 }

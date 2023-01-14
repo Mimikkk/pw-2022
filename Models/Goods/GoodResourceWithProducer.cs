@@ -1,6 +1,6 @@
-using DataModels.Races;
+using Models.Races;
 
-namespace DataModels.Goods;
+namespace Models.Goods;
 
 public sealed record GoodResourceWithProducer<T>(
     Guid ProducerId, Guid Id, DateTime CreatedAt, DateTime? UpdatedAt,

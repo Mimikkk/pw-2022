@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Mockers\Mockers.csproj" />
       <ProjectReference Include="..\Services\Services.csproj" />
     </ItemGroup>
 

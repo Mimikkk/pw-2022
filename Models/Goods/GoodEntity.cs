@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using DataModels.Races;
+using Models.Races;
 
-namespace DataModels.Goods;
+namespace Models.Goods;
 
 public record GoodEntity(
   Guid ProducerId, [property: Key] Guid Id, DateTime CreatedAt, DateTime? UpdatedAt,

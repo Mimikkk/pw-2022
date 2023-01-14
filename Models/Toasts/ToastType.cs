@@ -1,6 +1,6 @@
 using Core;
 
-namespace DataModels.Toasts;
+namespace Models.Toasts;
 
 public sealed class ToastType : SmarterEnum<ToastType> {
   public static readonly ToastType Success = new(nameof(Success));

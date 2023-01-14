@@ -1,7 +1,7 @@
 using Bogus;
-using DataModels.Goods;
+using Models.Goods;
 
-namespace Mocks.Mockers;
+namespace Mockers;
 
 public static class GoodMocker {
   public static Faker<T> ApplyGoodRules<T>(this Faker<T> faker) where T : class, IGood =>

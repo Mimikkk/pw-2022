@@ -1,4 +1,4 @@
-namespace DataModels.Toasts;
+namespace Models.Toasts;
 
 public sealed class Toast : IToast {
   public ToastType Type { get; } = ToastType.Info;

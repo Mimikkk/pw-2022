@@ -1,7 +1,7 @@
 using Bogus;
-using DataModels;
+using Models;
 
-namespace Mocks.Mockers;
+namespace Mockers;
 
 internal static class ResourceMocker {
   public static Faker<T> ApplyResourceRules<T>(this Faker<T> faker)

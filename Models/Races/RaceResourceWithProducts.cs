@@ -1,7 +1,7 @@
 using Core;
-using DataModels.Goods;
+using Models.Goods;
 
-namespace DataModels.Races;
+namespace Models.Races;
 
 public sealed record RaceResourceWithProducts<T>(
     Guid Id, DateTime CreatedAt, DateTime? UpdatedAt,

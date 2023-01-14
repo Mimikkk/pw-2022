@@ -1,7 +1,7 @@
 using System.Runtime.Serialization;
 using Bogus;
 
-namespace Mocks.Mockers;
+namespace Mockers;
 
 public static class BogusExtensions {
   public static Faker<T> WithRecord<T>(this Faker<T> faker) where T : class

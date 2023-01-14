@@ -1,4 +1,4 @@
-namespace DataModels.Goods;
+namespace Models.Goods;
 
 public record GoodResource(
     Guid ProducerId, Guid Id, DateTime CreatedAt, DateTime? UpdatedAt,

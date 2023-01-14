@@ -1,5 +1,5 @@
-using DataModels.Goods;
-using DataModels.Races;
+using Models.Goods;
+using Models.Races;
 using Services.Races;
 
 namespace Mocks.Services;

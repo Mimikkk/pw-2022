@@ -1,4 +1,4 @@
-namespace DataModels.Toasts;
+namespace Models.Toasts;
 
 public interface IToast {
   public ToastType Type { get; }

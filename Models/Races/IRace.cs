@@ -1,6 +1,6 @@
 using Core;
 
-namespace DataModels.Races;
+namespace Models.Races;
 
 public interface IRace {
   string Name { get; init; }

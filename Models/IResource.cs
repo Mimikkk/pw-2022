@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace DataModels;
+namespace Models;
 
 public interface IResource {
   [Key]

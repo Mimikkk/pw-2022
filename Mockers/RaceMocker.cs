@@ -1,9 +1,9 @@
 using Bogus;
 using Core;
-using DataModels.Goods;
-using DataModels.Races;
+using Models.Goods;
+using Models.Races;
 
-namespace Mocks.Mockers;
+namespace Mockers;
 
 public static class RaceMocker {
   public static Faker<T> ApplyRaceRules<T>(this Faker<T> faker) where T : class, IRace =>

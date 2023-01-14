@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using Core;
-using DataModels.Goods;
+using Models.Goods;
 
-namespace DataModels.Races;
+namespace Models.Races;
 
 public record RaceEntity(
   [property: Key] Guid Id, DateTime CreatedAt, DateTime? UpdatedAt,

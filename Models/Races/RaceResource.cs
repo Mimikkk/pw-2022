@@ -1,6 +1,6 @@
 using Core;
 
-namespace DataModels.Races;
+namespace Models.Races;
 
 public record RaceResource(
     Guid Id, DateTime CreatedAt, DateTime? UpdatedAt,

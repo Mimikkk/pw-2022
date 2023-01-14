@@ -1,4 +1,4 @@
-namespace DataModels.Goods;
+namespace Models.Goods;
 
 public sealed record GoodModel(string Name, string? Description)
   : IGood {

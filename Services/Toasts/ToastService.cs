@@ -1,4 +1,4 @@
-using DataModels.Toasts;
+using Models.Toasts;
 
 namespace Services.Toasts;
 

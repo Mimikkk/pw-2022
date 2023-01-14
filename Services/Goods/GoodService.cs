@@ -1,9 +1,12 @@
-using DataModels.Goods;
-using DataModels.Races;
+using Database;
+using Models.Goods;
+using Models.Races;
 
 namespace Services.Goods;
 
 public sealed class GoodService : IGoodService {
+  private readonly DatabaseContext _context;
+
   public Task<GoodResource?> Read(Guid id) {
     throw new NotImplementedException();
   }
