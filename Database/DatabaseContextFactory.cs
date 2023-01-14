@@ -4,7 +4,7 @@ namespace Database;
 
 using Microsoft.EntityFrameworkCore;
 
-public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContext> {
+public sealed class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContext> {
   public DatabaseContext CreateDbContext(string[] args) =>
     new DatabaseContext(new DbContextOptionsBuilder<DatabaseContext>()
       .UseSqlite("Filename=./Database/Database.db")

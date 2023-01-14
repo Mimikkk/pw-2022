@@ -5,7 +5,7 @@ namespace Database;
 
 using Microsoft.EntityFrameworkCore;
 
-public class DatabaseContext : DbContext {
+public sealed class DatabaseContext : DbContext {
   public DbSet<RaceResource> Races { get; set; } = null!;
   public DbSet<GoodResource> Goods { get; set; } = null!;
 
@@ -19,7 +19,8 @@ public class DatabaseContext : DbContext {
     builder.Entity<RaceEntity>()
       .HasMany(race => race.Products)
       .WithOne(producer => producer.Producer)
-      .HasForeignKey(producer => producer.ProducerId);
-  }
+      .HasForeignKey(producer => producer.ProducerId)
 
+    builder.Entity<RaceEntity>().SeedValues();
+  }
 }
