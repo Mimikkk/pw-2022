@@ -4,7 +4,8 @@
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6fd1d4d8_002Dcc7b_002D4d41_002Dbfc7_002D590d2042a597/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Tests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::B2906D7E-8CBD-4832-839C-899F29B529E0::net7.0::Tests.BasicTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::97B0E344-51D9-45CC-A290-D74A127A4DDF::net7.0::Tests.GoodE2ETestTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::97B0E344-51D9-45CC-A290-D74A127A4DDF::net7.0::Tests.HomeViewE2ETests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestRunner/SpawnedProcessesKnownList/=chromedriver_002Eexe/@EntryIndexedValue">KillOrphaned</s:String>
