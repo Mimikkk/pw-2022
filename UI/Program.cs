@@ -6,8 +6,6 @@ using Services.Races;
 using Services.Toasts;
 
 var builder = WebApplication.CreateBuilder(args);
-var cx = builder.Configuration.GetValue<string>("HHh");
-builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlite("Filename=../Database/Database.db"));
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
@@ -15,6 +13,7 @@ if (builder.Configuration.GetValue<bool>("UseInMemoryDatabase")) {
   builder.Services.AddScoped<IRaceService, MockRaceService>();
   builder.Services.AddScoped<IGoodService, MockGoodService>();
 } else {
+  builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlite("Filename=../Database/Database.db"));
   builder.Services.AddScoped<IRaceService, RaceService>();
   builder.Services.AddScoped<IGoodService, GoodService>();
 }
@@ -28,11 +27,8 @@ if (!app.Environment.IsDevelopment()) {
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
