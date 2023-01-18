@@ -1,7 +1,7 @@
-namespace Tests;
+namespace Tests.E2Es;
 
 [TestFixture]
-public class RaceGoodsIntTests : ViewTest {
+public class RaceGoodsIntTests : E2ETest {
 
   [Test, Order(1)]
   public void ShouldCreateNewRace() {

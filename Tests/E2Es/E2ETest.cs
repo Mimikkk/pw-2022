@@ -2,9 +2,9 @@ using OpenQA.Selenium.Chrome;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 
-namespace Tests;
+namespace Tests.E2Es;
 
-public class ViewTest {
+public class E2ETest {
 
   [SetUp]
   public void SetUp()

@@ -1,7 +1,7 @@
-namespace Tests;
+namespace Tests.E2Es;
 
 [TestFixture]
-public class GoodE2ETestTest : ViewTest {
+public class GoodE2ETestTest : E2ETest {
 
   [Test, Order(1)]
   public void ShouldCreateNewGood() {
