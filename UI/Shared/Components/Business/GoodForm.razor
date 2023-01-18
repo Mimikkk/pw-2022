@@ -17,12 +17,13 @@
       </Card>
     </div>
     <div class="flex flex-col w-full gap-2">
-      <TextField Required Value="@_name()" OnChange="_changeName" Label="Nazwa"/>
-      <TextField Optional Lines="4" Value="@_description()" OnChange="_changeDescription" Label="Opis"/>
+      <TextField Name="name" Required Value="@_name()" OnChange="_changeName" Label="Nazwa"/>
+      <TextField Name="description" Optional Lines="4" Value="@_description()" OnChange="_changeDescription" Label="Opis"/>
     </div>
   </div>
   <Divider/>
   <SelectField
+    Name="producer"
     Disabled="@(Initial is not null)"
     Required Icon="IconType.Person"
     Label="Producent" Value="@_producer()" OnChange="_selectProducer">

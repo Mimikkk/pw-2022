@@ -19,11 +19,11 @@
       <Title>Dobro - @Good.Name</Title>
       @if (OnEdit is not null && OnRemove is not null) {
         <div class="flex gap-0.5 ml-auto">
-          <button>
-            <Icon OnClick="@OnEdit" Type="IconType.Pen" Size="Size.Sm" Interactive/>
+          <button data-testid="open-@Good.Name-form">
+            <Icon DataTestId="@($"open-{Good.Name}-form-modal")" OnClick="@OnEdit" Type="IconType.Pen" Size="Size.Sm" Interactive/>
           </button>
           <button>
-            <Icon OnClick="@OnRemove" Type="IconType.Bin" Size="Size.Sm" Interactive/>
+            <Icon DataTestId="@($"open-remove-{Good.Name}-modal")" OnClick="@OnRemove" Type="IconType.Bin" Size="Size.Sm" Interactive/>
           </button>
         </div>
       }

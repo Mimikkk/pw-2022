@@ -1,7 +1,7 @@
 ﻿@inherits Component
 
 @if (IsOpen) {
-  <div Class="absolute flex justify-center items-center w-full h-full left-0 top-0 backdrop-blur">
+  <div data-testid="@DataTestId" Class="absolute flex justify-center items-center w-full h-full left-0 top-0 backdrop-blur">
     <Card Class="@Class">
       @ChildContent
     </Card>
@@ -11,4 +11,6 @@
 @code {
   [Parameter]
   public bool IsOpen { get; set; }
+  [Parameter]
+  public string? DataTestId { get; set; }
 }

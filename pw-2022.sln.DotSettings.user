@@ -2,9 +2,23 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\HououinKyouma\RiderProjects\pw-2022\bin\Debug\net7.0\publish\Tailwind.Extensions.AspNetCore.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6fd1d4d8_002Dcc7b_002D4d41_002Dbfc7_002D590d2042a597/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Tests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4ee4746e_002Dd8ba_002D4d6f_002D9b58_002D483e4cab01e8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ShouldViewCreatedRace" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::97B0E344-51D9-45CC-A290-D74A127A4DDF::net7.0::Tests.E2Es.RaceE2ETestTest.ShouldViewCreatedRace&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::97B0E344-51D9-45CC-A290-D74A127A4DDF::net7.0::Tests.E2Es.RaceE2ETestTest.ShouldRemoveEditedRace&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6fd1d4d8_002Dcc7b_002D4d41_002Dbfc7_002D590d2042a597/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Tests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::97B0E344-51D9-45CC-A290-D74A127A4DDF::net7.0::Tests.E2Es.HomeE2EE2ETests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::97B0E344-51D9-45CC-A290-D74A127A4DDF::net7.0::Tests.E2Es.GoodE2ETestTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::97B0E344-51D9-45CC-A290-D74A127A4DDF::net7.0::Tests.E2Es.RaceE2ETestTest.ShouldCreateNewRace&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::97B0E344-51D9-45CC-A290-D74A127A4DDF::net7.0::Tests.E2Es.RaceE2ETestTest.ShouldViewCreatedRace&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f70ac79f_002D8ed5_002D4ebe_002D9e3d_002D374086c568b1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ShouldCreateNewRace" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::97B0E344-51D9-45CC-A290-D74A127A4DDF::net7.0::Tests.E2Es.RaceE2ETestTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestRunner/SpawnedProcessesKnownList/=chromedriver_002Eexe/@EntryIndexedValue">KillOrphaned</s:String>

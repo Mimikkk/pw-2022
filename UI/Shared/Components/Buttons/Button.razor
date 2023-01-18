@@ -6,6 +6,7 @@
   NoOverline
   Class="@Cx("h-fit", pointer, submitting, Class)" Color="Color.Secondary">
   <button
+    data-testid="@DataTestId"
     Class="-m-2 p-2"
     @onclick="@HandleClick"
     @onclick:preventDefault
@@ -24,6 +25,8 @@
 @code {
   [Parameter]
   public EventCallback OnClickAsync { get; set; }
+  [Parameter]
+  public string? DataTestId { get; set; }
   [Parameter]
   public Action? OnClick { get; set; }
   [Parameter]

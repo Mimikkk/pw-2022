@@ -4,7 +4,7 @@
     <Typography>|</Typography>
   }
   <div class="relative w-full">
-    <select required="@Required" value="@value" disabled="@Disabled" id="@Name" class="px-2 rounded w-full outline-none cursor-pointer" placeholder=" " @onchange="@HandleChange">
+    <select required="@Required" value="@value" disabled="@Disabled" data-testid="@Name" id="@Name" class="px-2 rounded w-full outline-none cursor-pointer" placeholder=" " @onchange="@HandleChange">
       <option value="@EmptyValue" hidden>n/d</option>
       @ChildContent
     </select>

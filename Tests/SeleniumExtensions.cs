@@ -9,6 +9,14 @@ public static class WebDriverExtensions {
     return wait.Until(drv => drv.FindElement(by));
   }
 
-  public static IWebElement FindById(this IWebDriver driver, string testId, int timeout) =>
-    driver.FindElement(By.CssSelector($":is([data-testid='{testId}'], [id='${testId}'])"), timeout);
+  public static IWebElement FindById(this IWebDriver driver, string testId, int timeout = 5) =>
+    driver.FindElement(By.CssSelector($"[data-testid='{testId}']"), timeout);
+  public static IWebElement FindByText(this IWebDriver driver, string text, int timeout = 5) =>
+    driver.FindElement(By.XPath($"//*[text()='{text}']"), timeout);
+
+  public static void Debug(this IWebDriver driver) {
+    var js = (IJavaScriptExecutor)driver;
+    js.ExecuteScript("console.log(document.documentElement.outerHTML)");
+    driver.FindById("invalid-id", 100);
+  }
 }

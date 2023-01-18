@@ -14,22 +14,22 @@
       </Card>
     </div>
     <div class="flex flex-col w-full gap-2">
-      <TextField Required Value="@_name()" OnChange="_changeName" Label="Nazwa"/>
-      <TextField Optional Lines="4" Value="@_description()" OnChange="_changeDescription" Label="Opis"/>
+      <TextField Name="name" Required Value="@_name()" OnChange="_changeName" Label="Nazwa"/>
+      <TextField Name="description" Optional Lines="4" Value="@_description()" OnChange="_changeDescription" Label="Opis"/>
     </div>
   </div>
   <Divider/>
-  <SelectField Required Icon="IconType.Moon" Label="wymogi" Value="@_needs()" OnChange="_selectNeeds">
+  <SelectField Name="needs" Required Icon="IconType.Moon" Label="wymogi" Value="@_needs()" OnChange="_selectNeeds">
     <option value="low">Niskie</option>
     <option value="medium">Średnie</option>
     <option value="high">Wysokie</option>
   </SelectField>
-  <SelectField Required Icon="IconType.Money" Label="dekadencja" Value="@_decadency()" OnChange="_selectDecadency">
+  <SelectField Name="decadency" Required Icon="IconType.Money" Label="dekadencja" Value="@_decadency()" OnChange="_selectDecadency">
     <option value="low">Niska</option>
     <option value="medium">Średnia</option>
     <option value="high">Wysoka</option>
   </SelectField>
-  <SelectField Required Icon="IconType.Hat" Label="oporność" Value="@_will()" OnChange="_selectWill">
+  <SelectField Name="will" Required Icon="IconType.Hat" Label="oporność" Value="@_will()" OnChange="_selectWill">
     <option value="low">Niska</option>
     <option value="medium">Średnia</option>
     <option value="high">Wysoka</option>

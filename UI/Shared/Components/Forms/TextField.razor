@@ -5,9 +5,9 @@
   }
   <div class="relative w-full">
     @if (Lines is null) {
-      <input required="@Required" type="text" disabled="@Disabled" value="@value" id="@Name" class="px-2 rounded w-full outline-none" placeholder=" " @onchange="HandleChange"/>
+      <input required="@Required" type="text" disabled="@Disabled" value="@value" data-testid="@Name" id="@Name" class="px-2 rounded w-full outline-none" placeholder=" " @onchange="HandleChange"/>
     } else {
-      <textarea rows="@Lines" required="@Required" type="text" disabled="@Disabled" value="@value" id="@Name" class="px-2 rounded w-full outline-none" placeholder=" " @onchange="HandleChange"></textarea>
+      <textarea rows="@Lines" required="@Required" type="text" disabled="@Disabled" value="@value" data-testid="@Name" id="@Name" class="px-2 rounded w-full outline-none" placeholder=" " @onchange="HandleChange"></textarea>
     }
     @if (Label is not null) {
       <label for="@Name" class="label">@Label</label>

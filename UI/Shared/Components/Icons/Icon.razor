@@ -1,4 +1,5 @@
 ﻿<div
+  data-testid="@DataTestId"
   id="@Id"
   Title="@Title"
   @onclick="OnClick"
@@ -32,6 +33,8 @@
   public bool Interactive { get; set; }
   [Parameter]
   public string? Title { get; set; }
+  [Parameter]
+  public string? DataTestId { get; set; }
   [Parameter]
   public RenderFragment? ChildContent { get; set; }
 
